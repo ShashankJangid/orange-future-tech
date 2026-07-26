@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play } from 'lucide-react';
 
 export default function Hero({ onOpenAi, darkMode }) {
   return (
@@ -53,24 +53,27 @@ export default function Hero({ onOpenAi, darkMode }) {
           class="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <a
-            href="#contact"
-            class="px-7 py-3.5 rounded-lg bg-[#FF6B00] text-white font-semibold text-sm hover:bg-[#e05e00] transition-all shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
+            href="https://cardgen.orangefuturetech.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-7 py-3.5 rounded-lg bg-[#FF6B00] text-white font-bold text-sm hover:bg-[#e05e00] transition-all shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer group"
           >
-            <span>Consult Our Engineers</span>
-            <ArrowRight class="w-4 h-4" />
+            <Play class="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
+            <span>Launch Live CardGen Demo</span>
+            <ExternalLink class="w-4 h-4" />
           </a>
 
-          <button
-            onClick={onOpenAi}
+          <a
+            href="#contact"
             class={`px-7 py-3.5 rounded-lg font-semibold text-sm border transition-all flex items-center gap-2 cursor-pointer ${
               darkMode 
                 ? 'bg-slate-900/80 border-slate-700 text-slate-200 hover:border-slate-500' 
                 : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
             }`}
           >
-            <Sparkles class="w-4 h-4 text-[#FF6B00]" />
-            <span>Ask OrangeAI</span>
-          </button>
+            <span>Consult Engineers</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
         </motion.div>
 
         <motion.div
