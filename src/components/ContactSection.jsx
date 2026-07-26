@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Send, CheckCircle2, Mail, Phone, MapPin, Globe, Sparkles } from 'lucide-react';
+import { Send, CheckCircle2, Mail, MapPin, Globe } from 'lucide-react';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ export default function ContactSection() {
           Accept: 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'b947c945-8c70-4f51-[#WEB3FORMS]',
+          access_key: 'c94d4135-0008-4714-a81a-698f4d6ad1fd',
           name: formData.name,
           email: formData.email,
           subject: `Orange Future Tech Query: ${formData.subject}`,
@@ -31,16 +31,21 @@ export default function ContactSection() {
         })
       });
 
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      const data = await response.json();
 
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: 'General Enterprise Query', message: '' });
+      if (data.success) {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: 'General Enterprise Query', message: '' });
+      } else {
+        setStatus('idle');
+      }
     } catch (err) {
-      setStatus('success');
+      setStatus('idle');
     }
   };
 
@@ -103,7 +108,7 @@ export default function ContactSection() {
                 </div>
                 <h3 class="text-2xl font-bold text-white font-['Orbitron',sans-serif]">Message Transmitted!</h3>
                 <p class="text-slate-300 text-sm max-w-md mx-auto">
-                  Thank you for connecting with Orange Future Tech via Web3Forms. Our engineering leadership will reach out within 24 hours.
+                  Thank you for connecting with Orange Future Tech. Our engineering leadership will reach out within 24 hours.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
@@ -174,7 +179,7 @@ export default function ContactSection() {
                     <span>Transmitting Query...</span>
                   ) : (
                     <>
-                      <span>Transmit Message (Web3Forms)</span>
+                      <span>Transmit Message</span>
                       <Send class="w-4 h-4" />
                     </>
                   )}
