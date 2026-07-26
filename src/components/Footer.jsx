@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Github, Twitter, Linkedin, Heart } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -20,8 +20,11 @@ export default function Footer() {
             <p class="text-xs text-slate-400 leading-relaxed mb-6 font-light">
               Bridging Enterprise Software, Industrial Electronics &amp; Next-Gen STEM Robotics Education.
             </p>
-            <div class="text-xs text-[#00F0FF] font-mono-code">
+            <div class="text-xs text-[#00F0FF] font-mono-code mb-1">
               orangefuturetech.com
+            </div>
+            <div class="text-xs text-slate-400 font-mono-code">
+              teams@orangefuturetech.com
             </div>
           </div>
 
@@ -61,8 +64,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Orange Future Tech. All rights reserved. Built with React &amp; Spatial UI.
           </div>
           <div class="flex items-center gap-6">
-            <a href="#" class="hover:text-[#FF6B00] transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-[#FF6B00] transition-colors">Terms of Service</a>
+            <a href="mailto:teams@orangefuturetech.com" class="hover:text-[#FF6B00] transition-colors">teams@orangefuturetech.com</a>
             <a href="#" class="hover:text-[#FF6B00] transition-colors">Vercel Hosted</a>
           </div>
         </div>

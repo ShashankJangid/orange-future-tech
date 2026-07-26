@@ -84,7 +84,9 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <div class="text-xs text-slate-400 font-mono-code uppercase">Direct Email</div>
-                  <div class="text-base font-bold text-white">contact@orangefuturetech.com</div>
+                  <a href="mailto:teams@orangefuturetech.com" class="text-base font-bold text-white hover:text-[#FF6B00] transition-colors">
+                    teams@orangefuturetech.com
+                  </a>
                 </div>
               </div>
 
