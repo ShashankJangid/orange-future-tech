@@ -5,7 +5,7 @@ import Hero from './components/Hero';
 import Highlights from './components/Highlights';
 import Verticals from './components/Verticals';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
-import StemKitsSection from './components/StemKitsSection';
+import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
 import AiAssistantModal from './components/AiAssistantModal';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
@@ -22,7 +22,7 @@ export default function App() {
         <Highlights />
         <Verticals onOpenAi={() => setAiOpen(true)} />
         <HardwareCodePlayground />
-        <StemKitsSection onOpenAi={() => setAiOpen(true)} />
+        <ElectronicsSolutionsSection onOpenAi={() => setAiOpen(true)} />
         <ContactSection />
       </main>
       <Footer />

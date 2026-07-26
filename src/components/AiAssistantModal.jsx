@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, User, RefreshCw, Cpu } from 'lucide-react';
+import { Bot, X, Send, User, Cpu } from 'lucide-react';
 
 export default function AiAssistantModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      text: 'Hello! I am OrangeAI, your intelligent advisor for Orange Future Tech. How can I assist you with our Enterprise Software, Industrial Robotics, STEM Kits, or institutional deployments at IIT Jodhpur and DPS Indirapuram today?'
+      text: 'Hello! I am OrangeAI, your intelligent advisor for Orange Future Tech. How can I assist you with our Enterprise Software, Multi-Layer PCB Design, Advanced Electronics Solutions, or institutional deployments at IIT Jodhpur and DPS Indirapuram today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -15,7 +15,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
   const quickQuestions = [
     'Tell me about ID Card Software',
-    'STEM Robotics Kits for Kids',
+    'Custom PCB Design & Firmware',
     'Deployments at IIT Jodhpur & DPS Indirapuram',
     'Custom Enterprise Web & AI Solutions'
   ];
@@ -138,7 +138,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about Software, STEM Kits, ID Card System, or PCB design..."
+                placeholder="Ask about Software, Electronics Solutions, ID Card System, or PCB design..."
                 class="flex-1 px-4 py-3 rounded-xl bg-[#080B11] border border-slate-700 text-white text-xs sm:text-sm focus:outline-none focus:border-[#FF6B00] transition-colors"
               />
               <button
@@ -161,17 +161,14 @@ function generateAiResponse(query) {
   if (q.includes('id card') || q.includes('id software')) {
     return "Our Smart Institutional ID Card Software provides automated batch card generation, RFID/QR code sync, barcode reading, and multi-tier security. It is widely used by universities and schools for frictionless student & staff management.";
   }
-  if (q.includes('stem') || q.includes('kit') || q.includes('kids') || q.includes('robot')) {
-    return "Orange Future Tech offers Next-Gen STEM Robotics Kits for kids (Ages 8-16+). Features include solderless magnetic snap modules, ESP32 microcontrollers, drag-and-drop block coding progressing to Python, and complete school STEM lab setups!";
+  if (q.includes('electronics') || q.includes('pcb') || q.includes('firmware') || q.includes('hardware')) {
+    return "Orange Future Tech offers Advanced Electronics Solutions including up to 8-layer custom PCB design, C/C++ embedded firmware (ESP32/ARM/STM32), industrial automation PLC modules, and IoT telemetry sensor hardware!";
   }
   if (q.includes('jodhpur') || q.includes('dps') || q.includes('indirapuram') || q.includes('client') || q.includes('deployment')) {
-    return "We have prestigious institutional deployments including specialized software engineering modules for IIT Jodhpur and institutional management + STEM robotics lab integration for DPS Indirapuram!";
+    return "We have prestigious institutional deployments including specialized software engineering modules for IIT Jodhpur and institutional management + smart tech integration for DPS Indirapuram!";
   }
   if (q.includes('website') || q.includes('web') || q.includes('software') || q.includes('app') || q.includes('ai')) {
     return "We build enterprise custom web platforms, native mobile applications, AI/ML integrations, and resilient cloud architectures. Designed with Spatial UI, 100 Core Web Vitals, and zero layout shifts out of the box!";
   }
-  if (q.includes('pcb') || q.includes('hardware') || q.includes('electronics')) {
-    return "Our Advanced Electronics division delivers multi-layer PCB design, microcontroller firmware (ARM/ESP32), industrial automation PLC systems, and IoT telemetry sensors.";
-  }
-  return "Orange Future Tech (orangefuturetech.com) bridges Enterprise Software, Industrial Electronics/Robotics, and STEM Education. Feel free to contact our engineering team via the Contact form or inquire about our STEM Kits!";
+  return "Orange Future Tech (orangefuturetech.com) bridges Enterprise Software, Industrial Automation, and Advanced Electronics Solutions. Feel free to contact our engineering team via teams@orangefuturetech.com or through the Contact form!";
 }

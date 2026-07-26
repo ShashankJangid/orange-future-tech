@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, CircuitBoard, Bot, Layers, ArrowUpRight, Cpu, Cloud, Smartphone, Wrench, Sparkles, BookOpen } from 'lucide-react';
+import { Code2, CircuitBoard, Bot, Layers, ArrowUpRight, Cpu, Cloud, Smartphone, Wrench, Sparkles, Zap } from 'lucide-react';
 
 export default function Verticals({ onOpenAi }) {
   const [activeTab, setActiveTab] = useState(0);
@@ -24,7 +24,7 @@ export default function Verticals({ onOpenAi }) {
     {
       id: 'electronics',
       num: '02',
-      title: 'Advanced Electronics & Robotics',
+      title: 'Industrial Electronics & Hardware',
       icon: CircuitBoard,
       subtitle: 'Custom PCB design, embedded microcontrollers, industrial automation, and IoT hardware.',
       color: '#00F0FF',
@@ -37,24 +37,23 @@ export default function Verticals({ onOpenAi }) {
       deliverable: 'Production-ready PCBs, Industrial Robotic Controllers, Smart Access Hardware'
     },
     {
-      id: 'stem',
+      id: 'solutions',
       num: '03',
-      title: 'Next-Gen STEM Robotics Kits',
+      title: 'Advanced Electronics Solutions',
       icon: Sparkles,
-      subtitle: 'Hands-on interactive robotics kits, modular sensors, and plug-and-play learning for kids and schools.',
+      subtitle: 'Custom electronics prototyping, smart hardware engineering, and sensor telemetry systems.',
       color: '#8A2BE2',
       capabilities: [
-        { icon: Sparkles, label: 'Plug-and-Play Kits', desc: 'Solderless magnetic & snap modules for ages 8+' },
-        { icon: BookOpen, label: 'Curriculum & Labs', desc: 'Comprehensive school STEM laboratory setup' },
-        { icon: Bot, label: 'Block & Python Coding', desc: 'Visual drag-and-drop to real Python code' },
-        { icon: Wrench, label: 'Competition Ready', desc: 'National level robotics competition components' }
+        { icon: Zap, label: 'Custom Hardware Prototyping', desc: 'Rapid fabrication from schematic to assembled board' },
+        { icon: CircuitBoard, label: 'SMT & Through-Hole Assembly', desc: 'Precision component placement and thermal testing' },
+        { icon: Cpu, label: 'Embedded System Integration', desc: 'Real-time OS, low-power mode design & firmware' },
+        { icon: Wrench, label: 'Commercial & Campus Hardware', desc: 'Custom access controllers & telemetry nodes' }
       ],
-      deliverable: 'Educational Kits, DIY Micro-Robots, School STEM Lab Subscriptions'
+      deliverable: 'End-to-End Electronics Systems, Custom Circuit Fabrication, Embedded IoT Modules'
     }
   ];
 
   const active = verticals[activeTab];
-  const ActiveIcon = active.icon;
 
   return (
     <section id="verticals" class="py-24 relative z-10 bg-[#080B11]/80">
@@ -68,7 +67,7 @@ export default function Verticals({ onOpenAi }) {
             OUR CORE <span class="text-gradient-orange">VERTICALS</span>
           </h2>
           <p class="text-slate-400 text-base sm:text-lg">
-            Integrated excellence spanning digital software, industrial hardware, and futuristic education.
+            Integrated engineering excellence spanning enterprise software, industrial hardware, and advanced electronics.
           </p>
         </div>
 

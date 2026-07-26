@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </div>
             <p class="text-xs text-slate-400 leading-relaxed mb-6 font-light">
-              Bridging Enterprise Software, Industrial Electronics &amp; Next-Gen STEM Robotics Education.
+              Bridging Enterprise Software, Industrial Automation &amp; Advanced Electronics Solutions.
             </p>
             <div class="text-xs text-[#00F0FF] font-mono-code mb-1">
               orangefuturetech.com
@@ -39,12 +39,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">STEM Education</h4>
+            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">Electronics Solutions</h4>
             <ul class="space-y-2.5 text-xs text-slate-400">
-              <li><a href="#stem-kits" class="hover:text-[#FF6B00] transition-colors">Junior Explorer Kits</a></li>
-              <li><a href="#stem-kits" class="hover:text-[#FF6B00] transition-colors">Pro Inventor Robotics</a></li>
-              <li><a href="#stem-kits" class="hover:text-[#FF6B00] transition-colors">AI Vision Rover Kits</a></li>
-              <li><a href="#stem-kits" class="hover:text-[#FF6B00] transition-colors">School STEM Lab Setup</a></li>
+              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Multi-Layer PCB Layouts</a></li>
+              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Microcontroller Firmware</a></li>
+              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Industrial IoT Sensors</a></li>
+              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Hardware Prototyping</a></li>
             </ul>
           </div>
 
@@ -52,7 +52,7 @@ export default function Footer() {
             <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">Prestige Clients</h4>
             <ul class="space-y-2.5 text-xs text-slate-400">
               <li><span class="text-white font-semibold">IIT Jodhpur</span> Campus System</li>
-              <li><span class="text-white font-semibold">DPS Indirapuram</span> Robotics &amp; Management</li>
+              <li><span class="text-white font-semibold">DPS Indirapuram</span> Tech Infrastructure</li>
               <li>Enterprise Tech Clients</li>
               <li>Educational Institutions</li>
             </ul>

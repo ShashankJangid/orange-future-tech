@@ -64,7 +64,7 @@ export default function ContactSection() {
             </h2>
 
             <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed font-light">
-              Whether you need enterprise software development, institutional ID card management, custom industrial robotics PCB design, or STEM kit curriculum for your school, our engineers are ready.
+              Whether you need enterprise software development, institutional ID card management, custom multi-layer PCB design, or advanced electronics hardware, our engineers are ready.
             </p>
 
             <div class="space-y-6">
@@ -154,8 +154,8 @@ export default function ContactSection() {
                   >
                     <option value="ID Card Software System">Smart ID Card Software System</option>
                     <option value="Enterprise Web & App Solutions">Enterprise Web &amp; App Solutions</option>
-                    <option value="Industrial Robotics & PCB Design">Industrial Robotics &amp; PCB Design</option>
-                    <option value="STEM Robotics Kits for Schools/Kids">STEM Robotics Kits for Schools/Kids</option>
+                    <option value="Advanced Electronics Solutions">Advanced Electronics Solutions</option>
+                    <option value="Industrial Automation & PCB Design">Industrial Automation &amp; PCB Design</option>
                     <option value="General Technical Query">General Technical Query</option>
                   </select>
                 </div>
