@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CircuitBoard, Cpu, Zap, Check } from 'lucide-react';
 
-export default function ElectronicsSolutionsSection({ onOpenAi }) {
+export default function ElectronicsSolutionsSection({ onOpenAi, darkMode }) {
   const solutions = [
     {
       id: 'custom-pcb',
@@ -31,11 +31,11 @@ export default function ElectronicsSolutionsSection({ onOpenAi }) {
   ];
 
   return (
-    <section id="electronics" class="py-16 relative z-10">
+    <section id="electronics" class={`py-16 relative z-10 ${darkMode ? 'bg-[#0B0F17]/80' : 'bg-slate-100/80'}`}>
       <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-10">
           <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Hardware Engineering</span>
-          <h2 class="text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] text-white mt-1">
+          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             ELECTRONICS SOLUTIONS
           </h2>
         </div>
@@ -50,19 +50,23 @@ export default function ElectronicsSolutionsSection({ onOpenAi }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.08 }}
-                class="glass-card p-6 rounded-xl relative flex flex-col justify-between"
+                class={`p-6 rounded-xl relative flex flex-col justify-between ${
+                  darkMode ? 'glass-card-dark' : 'glass-card-light'
+                }`}
               >
                 <div>
-                  <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-[#FF6B00] mb-4">
+                  <div class={`w-10 h-10 rounded-lg border flex items-center justify-center text-[#FF6B00] mb-4 ${
+                    darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'
+                  }`}>
                     <SolutionIcon class="w-5 h-5" />
                   </div>
 
-                  <h3 class="text-base font-bold text-white mb-2">{item.title}</h3>
-                  <p class="text-slate-300 text-xs leading-relaxed mb-4">{item.description}</p>
+                  <h3 class={`text-base font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>{item.title}</h3>
+                  <p class={`text-xs leading-relaxed mb-4 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{item.description}</p>
 
                   <div class="space-y-1.5 mb-6">
                     {item.features.map((feat, i) => (
-                      <div key={i} class="flex items-center gap-1.5 text-[11px] text-slate-400">
+                      <div key={i} class={`flex items-center gap-1.5 text-[11px] ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                         <Check class="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
                         <span>{feat}</span>
                       </div>
@@ -72,7 +76,11 @@ export default function ElectronicsSolutionsSection({ onOpenAi }) {
 
                 <button
                   onClick={onOpenAi}
-                  class="w-full py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold hover:border-[#FF6B00] hover:text-white transition-colors cursor-pointer"
+                  class={`w-full py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
+                    darkMode
+                      ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-[#FF6B00] hover:text-white'
+                      : 'bg-white border-slate-300 text-slate-700 hover:border-[#FF6B00] hover:text-slate-900'
+                  }`}
                 >
                   Inquire Specs
                 </button>

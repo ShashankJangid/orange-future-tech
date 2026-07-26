@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Send, CheckCircle2, Mail, MapPin, Globe } from 'lucide-react';
 
-export default function ContactSection() {
+export default function ContactSection({ darkMode }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -54,24 +54,26 @@ export default function ContactSection() {
       <div class="max-w-4xl mx-auto px-4">
         <div class="text-center mb-10">
           <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Get in Touch</span>
-          <h2 class="text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] text-white mt-1">
+          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             LET'S WORK TOGETHER
           </h2>
         </div>
 
-        <div class="glass-card p-6 sm:p-8 rounded-xl border border-slate-800">
+        <div class={`p-6 sm:p-8 rounded-xl ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
           {status === 'success' ? (
             <div class="py-8 text-center space-y-3">
               <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto">
                 <CheckCircle2 class="w-6 h-6" />
               </div>
-              <h3 class="text-lg font-bold text-white font-['Orbitron',sans-serif]">Message Transmitted!</h3>
-              <p class="text-slate-300 text-xs max-w-sm mx-auto">
+              <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>Message Transmitted!</h3>
+              <p class={`text-xs max-w-sm mx-auto ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                 Thank you for reaching out to Orange Future Tech. Our leadership team will respond within 24 hours.
               </p>
               <button
                 onClick={() => setStatus('idle')}
-                class="mt-2 px-4 py-2 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium hover:bg-slate-700 transition-colors"
+                class={`mt-2 px-4 py-2 rounded-lg text-xs font-medium transition-colors ${
+                  darkMode ? 'bg-slate-800 text-slate-200 hover:bg-slate-700' : 'bg-slate-200 text-slate-800 hover:bg-slate-300'
+                }`}
               >
                 Send Another Message
               </button>
@@ -80,36 +82,42 @@ export default function ContactSection() {
             <form onSubmit={handleSubmit} class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-mono-code text-slate-400 mb-1">YOUR NAME</label>
+                  <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>YOUR NAME</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Dr. Rajesh Kumar"
-                    class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-[#FF6B00] transition-colors"
+                    class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
+                      darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+                    }`}
                   />
                 </div>
 
                 <div>
-                  <label class="block text-xs font-mono-code text-slate-400 mb-1">YOUR EMAIL</label>
+                  <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>YOUR EMAIL</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="rajesh@institution.edu"
-                    class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-[#FF6B00] transition-colors"
+                    class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
+                      darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+                    }`}
                   />
                 </div>
               </div>
 
               <div>
-                <label class="block text-xs font-mono-code text-slate-400 mb-1">DOMAIN</label>
+                <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>DOMAIN</label>
                 <select
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-[#FF6B00] transition-colors"
+                  class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
+                    darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+                  }`}
                 >
                   <option value="ID Card Software System">Smart ID Card Software System</option>
                   <option value="Enterprise Web & App Solutions">Enterprise Web &amp; App Solutions</option>
@@ -120,21 +128,23 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label class="block text-xs font-mono-code text-slate-400 mb-1">MESSAGE</label>
+                <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>MESSAGE</label>
                 <textarea
                   required
                   rows="4"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Briefly describe your requirements..."
-                  class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-[#FF6B00] transition-colors"
+                  class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
+                    darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+                  }`}
                 ></textarea>
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                class="w-full py-2.5 rounded-lg bg-[#FF6B00] text-white font-semibold text-xs hover:bg-[#FF5500] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                class="w-full py-2.5 rounded-lg bg-[#FF6B00] text-white font-semibold text-xs hover:bg-[#FF5500] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
               >
                 {status === 'sending' ? (
                   <span>Transmitting...</span>
@@ -148,14 +158,16 @@ export default function ContactSection() {
             </form>
           )}
 
-          <div class="mt-6 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
+          <div class={`mt-6 pt-6 border-t flex flex-wrap items-center justify-between gap-4 text-xs ${
+            darkMode ? 'border-slate-800 text-slate-400' : 'border-slate-200 text-slate-600'
+          }`}>
             <div class="flex items-center gap-2">
               <Globe class="w-4 h-4 text-[#FF6B00]" />
               <span>orangefuturetech.com</span>
             </div>
             <div class="flex items-center gap-2">
               <Mail class="w-4 h-4 text-[#FF6B00]" />
-              <a href="mailto:teams@orangefuturetech.com" class="hover:text-white transition-colors">teams@orangefuturetech.com</a>
+              <a href="mailto:teams@orangefuturetech.com" class="hover:text-[#FF6B00] transition-colors">teams@orangefuturetech.com</a>
             </div>
             <div class="flex items-center gap-2">
               <MapPin class="w-4 h-4 text-[#FF6B00]" />

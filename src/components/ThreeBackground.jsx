@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function ThreeBackground() {
+export default function ThreeBackground({ darkMode }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ export default function ThreeBackground() {
     if (!container) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x080b11, 0.0018);
+    scene.fog = new THREE.FogExp2(darkMode ? 0x080b11 : 0xf8fafc, 0.0018);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -24,25 +24,20 @@ export default function ThreeBackground() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    const count = 1200;
+    const count = 1000;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 
     const orangeColor = new THREE.Color('#FF6B00');
-    const blueColor = new THREE.Color('#00F0FF');
-    const purpleColor = new THREE.Color('#8A2BE2');
+    const blueColor = new THREE.Color(darkMode ? '#00F0FF' : '#2563EB');
 
     for (let i = 0; i < count * 3; i += 3) {
       positions[i] = (Math.random() - 0.5) * 1200;
       positions[i + 1] = (Math.random() - 0.5) * 1200;
       positions[i + 2] = (Math.random() - 0.5) * 1200;
 
-      const mixVal = Math.random();
-      let chosenColor = orangeColor;
-      if (mixVal > 0.7) chosenColor = blueColor;
-      else if (mixVal > 0.4) chosenColor = purpleColor;
-
+      const chosenColor = Math.random() > 0.5 ? orangeColor : blueColor;
       colors[i] = chosenColor.r;
       colors[i + 1] = chosenColor.g;
       colors[i + 2] = chosenColor.b;
@@ -57,24 +52,13 @@ export default function ThreeBackground() {
       vertexColors: true,
       map: particleTexture,
       transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending,
+      opacity: darkMode ? 0.75 : 0.45,
+      blending: darkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
       depthWrite: false
     });
 
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
-
-    const meshGeo = new THREE.IcosahedronGeometry(140, 2);
-    const meshMat = new THREE.MeshBasicMaterial({
-      color: 0xff5500,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.12
-    });
-    const sphereMesh = new THREE.Mesh(meshGeo, meshMat);
-    sphereMesh.position.set(250, 0, -100);
-    scene.add(sphereMesh);
 
     let mouseX = 0;
     let mouseY = 0;
@@ -110,9 +94,6 @@ export default function ThreeBackground() {
       particles.rotation.y += 0.0008;
       particles.rotation.x += 0.0004;
 
-      sphereMesh.rotation.x += 0.002;
-      sphereMesh.rotation.y += 0.003;
-
       renderer.render(scene, camera);
     };
 
@@ -127,10 +108,8 @@ export default function ThreeBackground() {
       }
       geometry.dispose();
       material.dispose();
-      meshGeo.dispose();
-      meshMat.dispose();
     };
-  }, []);
+  }, [darkMode]);
 
   return <div ref={containerRef} class="fixed inset-0 pointer-events-none z-0 overflow-hidden" />;
 }

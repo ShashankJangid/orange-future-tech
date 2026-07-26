@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { IdCard, Globe, Landmark, School, Check } from 'lucide-react';
 
-export default function Highlights() {
+export default function Highlights({ darkMode }) {
   const highlightItems = [
     {
       id: 'id-card-software',
@@ -43,7 +43,7 @@ export default function Highlights() {
       <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-10">
           <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Key Highlights</span>
-          <h2 class="text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] text-white mt-1">
+          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             CORE PLATFORMS &amp; DEPLOYMENTS
           </h2>
         </div>
@@ -58,28 +58,34 @@ export default function Highlights() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.08 }}
-                class="glass-card p-6 rounded-xl relative overflow-hidden"
+                class={`p-6 rounded-xl relative overflow-hidden transition-all ${
+                  darkMode ? 'glass-card-dark' : 'glass-card-light'
+                }`}
               >
                 <div class="flex items-center justify-between mb-4">
-                  <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-[#FF6B00]">
+                  <div class={`w-10 h-10 rounded-lg border flex items-center justify-center text-[#FF6B00] ${
+                    darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'
+                  }`}>
                     <Icon class="w-5 h-5" />
                   </div>
-                  <span class="px-2 py-0.5 rounded font-mono-code text-[10px] text-slate-400 bg-slate-900 border border-slate-800">
+                  <span class={`px-2 py-0.5 rounded font-mono-code text-[10px] border ${
+                    darkMode ? 'bg-slate-900 text-slate-400 border-slate-800' : 'bg-slate-100 text-slate-600 border-slate-200'
+                  }`}>
                     {item.badge}
                   </span>
                 </div>
 
-                <h3 class="text-base font-bold text-white mb-2">
+                <h3 class={`text-base font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                   {item.title}
                 </h3>
 
-                <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                <p class={`text-xs leading-relaxed mb-4 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                   {item.description}
                 </p>
 
-                <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800/80">
+                <div class={`flex flex-wrap gap-2 pt-3 border-t ${darkMode ? 'border-slate-800/80' : 'border-slate-200'}`}>
                   {item.metrics.map((m, idx) => (
-                    <div key={idx} class="flex items-center gap-1 text-[11px] text-slate-400">
+                    <div key={idx} class={`flex items-center gap-1 text-[11px] ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       <Check class="w-3 h-3 text-[#FF6B00]" />
                       <span>{m}</span>
                     </div>

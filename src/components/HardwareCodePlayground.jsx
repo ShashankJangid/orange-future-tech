@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Cpu, Code2, Play, Check, Copy, RefreshCw, Zap, CircuitBoard } from 'lucide-react';
+import { Code2, Cpu, Check, Copy, CircuitBoard } from 'lucide-react';
 
-export default function HardwareCodePlayground() {
+export default function HardwareCodePlayground({ darkMode }) {
   const [activeMode, setActiveMode] = useState('code');
   const [copied, setCopied] = useState(false);
 
@@ -11,11 +11,8 @@ export default function HardwareCodePlayground() {
 
 #define MOTOR_PIN_A 18
 #define MOTOR_PIN_B 19
-#define SENSOR_TRIG  5
-#define SENSOR_ECHO 18
 
 OrangeBot bot;
-WiFiClient client;
 
 void setup() {
   Serial.begin(115200);
@@ -25,13 +22,6 @@ void setup() {
 }
 
 void loop() {
-  float distance = bot.readUltrasonic(SENSOR_TRIG, SENSOR_ECHO);
-  if (distance < 15.0) {
-    bot.stopMotors();
-    bot.triggerObstacleAvoidance();
-  } else {
-    bot.driveForward(85);
-  }
   bot.telemetrySync();
   delay(50);
 }`;
@@ -43,39 +33,35 @@ void loop() {
   };
 
   return (
-    <section id="playground" class="py-24 relative z-10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8A2BE2]/10 text-[#8A2BE2] border border-[#8A2BE2]/30 text-xs font-semibold uppercase tracking-wider mb-4">
-            <CircuitBoard class="w-3.5 h-3.5" />
-            <span>Interactive Tech Lab</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-extrabold font-['Orbitron',sans-serif] text-white tracking-tight mb-4">
-            HARDWARE &amp; CODE <span class="text-gradient-cyan">FUSION</span>
+    <section id="playground" class="py-16 relative z-10">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-10">
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Interactive Tech Lab</span>
+          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            HARDWARE &amp; CODE FUSION
           </h2>
-          <p class="text-slate-400 text-base sm:text-lg">
-            Switch between raw C++/Embedded Firmware and PCB Hardware schematics in real-time.
-          </p>
         </div>
 
-        <div class="glass-card rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
-          <div class="bg-[#0D131F] px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-[#FF5500]"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
-                <span class="w-3 h-3 rounded-full bg-green-500"></span>
-              </div>
-              <span class="text-xs font-mono-code text-slate-400 ml-3 hidden sm:inline">orange_controller_firmware.cpp</span>
+        <div class={`rounded-xl border overflow-hidden shadow-lg ${
+          darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+        }`}>
+          <div class={`px-5 py-3 border-b flex flex-wrap items-center justify-between gap-3 ${
+            darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
+          }`}>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+              <span class="text-xs font-mono-code text-slate-400 ml-2 hidden sm:inline">orange_controller_firmware.cpp</span>
             </div>
 
-            <div class="flex items-center gap-2 bg-[#080B11] p-1 rounded-xl border border-slate-800">
+            <div class="flex items-center gap-2">
               <button
                 onClick={() => setActiveMode('code')}
-                class={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                class={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   activeMode === 'code'
-                    ? 'bg-[#FF6B00] text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#FF6B00] text-white'
+                    : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <Code2 class="w-3.5 h-3.5" />
@@ -84,21 +70,23 @@ void loop() {
 
               <button
                 onClick={() => setActiveMode('hardware')}
-                class={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                class={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   activeMode === 'hardware'
-                    ? 'bg-[#00F0FF] text-slate-950 font-bold shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#FF6B00] text-white'
+                    : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <Cpu class="w-3.5 h-3.5" />
-                <span>PCB Hardware View</span>
+                <span>PCB Hardware</span>
               </button>
             </div>
 
             {activeMode === 'code' && (
               <button
                 onClick={copyCode}
-                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-slate-300 text-xs font-mono-code border border-slate-700 transition-colors"
+                class={`flex items-center gap-1 px-2.5 py-1 rounded text-xs font-mono-code border transition-colors ${
+                  darkMode ? 'bg-slate-900 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-300 text-slate-700'
+                }`}
               >
                 {copied ? <Check class="w-3.5 h-3.5 text-green-400" /> : <Copy class="w-3.5 h-3.5" />}
                 <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -106,12 +94,12 @@ void loop() {
             )}
           </div>
 
-          <div class="p-6 sm:p-8 bg-[#080B11]">
+          <div class="p-6 bg-[#080B11]">
             {activeMode === 'code' ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                class="font-mono-code text-xs sm:text-sm text-slate-300 overflow-x-auto leading-relaxed"
+                class="font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed"
               >
                 <pre class="text-[#00F0FF]">
                   <code>{sampleCode}</code>
@@ -121,29 +109,25 @@ void loop() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                class="py-8 px-4 flex flex-col items-center justify-center text-center"
+                class="py-6 flex flex-col items-center justify-center text-center"
               >
-                <div class="relative w-full max-w-xl h-64 rounded-2xl bg-slate-950 border-2 border-dashed border-[#00F0FF]/40 p-6 flex flex-col items-center justify-center gap-4 overflow-hidden group">
-                  <div class="absolute inset-0 bg-cyber-grid opacity-30"></div>
-                  
-                  <div class="relative z-10 flex items-center gap-8">
-                    <div class="p-4 rounded-2xl bg-[#FF6B00]/20 border border-[#FF6B00] text-[#FF6B00] animate-bounce">
-                      <Cpu class="w-8 h-8" />
+                <div class="w-full max-w-md p-5 rounded-lg bg-slate-950 border border-slate-800 flex flex-col items-center gap-3">
+                  <div class="flex items-center gap-6">
+                    <div class="p-3 rounded-lg bg-[#FF6B00]/20 text-[#FF6B00] border border-[#FF6B00]">
+                      <Cpu class="w-6 h-6" />
                       <span class="block text-[10px] font-mono-code mt-1">ESP32 SOC</span>
                     </div>
 
-                    <div class="h-0.5 w-16 bg-gradient-to-r from-[#FF6B00] to-[#00F0FF] relative">
-                      <span class="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] font-mono-code text-[#00F0FF]">SPI / I2C</span>
-                    </div>
+                    <div class="h-0.5 w-12 bg-[#FF6B00]"></div>
 
-                    <div class="p-4 rounded-2xl bg-[#00F0FF]/20 border border-[#00F0FF] text-[#00F0FF]">
-                      <CircuitBoard class="w-8 h-8" />
-                      <span class="block text-[10px] font-mono-code mt-1">L298N DRIVER</span>
+                    <div class="p-3 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500">
+                      <CircuitBoard class="w-6 h-6" />
+                      <span class="block text-[10px] font-mono-code mt-1">DRIVER</span>
                     </div>
                   </div>
 
-                  <div class="relative z-10 text-xs font-mono-code text-slate-300 bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
-                    STATUS: Custom 4-Layer PCB Layout // Double Sided Copper Trace // SMT Assembled
+                  <div class="text-[11px] font-mono-code text-slate-400">
+                    STATUS: Custom 4-Layer PCB Layout // SMT Assembled
                   </div>
                 </div>
               </motion.div>
