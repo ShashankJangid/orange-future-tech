@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   const [aiOpen, setAiOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     if (darkMode) {
