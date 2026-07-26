@@ -1,110 +1,104 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, CircuitBoard, Sparkles, Check, ArrowRight } from 'lucide-react';
+import { Cpu, Code, CpuIcon, Wifi, ChevronRight, Zap, Radio, Building2 } from 'lucide-react';
 
 export default function Verticals({ onOpenAi, darkMode }) {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const verticals = [
+  const verticalsList = [
     {
       id: 'software',
-      num: '01',
+      icon: Code,
       title: 'Enterprise Software & AI',
-      icon: Code2,
-      subtitle: 'Scalable web platforms, mobile apps, custom AI/ML integrations, and resilient cloud systems.',
-      capabilities: ['Full-Stack Web Apps (React, Node, Next.js)', 'Cross-Platform Mobile Applications', 'Custom AI & Machine Learning Models', 'Cloud Infrastructure & Microservices'],
-      deliverable: 'Smart ID Card Software, Custom Enterprise Portals, ERP & AI Bots'
+      subtitle: 'High-Concurrency Cloud & Web Platforms',
+      description: 'Scalable full-stack web applications, AI models, cloud microservices, and custom management software built for modern enterprises.',
+      features: ['React & Node.js Architecture', 'AI & Machine Learning Models', 'High-Concurrency Database Systems', 'REST & GraphQL API Gateways'],
+      gradient: 'from-[#FF6B00] to-amber-500'
     },
     {
       id: 'electronics',
-      num: '02',
-      title: 'Industrial Electronics & Hardware',
-      icon: CircuitBoard,
-      subtitle: 'Custom PCB design, embedded microcontrollers, industrial automation, and IoT hardware.',
-      capabilities: ['Custom Multi-Layer PCB Design (Up to 8 layers)', 'Embedded Firmware (ARM, ESP32, STM32 C/C++)', 'Industrial Automation & PLC Modules', 'IoT Telemetry & Smart Sensor Networks'],
-      deliverable: 'Production-ready PCBs, Industrial Robotics Controllers, Access Hardware'
+      icon: Cpu,
+      title: 'Electronics & PCB Design',
+      subtitle: 'Multi-Layer CAD & Circuit Fabrication',
+      description: 'Custom multi-layer PCB schematics, microcontrollers, embedded C/C++ firmware, power electronics, and hardware prototypes.',
+      features: ['Multi-Layer PCB Schematics', 'Embedded C/C++ Firmware', 'Microcontroller Integration', 'Hardware Prototyping & Testing'],
+      gradient: 'from-[#00F0FF] to-blue-600'
     },
     {
-      id: 'solutions',
-      num: '03',
-      title: 'Advanced Electronics Solutions',
-      icon: Sparkles,
-      subtitle: 'Custom electronics prototyping, smart hardware engineering, and sensor telemetry systems.',
-      capabilities: ['Rapid Hardware Prototyping', 'Precision SMT & Through-Hole Assembly', 'Embedded System Integration & RTOS', 'Custom Commercial Hardware Nodes'],
-      deliverable: 'End-to-End Electronics Systems, Custom Circuit Fabrication'
+      id: 'iot-automation',
+      icon: Radio,
+      title: 'Smart Automation & Industrial IoT',
+      subtitle: 'Wireless Telemetry & Smart Control',
+      description: 'Industrial IoT sensor networks, ESP32/LoRa telemetry, smart building automation, and remote cloud monitoring dashboards.',
+      features: ['Industrial IoT Telemetry', 'Smart Building & Campus Automation', 'ESP32 & LoRa Gateway Networks', 'Real-Time Remote Cloud Control'],
+      gradient: 'from-emerald-500 to-teal-600'
     }
   ];
 
-  const active = verticals[activeTab];
-
   return (
-    <section id="verticals" class={`py-16 relative z-10 ${darkMode ? 'bg-[#0B0F17]/80' : 'bg-slate-100/80'}`}>
+    <section id="verticals" class="py-20 relative z-10">
       <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-10">
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Core Pillars</span>
+        <div class="text-center mb-16">
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Core Engineering Capabilities</span>
           <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             OUR CORE VERTICALS
           </h2>
+          <p class={`mt-3 text-sm max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+            Delivering end-to-end synergy between Software Engineering, Custom PCB Electronics, and Smart Automation &amp; IoT Systems.
+          </p>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-2 mb-8">
-          {verticals.map((v, idx) => {
-            const isSelected = activeTab === idx;
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {verticalsList.map((vert, idx) => {
+            const IconComp = vert.icon;
             return (
-              <button
-                key={v.id}
-                onClick={() => setActiveTab(idx)}
-                class={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
-                  isSelected
-                    ? 'bg-[#FF6B00] text-white border-[#FF6B00]'
-                    : darkMode
-                      ? 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-                      : 'bg-white text-slate-600 border-slate-300 hover:text-slate-900'
+              <motion.div
+                key={vert.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                class={`rounded-xl border p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+                  darkMode 
+                    ? 'bg-[#0B0F17] border-slate-800 hover:border-slate-700 shadow-md' 
+                    : 'bg-white border-slate-200 hover:border-slate-300 shadow-md'
                 }`}
               >
-                {v.num}. {v.title}
-              </button>
+                <div>
+                  <div class={`w-12 h-12 rounded-lg bg-gradient-to-br ${vert.gradient} flex items-center justify-center text-white mb-5 shadow-sm`}>
+                    <IconComp class="w-6 h-6" />
+                  </div>
+
+                  <span class="text-[11px] font-mono-code uppercase text-[#FF6B00] font-semibold">{vert.subtitle}</span>
+                  <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                    {vert.title}
+                  </h3>
+
+                  <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                    {vert.description}
+                  </p>
+
+                  <ul class="mt-5 space-y-2">
+                    {vert.features.map((feat, fIdx) => (
+                      <li key={fIdx} class="flex items-center gap-2 text-xs font-mono-code">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#FF6B00]"></span>
+                        <span class={darkMode ? 'text-slate-300' : 'text-slate-700'}>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-slate-200/20">
+                  <button
+                    onClick={onOpenAi}
+                    class="w-full flex items-center justify-between text-xs font-semibold text-[#FF6B00] hover:underline cursor-pointer"
+                  >
+                    <span>Request Technical Proposal</span>
+                    <ChevronRight class="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
             );
           })}
         </div>
-
-        <motion.div
-          key={active.id}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          class={`p-6 sm:p-8 rounded-xl ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}
-        >
-          <h3 class={`text-xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>{active.title}</h3>
-          <p class={`text-xs sm:text-sm mb-6 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{active.subtitle}</p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-            {active.capabilities.map((cap, i) => (
-              <div key={i} class={`p-3 rounded-lg border flex items-center gap-2 text-xs ${
-                darkMode ? 'bg-slate-950/70 border-slate-800 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-700'
-              }`}>
-                <Check class="w-4 h-4 text-[#FF6B00] flex-shrink-0" />
-                <span>{cap}</span>
-              </div>
-            ))}
-          </div>
-
-          <div class={`p-3.5 rounded-lg border flex flex-wrap items-center justify-between gap-3 text-xs ${
-            darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'
-          }`}>
-            <div>
-              <span class="text-[10px] font-mono-code opacity-75 block">KEY DELIVERABLE</span>
-              <span class={`font-semibold ${darkMode ? 'text-white' : 'text-slate-900'}`}>{active.deliverable}</span>
-            </div>
-            <button
-              onClick={onOpenAi}
-              class="px-3 py-1.5 rounded bg-[#FF6B00] text-white font-semibold hover:bg-[#FF5500] transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <span>Ask AI Details</span>
-              <ArrowRight class="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
