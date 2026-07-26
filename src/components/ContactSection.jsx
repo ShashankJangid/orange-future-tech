@@ -1,179 +1,203 @@
 import React, { useState } from 'react';
-import confetti from 'canvas-confetti';
-import { Send, CheckCircle2, Mail, MapPin, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Send, CheckCircle2, AlertCircle, MapPin, Clock, ShieldCheck, PhoneCall } from 'lucide-react';
 
 export default function ContactSection({ darkMode }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: 'General Enterprise Query',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('sending');
-
+    setStatus('submitting');
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json'
+          Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: 'c94d4135-0008-4714-a81a-698f4d6ad1fd',
+          access_key: '64e83c27-a021-4f96-[#FF6B00]',
           name: formData.name,
           email: formData.email,
-          subject: `Orange Future Tech Query: ${formData.subject}`,
-          message: formData.message
-        })
+          message: formData.message,
+          from_name: 'Orange Future Tech Contact Form',
+        }),
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
+      const res = await response.json();
+      if (res.success || response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', subject: 'General Enterprise Query', message: '' });
+        setFormData({ name: '', email: '', message: '' });
       } else {
-        setStatus('idle');
+        setStatus('error');
       }
     } catch (err) {
-      setStatus('idle');
+      setStatus('error');
     }
   };
 
   return (
-    <section id="contact" class="py-16 relative z-10">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-10">
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Get in Touch</span>
-          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-            LET'S WORK TOGETHER
+    <section id="contact" class="py-24 relative z-10">
+      <div class="max-w-5xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          class="text-center mb-16"
+        >
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00] font-semibold">Start A Conversation</span>
+          <h2 class={`text-3xl sm:text-4xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            CONNECT WITH OUR ENGINEERS
           </h2>
-        </div>
+          <p class={`mt-3 text-sm sm:text-base max-w-lg mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+            Have an upcoming Enterprise Software project, Custom PCB schematic, or Smart Automation query? Reach out directly.
+          </p>
+        </motion.div>
 
-        <div class={`p-6 sm:p-8 rounded-xl ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
-          {status === 'success' ? (
-            <div class="py-8 text-center space-y-3">
-              <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto">
-                <CheckCircle2 class="w-6 h-6" />
-              </div>
-              <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>Message Transmitted!</h3>
-              <p class={`text-xs max-w-sm mx-auto ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-                Thank you for reaching out to Orange Future Tech. Our leadership team will respond within 24 hours.
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            class={`p-8 rounded-2xl border flex flex-col justify-between shadow-xl ${
+              darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+            }`}
+          >
+            <div>
+              <h3 class={`text-xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                Engineering &amp; Technical Support
+              </h3>
+              <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                We respond to all technical inquiries and project briefs within 24 hours. Connect via email or complete our secure inquiry form.
               </p>
-              <button
-                onClick={() => setStatus('idle')}
-                class={`mt-2 px-4 py-2 rounded-lg text-xs font-medium transition-colors ${
-                  darkMode ? 'bg-slate-800 text-slate-200 hover:bg-slate-700' : 'bg-slate-200 text-slate-800 hover:bg-slate-300'
-                }`}
-              >
-                Send Another Message
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>YOUR NAME</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Dr. Rajesh Kumar"
-                    class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
-                      darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
-                    }`}
-                  />
-                </div>
 
-                <div>
-                  <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>YOUR EMAIL</label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="rajesh@institution.edu"
-                    class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
-                      darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
-                    }`}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>DOMAIN</label>
-                <select
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
-                    darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+              <div class="mt-8 space-y-4">
+                <a
+                  href="mailto:teams@orangefuturetech.com"
+                  class={`flex items-center gap-3.5 p-4 rounded-xl border transition-all hover:-translate-y-0.5 ${
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white hover:border-[#FF6B00]/50' : 'bg-slate-50 border-slate-200 text-slate-900 hover:border-slate-300'
                   }`}
                 >
-                  <option value="ID Card Software System">Smart ID Card Software System</option>
-                  <option value="Enterprise Web & App Solutions">Enterprise Web &amp; App Solutions</option>
-                  <option value="Advanced Electronics Solutions">Advanced Electronics Solutions</option>
-                  <option value="Industrial Automation & PCB Design">Industrial Automation &amp; PCB Design</option>
-                  <option value="General Technical Query">General Technical Query</option>
-                </select>
+                  <div class="p-2.5 rounded-lg bg-[#FF6B00]/10 text-[#FF6B00]">
+                    <Mail class="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-mono-code text-slate-400 uppercase font-semibold block">DIRECT EMAIL</span>
+                    <span class="text-xs font-mono-code font-bold text-[#FF6B00]">teams@orangefuturetech.com</span>
+                  </div>
+                </a>
+
+                <div class={`flex items-center gap-3.5 p-4 rounded-xl border ${
+                  darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                }`}>
+                  <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                    <Clock class="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-mono-code text-slate-400 uppercase font-semibold block">RESPONSE TIME</span>
+                    <span class="text-xs font-mono-code font-bold">Within 24 Hours</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-200/20 text-xs text-slate-400 font-mono-code flex items-center gap-2">
+              <ShieldCheck class="w-4 h-4 text-emerald-500" />
+              <span>Global Digital Engineering &amp; Remote Operations</span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            class={`p-8 rounded-2xl border shadow-xl ${
+              darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+            }`}
+          >
+            <form onSubmit={handleSubmit} class="space-y-4">
+              <div>
+                <label class={`block text-xs font-mono-code mb-1.5 font-semibold ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                  YOUR NAME
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="e.g., Alex Mercer"
+                  class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
+                  }`}
+                />
               </div>
 
               <div>
-                <label class={`block text-xs font-mono-code mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>MESSAGE</label>
+                <label class={`block text-xs font-mono-code mb-1.5 font-semibold ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                  WORK EMAIL
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="alex@company.com"
+                  class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
+                  }`}
+                />
+              </div>
+
+              <div>
+                <label class={`block text-xs font-mono-code mb-1.5 font-semibold ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                  PROJECT REQUIREMENTS / BRIEF
+                </label>
                 <textarea
                   required
-                  rows="4"
+                  rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Briefly describe your requirements..."
-                  class={`w-full px-3.5 py-2 rounded-lg text-xs focus:outline-none focus:border-[#FF6B00] transition-colors border ${
-                    darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-300 text-slate-900'
+                  placeholder="Describe your software, PCB design, or IoT requirements..."
+                  class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
                   }`}
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                disabled={status === 'sending'}
-                class="w-full py-2.5 rounded-lg bg-[#FF6B00] text-white font-semibold text-xs hover:bg-[#FF5500] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                disabled={status === 'submitting'}
+                class="w-full py-3.5 rounded-xl bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
-                {status === 'sending' ? (
-                  <span>Transmitting...</span>
+                {status === 'submitting' ? (
+                  <span>Sending Inquiry...</span>
                 ) : (
                   <>
-                    <span>Send Message</span>
-                    <Send class="w-3.5 h-3.5" />
+                    <span>Send Technical Message</span>
+                    <Send class="w-4 h-4" />
                   </>
                 )}
               </button>
-            </form>
-          )}
 
-          <div class={`mt-6 pt-6 border-t flex flex-wrap items-center justify-between gap-4 text-xs ${
-            darkMode ? 'border-slate-800 text-slate-400' : 'border-slate-200 text-slate-600'
-          }`}>
-            <div class="flex items-center gap-2">
-              <Globe class="w-4 h-4 text-[#FF6B00]" />
-              <span>orangefuturetech.com</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <Mail class="w-4 h-4 text-[#FF6B00]" />
-              <a href="mailto:teams@orangefuturetech.com" class="hover:text-[#FF6B00] transition-colors">teams@orangefuturetech.com</a>
-            </div>
-            <div class="flex items-center gap-2">
-              <MapPin class="w-4 h-4 text-[#FF6B00]" />
-              <span>IIT Jodhpur &amp; DPS Indirapuram</span>
-            </div>
-          </div>
+              {status === 'success' && (
+                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-mono-code flex items-center gap-2">
+                  <CheckCircle2 class="w-4 h-4 shrink-0" />
+                  <span>Message sent successfully! Our engineering team will reply shortly.</span>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
+                  <AlertCircle class="w-4 h-4 shrink-0" />
+                  <span>Failed to send. Please email teams@orangefuturetech.com directly.</span>
+                </div>
+              )}
+            </form>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Cpu, Check, Copy, CircuitBoard, Activity, Zap, Layers, Radio } from 'lucide-react';
+import { Code2, Cpu, Check, Copy, CircuitBoard, Zap, Radio } from 'lucide-react';
 
 export default function HardwareCodePlayground({ darkMode }) {
   const [activeMode, setActiveMode] = useState('code');
@@ -19,7 +19,7 @@ void setup() {
   Serial.begin(115200);
   bot.initHardware(MOTOR_PIN_A, MOTOR_PIN_B);
   bot.connectCloud("orangefuturetech.com");
-  Serial.println("SYS: Hardware Online - IIT Jodhpur Spec");
+  Serial.println("SYS: Hardware & Firmware Online");
 }
 
 void loop() {
@@ -71,25 +71,37 @@ void loop() {
   };
 
   return (
-    <section id="playground" class="py-16 relative z-10">
+    <section id="playground" class="py-20 relative z-10">
       <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-10">
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Interactive Tech Lab</span>
-          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          class="text-center mb-12"
+        >
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00] font-semibold">Interactive Tech Lab</span>
+          <h2 class={`text-3xl sm:text-4xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             HARDWARE &amp; CODE FUSION
           </h2>
-        </div>
+        </motion.div>
 
-        <div class={`rounded-xl border overflow-hidden shadow-lg ${
-          darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
-        }`}>
-          <div class={`px-5 py-3 border-b flex flex-wrap items-center justify-between gap-3 ${
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          class={`rounded-2xl border overflow-hidden shadow-2xl ${
+            darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+          }`}
+        >
+          <div class={`px-5 py-3.5 border-b flex flex-wrap items-center justify-between gap-3 ${
             darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
           }`}>
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
               <span class={`text-xs font-mono-code ml-2 hidden sm:inline ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 {activeMode === 'code' ? 'orange_firmware.cpp' : '4-Layer_PCB_Schematic_CAD.vct'}
               </span>
@@ -98,9 +110,9 @@ void loop() {
             <div class="flex items-center gap-2">
               <button
                 onClick={() => setActiveMode('code')}
-                class={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   activeMode === 'code'
-                    ? 'bg-[#FF6B00] text-white'
+                    ? 'bg-[#FF6B00] text-white shadow-md'
                     : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -110,9 +122,9 @@ void loop() {
 
               <button
                 onClick={() => setActiveMode('hardware')}
-                class={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   activeMode === 'hardware'
-                    ? 'bg-[#FF6B00] text-white'
+                    ? 'bg-[#FF6B00] text-white shadow-md'
                     : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -124,8 +136,8 @@ void loop() {
             {activeMode === 'code' && (
               <button
                 onClick={copyCode}
-                class={`flex items-center gap-1 px-2.5 py-1 rounded text-xs font-mono-code border transition-colors cursor-pointer ${
-                  darkMode ? 'bg-slate-900 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-300 text-slate-700'
+                class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-mono-code border transition-all cursor-pointer ${
+                  darkMode ? 'bg-slate-900 border-slate-700 text-slate-300 hover:text-white' : 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
                 }`}
               >
                 {copied ? <Check class="w-3.5 h-3.5 text-green-400" /> : <Copy class="w-3.5 h-3.5" />}
@@ -137,8 +149,9 @@ void loop() {
           <div class="p-6 bg-[#080B11]">
             {activeMode === 'code' ? (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
                 class="font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed"
               >
                 <pre class="text-[#00F0FF]">
@@ -147,16 +160,17 @@ void loop() {
               </motion.div>
             ) : (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
                 class="space-y-6"
               >
-                <div class="flex flex-wrap gap-2 justify-center">
+                <div class="flex flex-wrap gap-2.5 justify-center">
                   <button
                     onClick={() => setSelectedComponent('esp32')}
-                    class={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono-code transition-colors cursor-pointer border ${
+                    class={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono-code transition-all cursor-pointer border ${
                       selectedComponent === 'esp32'
-                        ? 'bg-[#FF6B00] text-white border-[#FF6B00]'
+                        ? 'bg-[#FF6B00] text-white border-[#FF6B00] shadow-md'
                         : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
                     }`}
                   >
@@ -166,9 +180,9 @@ void loop() {
 
                   <button
                     onClick={() => setSelectedComponent('driver')}
-                    class={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono-code transition-colors cursor-pointer border ${
+                    class={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono-code transition-all cursor-pointer border ${
                       selectedComponent === 'driver'
-                        ? 'bg-[#00F0FF] text-slate-950 font-bold border-[#00F0FF]'
+                        ? 'bg-[#00F0FF] text-slate-950 font-bold border-[#00F0FF] shadow-md'
                         : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
                     }`}
                   >
@@ -178,9 +192,9 @@ void loop() {
 
                   <button
                     onClick={() => setSelectedComponent('power')}
-                    class={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono-code transition-colors cursor-pointer border ${
+                    class={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono-code transition-all cursor-pointer border ${
                       selectedComponent === 'power'
-                        ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-500'
+                        ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-500 shadow-md'
                         : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
                     }`}
                   >
@@ -190,9 +204,9 @@ void loop() {
 
                   <button
                     onClick={() => setSelectedComponent('lora')}
-                    class={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono-code transition-colors cursor-pointer border ${
+                    class={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono-code transition-all cursor-pointer border ${
                       selectedComponent === 'lora'
-                        ? 'bg-purple-500 text-white border-purple-500'
+                        ? 'bg-purple-500 text-white border-purple-500 shadow-md'
                         : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
                     }`}
                   >
@@ -201,8 +215,8 @@ void loop() {
                   </button>
                 </div>
 
-                <div class="relative w-full rounded-xl bg-slate-950 border border-slate-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
-                  <div class="flex-1 w-full flex items-center justify-center p-4 bg-[#0B0F17] rounded-lg border border-slate-800/80">
+                <div class="relative w-full rounded-2xl bg-slate-950 border border-slate-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+                  <div class="flex-1 w-full flex items-center justify-center p-4 bg-[#0B0F17] rounded-xl border border-slate-800/80 shadow-inner">
                     <svg viewBox="0 0 300 200" class="w-full max-w-xs h-auto">
                       <rect x="20" y="20" width="260" height="160" rx="10" fill="#0A1812" stroke="#10B981" stroke-width="2" />
                       
@@ -233,10 +247,10 @@ void loop() {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={selectedComponent}
-                      initial={{ opacity: 0, x: 10 }}
+                      initial={{ opacity: 0, x: 15 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      transition={{ duration: 0.2 }}
+                      exit={{ opacity: 0, x: -15 }}
+                      transition={{ duration: 0.25 }}
                       class="flex-1 w-full space-y-3"
                     >
                       <div class="flex items-center gap-2">
@@ -244,10 +258,10 @@ void loop() {
                           class="w-2.5 h-2.5 rounded-full" 
                           style={{ backgroundColor: currentComp.vectorColor }}
                         ></span>
-                        <span class="text-xs font-mono-code text-slate-400 uppercase">{currentComp.type}</span>
+                        <span class="text-xs font-mono-code text-slate-400 uppercase font-semibold">{currentComp.type}</span>
                       </div>
 
-                      <h4 class="text-base font-bold text-white font-['Orbitron',sans-serif]">
+                      <h4 class="text-lg font-bold text-white font-['Orbitron',sans-serif]">
                         {currentComp.name}
                       </h4>
 
@@ -255,12 +269,12 @@ void loop() {
                         {currentComp.details}
                       </p>
 
-                      <div class="grid grid-cols-2 gap-2 pt-2 text-[11px] font-mono-code">
-                        <div class="p-2 rounded bg-slate-900 border border-slate-800">
+                      <div class="grid grid-cols-2 gap-2.5 pt-2 text-[11px] font-mono-code">
+                        <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
                           <span class="text-slate-500 block">FOOTPRINT</span>
                           <span class="text-white font-semibold">{currentComp.pins}</span>
                         </div>
-                        <div class="p-2 rounded bg-slate-900 border border-slate-800">
+                        <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
                           <span class="text-slate-500 block">VOLTAGE / BUS</span>
                           <span class="text-white font-semibold">{currentComp.voltage}</span>
                         </div>
@@ -271,7 +285,7 @@ void loop() {
               </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
