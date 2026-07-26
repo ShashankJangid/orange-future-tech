@@ -3,70 +3,25 @@ import { Cpu } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer class="relative z-10 bg-[#05070B] border-t border-slate-800/80 pt-16 pb-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800/60">
-          <div class="md:col-span-1">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-9 h-9 rounded-xl bg-[#FF6B00] p-0.5 flex items-center justify-center">
-                <div class="w-full h-full bg-[#080B11] rounded-[10px] flex items-center justify-center">
-                  <Cpu class="w-4 h-4 text-[#FF6B00]" />
-                </div>
-              </div>
-              <span class="font-['Orbitron',sans-serif] font-bold text-lg text-white">
-                ORANGE <span class="text-[#FF6B00]">FUTURE</span>
-              </span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed mb-6 font-light">
-              Bridging Enterprise Software, Industrial Automation &amp; Advanced Electronics Solutions.
-            </p>
-            <div class="text-xs text-[#00F0FF] font-mono-code mb-1">
-              orangefuturetech.com
-            </div>
-            <div class="text-xs text-slate-400 font-mono-code">
-              teams@orangefuturetech.com
-            </div>
+    <footer class="relative z-10 bg-[#070A0F] border-t border-slate-800 py-10">
+      <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded bg-[#FF6B00] flex items-center justify-center text-white font-bold">
+            <Cpu class="w-3.5 h-3.5" />
           </div>
-
-          <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">Flagship Tech</h4>
-            <ul class="space-y-2.5 text-xs text-slate-400">
-              <li><a href="#highlights" class="hover:text-[#FF6B00] transition-colors">Smart ID Card Software</a></li>
-              <li><a href="#highlights" class="hover:text-[#FF6B00] transition-colors">Enterprise Custom Websites</a></li>
-              <li><a href="#verticals" class="hover:text-[#FF6B00] transition-colors">AI &amp; Machine Learning</a></li>
-              <li><a href="#verticals" class="hover:text-[#FF6B00] transition-colors">Custom PCB &amp; Firmware</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">Electronics Solutions</h4>
-            <ul class="space-y-2.5 text-xs text-slate-400">
-              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Multi-Layer PCB Layouts</a></li>
-              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Microcontroller Firmware</a></li>
-              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Industrial IoT Sensors</a></li>
-              <li><a href="#electronics" class="hover:text-[#FF6B00] transition-colors">Hardware Prototyping</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono-code">Prestige Clients</h4>
-            <ul class="space-y-2.5 text-xs text-slate-400">
-              <li><span class="text-white font-semibold">IIT Jodhpur</span> Campus System</li>
-              <li><span class="text-white font-semibold">DPS Indirapuram</span> Tech Infrastructure</li>
-              <li>Enterprise Tech Clients</li>
-              <li>Educational Institutions</li>
-            </ul>
-          </div>
+          <span class="font-['Orbitron',sans-serif] font-bold text-white tracking-wide">
+            ORANGE <span class="text-[#FF6B00]">FUTURE</span> TECH
+          </span>
         </div>
 
-        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
-            &copy; {new Date().getFullYear()} Orange Future Tech. All rights reserved. Built with React &amp; Spatial UI.
-          </div>
-          <div class="flex items-center gap-6">
-            <a href="mailto:teams@orangefuturetech.com" class="hover:text-[#FF6B00] transition-colors">teams@orangefuturetech.com</a>
-            <a href="#" class="hover:text-[#FF6B00] transition-colors">Vercel Hosted</a>
-          </div>
+        <div>
+          &copy; {new Date().getFullYear()} Orange Future Tech. All rights reserved.
+        </div>
+
+        <div class="flex items-center gap-4 font-mono-code text-[11px]">
+          <a href="mailto:teams@orangefuturetech.com" class="hover:text-white transition-colors">teams@orangefuturetech.com</a>
+          <span>•</span>
+          <a href="#" class="hover:text-white transition-colors">orangefuturetech.com</a>
         </div>
       </div>
     </footer>

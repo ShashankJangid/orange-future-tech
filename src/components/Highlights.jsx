@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { IdCard, Globe, Landmark, School, CheckCircle2 } from 'lucide-react';
+import { IdCard, Globe, Landmark, School, Check } from 'lucide-react';
 
 export default function Highlights() {
   const highlightItems = [
@@ -9,8 +9,8 @@ export default function Highlights() {
       icon: IdCard,
       badge: 'FLAGSHIP SOFTWARE',
       title: 'Smart Institutional ID Card Software',
-      description: 'Automated batch ID card generation, RFID/QR integration, instant barcode scanning, and multi-tier access security used by top universities and schools.',
-      metrics: ['Instant Batch Export', 'RFID & QR Sync', 'High Security Access']
+      description: 'Automated batch ID card generation, RFID/QR integration, instant barcode scanning, and multi-tier access security used by top universities.',
+      metrics: ['Instant Batch Export', 'RFID & QR Sync', 'High Security']
     },
     {
       id: 'custom-websites',
@@ -26,7 +26,7 @@ export default function Highlights() {
       badge: 'PRESTIGE DEPLOYMENT',
       title: 'Software Solutions at IIT Jodhpur',
       description: 'Advanced technical software modules engineered for academic, research, and institutional administration workflows at IIT Jodhpur.',
-      metrics: ['High Concurrency', 'Research Integration', 'Custom API Suite']
+      metrics: ['High Concurrency', 'Research Modules', 'Custom APIs']
     },
     {
       id: 'dps-indirapuram',
@@ -39,52 +39,49 @@ export default function Highlights() {
   ];
 
   return (
-    <section id="highlights" class="py-20 relative z-10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-14">
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Proven Excellence</span>
-          <h2 class="text-2xl sm:text-4xl font-extrabold font-['Orbitron',sans-serif] text-white tracking-tight mt-2 mb-3">
-            FLAGSHIP <span class="text-gradient-orange">HIGHLIGHTS</span> &amp; DEPLOYMENTS
+    <section id="highlights" class="py-16 relative z-10">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-10">
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Key Highlights</span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] text-white mt-1">
+            CORE PLATFORMS &amp; DEPLOYMENTS
           </h2>
-          <p class="text-slate-400 text-sm sm:text-base">
-            Proven software platforms and institutional deployments across India.
-          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {highlightItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                class="glass-card glass-card-hover p-7 rounded-2xl relative overflow-hidden group"
+                transition={{ duration: 0.35, delay: index * 0.08 }}
+                class="glass-card p-6 rounded-xl relative overflow-hidden"
               >
-                <div class="flex items-center justify-between mb-5">
-                  <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-[#FF6B00] group-hover:border-[#FF6B00]/40 transition-colors">
-                    <Icon class="w-6 h-6" />
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-[#FF6B00]">
+                    <Icon class="w-5 h-5" />
                   </div>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono-code bg-slate-900 text-slate-300 border border-slate-800 uppercase">
+                  <span class="px-2 py-0.5 rounded font-mono-code text-[10px] text-slate-400 bg-slate-900 border border-slate-800">
                     {item.badge}
                   </span>
                 </div>
 
-                <h3 class="text-lg font-bold text-white mb-2.5 group-hover:text-[#FF6B00] transition-colors">
+                <h3 class="text-base font-bold text-white mb-2">
                   {item.title}
                 </h3>
 
-                <p class="text-slate-400 text-xs leading-relaxed mb-5 font-normal">
+                <p class="text-slate-300 text-xs leading-relaxed mb-4">
                   {item.description}
                 </p>
 
-                <div class="grid grid-cols-3 gap-2 py-2.5 px-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800/80">
                   {item.metrics.map((m, idx) => (
-                    <div key={idx} class="flex items-center gap-1.5 text-[11px] font-medium text-slate-300">
-                      <CheckCircle2 class="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
-                      <span class="truncate">{m}</span>
+                    <div key={idx} class="flex items-center gap-1 text-[11px] text-slate-400">
+                      <Check class="w-3 h-3 text-[#FF6B00]" />
+                      <span>{m}</span>
                     </div>
                   ))}
                 </div>
