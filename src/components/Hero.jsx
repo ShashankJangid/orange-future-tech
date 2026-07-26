@@ -13,7 +13,7 @@ export default function Hero({ onOpenAi }) {
             transition={{ duration: 0.6 }}
             class="flex-1 text-center lg:text-left"
           >
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono-code mb-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[10px] bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono-code mb-6 shadow-sm">
               <span class="w-2 h-2 rounded-full bg-[#FF6B00]"></span>
               <span>Software Engineering &amp; Electronics</span>
             </div>
@@ -29,7 +29,7 @@ export default function Hero({ onOpenAi }) {
             <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-12">
               <a 
                 href="#verticals"
-                class="flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#FF6B00] text-white font-semibold text-xs hover:bg-[#FF5500] transition-colors cursor-pointer"
+                class="flex items-center gap-2.5 px-6 py-3 rounded-[10px] bg-[#FF6B00] text-white font-semibold text-xs hover:bg-[#FF5500] transition-colors cursor-pointer"
               >
                 <span>Explore Verticals</span>
                 <ArrowRight class="w-4 h-4" />
@@ -37,7 +37,7 @@ export default function Hero({ onOpenAi }) {
 
               <button 
                 onClick={onOpenAi}
-                class="flex items-center gap-2.5 px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-xs hover:border-slate-700 hover:text-white transition-colors cursor-pointer"
+                class="flex items-center gap-2.5 px-6 py-3 rounded-[10px] bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-xs hover:border-slate-700 hover:text-white transition-colors cursor-pointer"
               >
                 <Terminal class="w-4 h-4 text-[#FF6B00]" />
                 <span>Talk to OrangeAI</span>
@@ -77,7 +77,7 @@ export default function Hero({ onOpenAi }) {
             transition={{ duration: 0.6, delay: 0.15 }}
             class="flex-1 w-full max-w-lg lg:max-w-none"
           >
-            <div class="glass-card p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+            <div class="glass-card p-6 sm:p-7 rounded-[10px] border border-white/10 shadow-xl">
               <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
                 <div class="flex items-center gap-2">
                   <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
@@ -88,7 +88,7 @@ export default function Hero({ onOpenAi }) {
               </div>
 
               <div class="space-y-3.5">
-                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div class="p-3.5 rounded-[10px] bg-slate-900/90 border border-slate-800 flex items-center justify-between">
                   <div class="flex items-center gap-3">
                     <Cpu class="w-4 h-4 text-[#FF6B00]" />
                     <div>
@@ -96,10 +96,10 @@ export default function Hero({ onOpenAi }) {
                       <div class="text-[11px] text-slate-400">Automated RFID &amp; Campus Access</div>
                     </div>
                   </div>
-                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE</span>
+                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-[6px] border border-emerald-500/20">LIVE</span>
                 </div>
 
-                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div class="p-3.5 rounded-[10px] bg-slate-900/90 border border-slate-800 flex items-center justify-between">
                   <div class="flex items-center gap-3">
                     <Terminal class="w-4 h-4 text-[#FF6B00]" />
                     <div>
@@ -107,10 +107,10 @@ export default function Hero({ onOpenAi }) {
                       <div class="text-[11px] text-slate-400">High-Concurrency Cloud Portals</div>
                     </div>
                   </div>
-                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ACTIVE</span>
+                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-[6px] border border-emerald-500/20">ACTIVE</span>
                 </div>
 
-                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                <div class="p-3.5 rounded-[10px] bg-slate-900/90 border border-slate-800 flex items-center justify-between">
                   <div class="flex items-center gap-3">
                     <Cpu class="w-4 h-4 text-[#FF6B00]" />
                     <div>
@@ -118,16 +118,16 @@ export default function Hero({ onOpenAi }) {
                       <div class="text-[11px] text-slate-400">Multi-Layer Board Prototyping</div>
                     </div>
                   </div>
-                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">READY</span>
+                  <span class="text-[10px] font-mono-code text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-[6px] border border-emerald-500/20">READY</span>
                 </div>
               </div>
 
               <div class="mt-5 pt-5 border-t border-slate-800 grid grid-cols-2 gap-4 text-center">
-                <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="p-3 rounded-[10px] bg-slate-950/60 border border-slate-800">
                   <div class="text-xl font-bold font-['Orbitron',sans-serif] text-white">IIT Jodhpur</div>
                   <div class="text-[10px] text-slate-400">Software Module Deployment</div>
                 </div>
-                <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="p-3 rounded-[10px] bg-slate-950/60 border border-slate-800">
                   <div class="text-xl font-bold font-['Orbitron',sans-serif] text-[#FF6B00]">DPS Indirapuram</div>
                   <div class="text-[10px] text-slate-400">Tech System Integration</div>
                 </div>
