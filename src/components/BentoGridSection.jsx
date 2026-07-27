@@ -52,13 +52,23 @@ export default function BentoGridSection({ darkMode }) {
               darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
             }`}
           >
-            <div>
-              <h3 class={`text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Every architecture, Turbo charged.
-              </h3>
-              <p class={`mt-3 text-sm max-w-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Enterprise cloud software, custom multi-layer PCB hardware, and industrial IoT automation engineered from a single unified platform.
-              </p>
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+              <div class="sm:col-span-7">
+                <h3 class={`text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Every architecture, Turbo charged.
+                </h3>
+                <p class={`mt-3 text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Enterprise cloud software, neural AI models, custom multi-layer PCB hardware, and industrial IoT automation engineered from a single unified platform.
+                </p>
+              </div>
+
+              <div class="sm:col-span-5 flex justify-center items-center">
+                <img
+                  src="/assets/svg/ai-brain-board.svg"
+                  alt="AI Brain Vector Animation"
+                  class="w-full h-auto max-h-44 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
 
             <div class="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between border-t border-slate-200/20 gap-4">
@@ -90,19 +100,17 @@ export default function BentoGridSection({ darkMode }) {
           >
             <div>
               <h3 class={`text-xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Breach-free AI &amp; Security.
+                Breach-free Security.
               </h3>
-              <p class={`mt-2 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Hardware-encrypted access control &amp; neural AI brain architectures deployed at premier research institutes.
+              <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                Hardware-encrypted access control and institutional ID card platforms deployed at premier research institutes.
               </p>
             </div>
 
-            <div class="mt-6 flex justify-center items-center py-4 relative">
-              <img
-                src="/assets/svg/ai-brain-board.svg"
-                alt="AI Brain Board Vector Animation"
-                class="w-full h-auto max-h-36 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500"
-              />
+            <div class="mt-8 flex justify-center items-center py-6">
+              <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-[#FF6B00]/20 to-amber-500/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shadow-lg group-hover:rotate-12 transition-transform duration-500">
+                <ShieldCheck class="w-12 h-12" />
+              </div>
             </div>
           </motion.div>
 
