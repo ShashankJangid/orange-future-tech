@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Sparkles, RefreshCw, Cpu, Radio, Code2, ArrowRight } from 'lucide-react';
+import { X, Send, Sparkles, RefreshCw } from 'lucide-react';
 
 export default function AiAssistantModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
@@ -138,17 +138,17 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
   return (
     <AnimatePresence>
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 8 }}
           transition={{ duration: 0.2 }}
-          class="relative w-full max-w-lg bg-[#0B0F17] text-white rounded-2xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[580px] max-h-[85vh]"
+          class="relative w-full max-w-xl bg-[#0B0F17] text-white rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[85vh]"
         >
-          <div class="px-5 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#FF6B00] to-amber-500 flex items-center justify-center text-white shadow-md">
+          <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between relative overflow-hidden">
+            <div class="flex items-center gap-3 relative z-10">
+              <div class="w-10 h-10 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shadow-md">
                 <Sparkles class="w-5 h-5" />
               </div>
               <div>
@@ -160,24 +160,28 @@ export default function AiAssistantModal({ isOpen, onClose }) {
               </div>
             </div>
 
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1.5 relative z-10">
               <button
                 onClick={resetChat}
                 title="Reset Conversation"
-                class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
               >
                 <RefreshCw class="w-4 h-4" />
               </button>
               <button
                 onClick={onClose}
-                class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
               >
                 <X class="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          <div class="flex-1 p-5 overflow-y-auto space-y-4 text-xs">
+          <div class="flex-1 p-6 overflow-y-auto space-y-4 text-xs relative">
+            <div class="absolute right-4 top-4 w-40 opacity-15 pointer-events-none">
+              <img src="/assets/svg/ai-brain-board.svg" alt="AI Brain Animation" class="w-full h-auto object-contain" />
+            </div>
+
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -187,7 +191,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                   class={`max-w-[88%] rounded-2xl p-4 leading-relaxed ${
                     msg.sender === 'user'
                       ? 'bg-[#FF6B00] text-white font-medium rounded-tr-none shadow-md'
-                      : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none space-y-2.5'
+                      : 'bg-slate-900/90 border border-slate-800 text-slate-200 rounded-tl-none space-y-2.5 backdrop-blur-md'
                   }`}
                 >
                   {msg.sender === 'user' ? (
@@ -244,12 +248,12 @@ export default function AiAssistantModal({ isOpen, onClose }) {
           </div>
 
           {messages.length < 4 && (
-            <div class="px-5 py-2.5 bg-slate-950 border-t border-slate-800/80 flex flex-wrap gap-1.5">
+            <div class="px-6 py-2.5 bg-slate-950 border-t border-slate-800/80 flex flex-wrap gap-1.5">
               {quickPrompts.map((prompt, pIdx) => (
                 <button
                   key={pIdx}
                   onClick={() => handleSend(prompt)}
-                  class="text-[11px] font-mono-code px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00] transition-all cursor-pointer text-left"
+                  class="text-[11px] font-mono-code px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00] transition-all cursor-pointer text-left"
                 >
                   {prompt}
                 </button>

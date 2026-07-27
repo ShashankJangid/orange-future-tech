@@ -71,8 +71,8 @@ void loop() {
   };
 
   return (
-    <section id="playground" class="py-20 relative z-10">
-      <div class="max-w-5xl mx-auto px-4">
+    <section id="playground" class="py-20 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,11 +91,11 @@ void loop() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          class={`rounded-2xl border overflow-hidden shadow-2xl ${
+          class={`rounded-3xl border overflow-hidden shadow-2xl ${
             darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
           }`}
         >
-          <div class={`px-5 py-3.5 border-b flex flex-wrap items-center justify-between gap-3 ${
+          <div class={`px-6 py-4 border-b flex flex-wrap items-center justify-between gap-3 ${
             darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
           }`}>
             <div class="flex items-center gap-2">
@@ -110,7 +110,7 @@ void loop() {
             <div class="flex items-center gap-2">
               <button
                 onClick={() => setActiveMode('code')}
-                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   activeMode === 'code'
                     ? 'bg-[#FF6B00] text-white shadow-md'
                     : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
@@ -122,7 +122,7 @@ void loop() {
 
               <button
                 onClick={() => setActiveMode('hardware')}
-                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                class={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   activeMode === 'hardware'
                     ? 'bg-[#FF6B00] text-white shadow-md'
                     : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
@@ -136,7 +136,7 @@ void loop() {
             {activeMode === 'code' && (
               <button
                 onClick={copyCode}
-                class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-mono-code border transition-all cursor-pointer ${
+                class={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-mono-code border transition-all cursor-pointer ${
                   darkMode ? 'bg-slate-900 border-slate-700 text-slate-300 hover:text-white' : 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -146,17 +146,27 @@ void loop() {
             )}
           </div>
 
-          <div class="p-6 bg-[#080B11]">
+          <div class="p-6 sm:p-8 bg-[#080B11]">
             {activeMode === 'code' ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                class="font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed"
+                class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
               >
-                <pre class="text-[#00F0FF]">
-                  <code>{sampleCode}</code>
-                </pre>
+                <div class="lg:col-span-7 font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed p-4 bg-slate-950/80 rounded-2xl border border-slate-800">
+                  <pre class="text-[#00F0FF]">
+                    <code>{sampleCode}</code>
+                  </pre>
+                </div>
+
+                <div class="lg:col-span-5 flex items-center justify-center p-2">
+                  <img
+                    src="/assets/svg/coding.svg"
+                    alt="Coding Animation"
+                    class="w-full h-auto max-h-56 object-contain drop-shadow-lg"
+                  />
+                </div>
               </motion.div>
             ) : (
               <motion.div

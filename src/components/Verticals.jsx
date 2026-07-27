@@ -72,7 +72,7 @@ export default function Verticals({ onOpenAi, darkMode }) {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          class={`mb-14 rounded-3xl p-8 border relative overflow-hidden transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 group ${
+          class={`mb-14 rounded-3xl p-8 border relative overflow-hidden transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 group ${
             darkMode ? 'bg-[#0E131F] border-[#FF6B00]/40' : 'bg-slate-50 border-slate-200/80 shadow-sm'
           }`}
         >
@@ -91,18 +91,26 @@ export default function Verticals({ onOpenAi, darkMode }) {
               <span class="flex items-center gap-1.5"><ShieldCheck class="w-3.5 h-3.5 text-[#FF6B00]" /> Real-Time Database Sync</span>
               <span class="flex items-center gap-1.5"><ShieldCheck class="w-3.5 h-3.5 text-[#FF6B00]" /> High-Speed Card Rendering</span>
             </div>
+
+            <div class="pt-2">
+              <a
+                href="https://cardgen.orangefuturetech.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
+              >
+                <span>Launch Live CardGen Demo</span>
+                <ExternalLink class="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
-          <div class="shrink-0 w-full md:w-auto relative z-10">
-            <a
-              href="https://cardgen.orangefuturetech.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full md:w-auto px-7 py-4 rounded-2xl bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
-            >
-              <span>Launch Live CardGen Demo</span>
-              <ExternalLink class="w-4 h-4" />
-            </a>
+          <div class="shrink-0 w-full md:w-80 relative z-10 flex items-center justify-center p-2 rounded-2xl bg-slate-900/10">
+            <img
+              src="/assets/svg/time-tracking.svg"
+              alt="Time Tracking & Smart ID Software Animation"
+              class="w-full h-auto max-h-56 object-contain drop-shadow-md"
+            />
           </div>
         </motion.div>
 
