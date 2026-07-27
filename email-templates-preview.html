@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orange Future Tech - Email Template Suite &amp; Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #0b0f17;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #111827;
+      border-bottom: 3px solid #ff6b00;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+    .brand span {
+      color: #ff6b00;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .top-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      background-color: #ff6b00;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #e05e00;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background-color: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+    }
+    .btn-secondary:hover {
+      background-color: #334155;
+      color: #ffffff;
+    }
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    sidebar {
+      width: 320px;
+      background-color: #0f172a;
+      border-right: 1px solid #1e293b;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ff6b00;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+    .nav-item {
+      padding: 14px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #1e293b;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+      background-color: #334155;
+      border-color: #475569;
+    }
+    .nav-item.active {
+      background-color: rgba(255, 107, 0, 0.15);
+      border-color: #ff6b00;
+    }
+    .nav-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .nav-item.active .nav-item-title {
+      color: #ff6b00;
+    }
+    .nav-item-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    main {
+      flex: 1;
+      background-color: #0b0f17;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+    }
+    .preview-header {
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .preview-frame-wrapper {
+      width: 100%;
+      max-width: 680px;
+      background-color: #f4f6f9;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid #1e293b;
+      display: flex;
+      justify-content: center;
+    }
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 750px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      background-color: #ffffff;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #ff6b00;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand">ORANGE <span>FUTURE</span> TECH</div>
+      <div class="brand-sub">Email Template Management Suite</div>
+    </div>
+    <div class="top-actions">
+      <button class="btn btn-secondary" onclick="copyCurrentHTML()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+          <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+        </svg>
+        Copy Current HTML
+      </button>
+      <a id="download-link" href="email-template.html" download class="btn">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+        </svg>
+        Download File
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <sidebar>
+      <div class="sidebar-title">AVAILABLE TEMPLATES (7)</div>
+
+      <div class="nav-item active" onclick="loadTemplate('email-template.html', 'Project Launch & Completion', this)">
+        <div class="nav-item-title">1. Project Completion</div>
+        <div class="nav-item-desc">Official launch announcement &amp; executive summary</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-welcome.html', 'Welcome & Onboarding', this)">
+        <div class="nav-item-title">2. Client Onboarding</div>
+        <div class="nav-item-desc">Welcome email, portal link &amp; kickoff checklist</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-proposal.html', 'Project Proposal', this)">
+        <div class="nav-item-title">3. Project Proposal</div>
+        <div class="nav-item-desc">Technical scope breakdown, estimate &amp; sign-off CTA</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-status-update.html', 'Weekly Status Report', this)">
+        <div class="nav-item-title">4. Status &amp; Progress</div>
+        <div class="nav-item-desc">Sprint milestone tracker, progress bar &amp; staging build link</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-invoice.html', 'Invoice & Billing Notice', this)">
+        <div class="nav-item-title">5. Invoice &amp; Payment</div>
+        <div class="nav-item-desc">Itemized bill, payment due date &amp; UPI/Bank details</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-maintenance.html', 'Scheduled Maintenance', this)">
+        <div class="nav-item-title">6. Server Maintenance</div>
+        <div class="nav-item-desc">Downtime notice, impacted systems &amp; status page CTA</div>
+      </div>
+
+      <div class="nav-item" onclick="loadTemplate('email-template-meeting.html', 'Meeting & Consultation', this)">
+        <div class="nav-item-title">7. Meeting Confirmation</div>
+        <div class="nav-item-desc">Consultation call invite, agenda &amp; Google Meet link</div>
+      </div>
+    </sidebar>
+
+    <main>
+      <div class="preview-header">
+        <div class="preview-title" id="active-title">Project Completion &amp; Official Launch</div>
+      </div>
+
+      <div class="preview-frame-wrapper">
+        <iframe id="preview-frame" src="email-template.html"></iframe>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">HTML Copied to Clipboard!</div>
+
+  <script>
+    let currentFile = 'email-template.html';
+
+    function loadTemplate(file, title, element) {
+      currentFile = file;
+      document.getElementById('preview-frame').src = file;
+      document.getElementById('active-title').innerText = title;
+      document.getElementById('download-link').href = file;
+
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    async function copyCurrentHTML() {
+      try {
+        const response = await fetch(currentFile);
+        const text = await response.text();
+        await navigator.clipboard.writeText(text);
+        showToast();
+      } catch (err) {
+        alert('Failed to copy HTML: ' + err);
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
