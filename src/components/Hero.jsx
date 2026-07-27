@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play, ChevronDown } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play } from 'lucide-react';
 
 export default function Hero({ onOpenAi, darkMode }) {
   return (
@@ -94,8 +94,8 @@ export default function Hero({ onOpenAi, darkMode }) {
               darkMode ? 'bg-[#0B0F17]/90 border-slate-800' : 'bg-white/90 border-slate-200'
             }`}>
               <img
-                src="/assets/svg/software-development.svg"
-                alt="Orange Future Tech Software Development Animation"
+                src="/assets/svg/coding.svg"
+                alt="Orange Future Tech Coding Animation"
                 class="w-full h-auto object-contain max-h-[360px] drop-shadow-xl"
               />
             </div>

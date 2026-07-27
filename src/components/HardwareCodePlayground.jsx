@@ -162,8 +162,8 @@ void loop() {
 
                 <div class="lg:col-span-5 flex items-center justify-center p-2">
                   <img
-                    src="/assets/svg/coding.svg"
-                    alt="Coding Animation"
+                    src="/assets/svg/software-development.svg"
+                    alt="Software Development Animation"
                     class="w-full h-auto max-h-56 object-contain drop-shadow-lg"
                   />
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Zap, Lock, Cpu, Activity, ArrowUpRight, Gauge, Radio } from 'lucide-react';
+import { ShieldCheck, Zap, Lock, Activity, Gauge } from 'lucide-react';
 
 export default function BentoGridSection({ darkMode }) {
   const containerVariants = {
@@ -61,7 +61,7 @@ export default function BentoGridSection({ darkMode }) {
               </p>
             </div>
 
-            <div class="mt-10 pt-6 flex items-center justify-between border-t border-slate-200/20">
+            <div class="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between border-t border-slate-200/20 gap-4">
               <div class="flex items-center gap-6 text-xs font-mono-code text-slate-400">
                 <span class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -90,17 +90,19 @@ export default function BentoGridSection({ darkMode }) {
           >
             <div>
               <h3 class={`text-xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Breach-free Security.
+                Breach-free AI &amp; Security.
               </h3>
-              <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Hardware-encrypted access control and institutional ID card platforms deployed at premier research institutes.
+              <p class={`mt-2 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                Hardware-encrypted access control &amp; neural AI brain architectures deployed at premier research institutes.
               </p>
             </div>
 
-            <div class="mt-8 flex justify-center items-center py-6">
-              <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-[#FF6B00]/20 to-amber-500/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shadow-lg group-hover:rotate-12 transition-transform duration-500">
-                <ShieldCheck class="w-12 h-12" />
-              </div>
+            <div class="mt-6 flex justify-center items-center py-4 relative">
+              <img
+                src="/assets/svg/ai-brain-board.svg"
+                alt="AI Brain Board Vector Animation"
+                class="w-full h-auto max-h-36 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500"
+              />
             </div>
           </motion.div>
 
