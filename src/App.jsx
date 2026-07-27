@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Highlights from './components/Highlights';
 import Verticals from './components/Verticals';
 import BentoGridSection from './components/BentoGridSection';
+import IsometricStageSection from './components/IsometricStageSection';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
 import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
 import AiAssistantModal from './components/AiAssistantModal';
@@ -36,6 +37,7 @@ export default function App() {
         <Highlights darkMode={darkMode} />
         <Verticals onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
         <BentoGridSection darkMode={darkMode} />
+        <IsometricStageSection darkMode={darkMode} />
         <HardwareCodePlayground darkMode={darkMode} />
         <ElectronicsSolutionsSection onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
         <ContactSection darkMode={darkMode} />
