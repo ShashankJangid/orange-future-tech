@@ -17,10 +17,10 @@ export default function Hero({ onOpenAi, darkMode }) {
             class="lg:col-span-7 text-left"
           >
             <div
-              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 border backdrop-blur-md shadow-sm"
+              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code font-bold uppercase mb-6 border backdrop-blur-md shadow-sm"
               style={{
-                borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.25)',
-                backgroundColor: darkMode ? 'rgba(255, 107, 0, 0.08)' : 'rgba(255, 107, 0, 0.06)',
+                borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+                backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
                 color: '#FF6B00'
               }}
             >
@@ -48,7 +48,7 @@ export default function Hero({ onOpenAi, darkMode }) {
                 href="https://cardgen.orangefuturetech.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-7 py-3.5 rounded-xl bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/25 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer group"
+                class="px-7 py-3.5 rounded-[7px] bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/25 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer group"
               >
                 <Play class="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
                 <span>Launch Live CardGen Demo</span>
@@ -57,10 +57,10 @@ export default function Hero({ onOpenAi, darkMode }) {
 
               <a
                 href="#contact"
-                class={`px-7 py-3.5 rounded-xl font-semibold text-xs border transition-all hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer ${
+                class={`px-7 py-3.5 rounded-[7px] font-semibold text-xs border transition-all hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer backdrop-blur-md ${
                   darkMode 
-                    ? 'bg-slate-900/90 border-slate-700 text-slate-200 hover:border-slate-500 hover:bg-slate-800' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50 shadow-sm'
+                    ? 'bg-slate-900/80 border-slate-700 text-slate-200 hover:border-slate-500 hover:bg-slate-800' 
+                    : 'bg-white/80 border-slate-300 text-slate-800 hover:bg-slate-50 shadow-sm'
                 }`}
               >
                 <span>Consult Engineers</span>

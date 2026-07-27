@@ -29,7 +29,14 @@ export default function BentoGridSection({ darkMode }) {
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
         <div class="mb-14">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono-code text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-bold uppercase mb-4">
+          <div 
+            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-bold mb-4 border backdrop-blur-md shadow-sm"
+            style={{
+              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              color: '#FF6B00'
+            }}
+          >
             <span>Features</span>
           </div>
           <h2 class={`text-4xl sm:text-5xl font-extrabold font-['Orbitron',sans-serif] tracking-tight leading-tight ${

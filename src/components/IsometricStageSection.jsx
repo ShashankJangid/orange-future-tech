@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowUpRight, ShieldCheck, Cpu, Radio, Code2, Zap } from 'lucide-react';
+import { Sparkles, ArrowUpRight } from 'lucide-react';
 
 export default function IsometricStageSection({ darkMode }) {
   const [activeHotspot, setActiveHotspot] = useState('cloud');
@@ -49,7 +49,14 @@ export default function IsometricStageSection({ darkMode }) {
           transition={{ duration: 0.6 }}
           class="text-center mb-12"
         >
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono-code text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-bold uppercase mb-3">
+          <div 
+            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-bold mb-3 border backdrop-blur-md shadow-sm"
+            style={{
+              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              color: '#FF6B00'
+            }}
+          >
             <Sparkles class="w-3.5 h-3.5" />
             <span>High-End 3D Engineering Platform</span>
           </div>
@@ -91,7 +98,7 @@ export default function IsometricStageSection({ darkMode }) {
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6B00] opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-4 w-4 bg-[#FF6B00] border-2 border-white shadow-lg"></span>
                 </span>
-                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-slate-950/90 text-[10px] font-mono-code text-white border border-[#FF6B00] whitespace-nowrap shadow-xl">
+                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-[7px] bg-slate-950/90 text-[10px] font-mono-code text-white border border-[#FF6B00] whitespace-nowrap shadow-xl">
                   Cloud &amp; AI Engine
                 </span>
               </div>
@@ -104,7 +111,7 @@ export default function IsometricStageSection({ darkMode }) {
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-4 w-4 bg-[#00F0FF] border-2 border-white shadow-lg"></span>
                 </span>
-                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-slate-950/90 text-[10px] font-mono-code text-white border border-[#00F0FF] whitespace-nowrap shadow-xl">
+                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-[7px] bg-slate-950/90 text-[10px] font-mono-code text-white border border-[#00F0FF] whitespace-nowrap shadow-xl">
                   Custom PCB Layout
                 </span>
               </div>
@@ -117,7 +124,7 @@ export default function IsometricStageSection({ darkMode }) {
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-400 border-2 border-white shadow-lg"></span>
                 </span>
-                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-slate-950/90 text-[10px] font-mono-code text-white border border-emerald-400 whitespace-nowrap shadow-xl">
+                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-[7px] bg-slate-950/90 text-[10px] font-mono-code text-white border border-emerald-400 whitespace-nowrap shadow-xl">
                   IoT Gateway
                 </span>
               </div>
@@ -130,7 +137,7 @@ export default function IsometricStageSection({ darkMode }) {
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-4 w-4 bg-purple-400 border-2 border-white shadow-lg"></span>
                 </span>
-                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-slate-950/90 text-[10px] font-mono-code text-white border border-purple-400 whitespace-nowrap shadow-xl">
+                <span class="absolute top-7 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-[7px] bg-slate-950/90 text-[10px] font-mono-code text-white border border-purple-400 whitespace-nowrap shadow-xl">
                   Access Portal
                 </span>
               </div>
@@ -140,7 +147,7 @@ export default function IsometricStageSection({ darkMode }) {
               <span class="text-slate-400">Interactive Hotspots:</span>
               <button
                 onClick={() => setActiveHotspot('cloud')}
-                class={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                class={`px-3 py-1.5 rounded-[7px] border transition-all cursor-pointer ${
                   activeHotspot === 'cloud' ? 'bg-[#FF6B00] text-white border-[#FF6B00] shadow-md' : 'bg-slate-900 text-slate-300 border-slate-800'
                 }`}
               >
@@ -148,7 +155,7 @@ export default function IsometricStageSection({ darkMode }) {
               </button>
               <button
                 onClick={() => setActiveHotspot('pcb')}
-                class={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                class={`px-3 py-1.5 rounded-[7px] border transition-all cursor-pointer ${
                   activeHotspot === 'pcb' ? 'bg-[#00F0FF] text-slate-950 font-bold border-[#00F0FF] shadow-md' : 'bg-slate-900 text-slate-300 border-slate-800'
                 }`}
               >
@@ -156,7 +163,7 @@ export default function IsometricStageSection({ darkMode }) {
               </button>
               <button
                 onClick={() => setActiveHotspot('iot')}
-                class={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                class={`px-3 py-1.5 rounded-[7px] border transition-all cursor-pointer ${
                   activeHotspot === 'iot' ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-500 shadow-md' : 'bg-slate-900 text-slate-300 border-slate-800'
                 }`}
               >
@@ -164,7 +171,7 @@ export default function IsometricStageSection({ darkMode }) {
               </button>
               <button
                 onClick={() => setActiveHotspot('access')}
-                class={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                class={`px-3 py-1.5 rounded-[7px] border transition-all cursor-pointer ${
                   activeHotspot === 'access' ? 'bg-purple-500 text-white border-purple-500 shadow-md' : 'bg-slate-900 text-slate-300 border-slate-800'
                 }`}
               >
@@ -204,7 +211,7 @@ export default function IsometricStageSection({ darkMode }) {
                 </p>
 
                 {activeInfo.metric && (
-                  <div class="mt-6 p-3.5 rounded-xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-xs font-mono-code font-bold text-[#FF6B00]">
+                  <div class="mt-6 p-3.5 rounded-[7px] bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-xs font-mono-code font-bold text-[#FF6B00]">
                     {activeInfo.metric}
                   </div>
                 )}
@@ -212,7 +219,7 @@ export default function IsometricStageSection({ darkMode }) {
                 <div class="mt-8 pt-6 border-t border-slate-200/20">
                   <a
                     href="#contact"
-                    class="w-full py-3.5 rounded-xl bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                    class="w-full py-3.5 rounded-[7px] bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
                   >
                     <span>Request Engineering Scope</span>
                     <ArrowUpRight class="w-4 h-4" />

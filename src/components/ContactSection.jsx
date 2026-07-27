@@ -40,7 +40,7 @@ export default function ContactSection({ darkMode }) {
   };
 
   return (
-    <section id="contact" class="py-24 relative z-10">
+    <section id="contact" class="py-24 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
       <div class="max-w-5xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -49,8 +49,17 @@ export default function ContactSection({ darkMode }) {
           transition={{ duration: 0.6 }}
           class="text-center mb-16"
         >
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00] font-semibold">Start A Conversation</span>
-          <h2 class={`text-3xl sm:text-4xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+          <span 
+            class="inline-block px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-semibold mb-1 border backdrop-blur-md shadow-sm"
+            style={{
+              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              color: '#FF6B00'
+            }}
+          >
+            Start A Conversation
+          </span>
+          <h2 class={`text-3xl sm:text-4xl font-bold font-['Orbitron',sans-serif] mt-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             CONNECT WITH OUR ENGINEERS
           </h2>
           <p class={`mt-3 text-sm sm:text-base max-w-lg mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -64,8 +73,8 @@ export default function ContactSection({ darkMode }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            class={`p-8 rounded-2xl border flex flex-col justify-between shadow-xl ${
-              darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+            class={`p-8 rounded-3xl border flex flex-col justify-between shadow-xl ${
+              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
             }`}
           >
             <div>
@@ -79,11 +88,11 @@ export default function ContactSection({ darkMode }) {
               <div class="mt-8 space-y-4">
                 <a
                   href="mailto:teams@orangefuturetech.com"
-                  class={`flex items-center gap-3.5 p-4 rounded-xl border transition-all hover:-translate-y-0.5 ${
-                    darkMode ? 'bg-slate-950 border-slate-800 text-white hover:border-[#FF6B00]/50' : 'bg-slate-50 border-slate-200 text-slate-900 hover:border-slate-300'
+                  class={`flex items-center gap-3.5 p-4 rounded-2xl border transition-all hover:-translate-y-0.5 ${
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white hover:border-[#FF6B00]/50' : 'bg-white border-slate-200 text-slate-900 hover:border-slate-300'
                   }`}
                 >
-                  <div class="p-2.5 rounded-lg bg-[#FF6B00]/10 text-[#FF6B00]">
+                  <div class="p-2.5 rounded-xl bg-[#FF6B00]/10 text-[#FF6B00]">
                     <Mail class="w-5 h-5" />
                   </div>
                   <div>
@@ -92,10 +101,10 @@ export default function ContactSection({ darkMode }) {
                   </div>
                 </a>
 
-                <div class={`flex items-center gap-3.5 p-4 rounded-xl border ${
-                  darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                <div class={`flex items-center gap-3.5 p-4 rounded-2xl border ${
+                  darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
                 }`}>
-                  <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                  <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500">
                     <Clock class="w-5 h-5" />
                   </div>
                   <div>
@@ -117,8 +126,8 @@ export default function ContactSection({ darkMode }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            class={`p-8 rounded-2xl border shadow-xl ${
-              darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'
+            class={`p-8 rounded-3xl border shadow-xl ${
+              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
             }`}
           >
             <form onSubmit={handleSubmit} class="space-y-4">
@@ -133,7 +142,7 @@ export default function ContactSection({ darkMode }) {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g., Alex Mercer"
                   class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
-                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400'
                   }`}
                 />
               </div>
@@ -149,7 +158,7 @@ export default function ContactSection({ darkMode }) {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="alex@company.com"
                   class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
-                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400'
                   }`}
                 />
               </div>
@@ -165,7 +174,7 @@ export default function ContactSection({ darkMode }) {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Describe your software, PCB design, or IoT requirements..."
                   class={`w-full px-4 py-3 rounded-xl border text-xs transition-colors focus:outline-none focus:border-[#FF6B00] ${
-                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
+                    darkMode ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400'
                   }`}
                 ></textarea>
               </div>
@@ -173,7 +182,7 @@ export default function ContactSection({ darkMode }) {
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                class="w-full py-3.5 rounded-xl bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                class="w-full py-3.5 rounded-[7px] bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
                 {status === 'submitting' ? (
                   <span>Sending Inquiry...</span>
@@ -186,14 +195,14 @@ export default function ContactSection({ darkMode }) {
               </button>
 
               {status === 'success' && (
-                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-mono-code flex items-center gap-2">
+                <div class="p-3 rounded-[7px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-mono-code flex items-center gap-2">
                   <CheckCircle2 class="w-4 h-4 shrink-0" />
                   <span>Message sent successfully! Our engineering team will reply shortly.</span>
                 </div>
               )}
 
               {status === 'error' && (
-                <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
+                <div class="p-3 rounded-[7px] bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
                   <AlertCircle class="w-4 h-4 shrink-0" />
                   <span>Failed to send via API. Please email teams@orangefuturetech.com directly.</span>
                 </div>

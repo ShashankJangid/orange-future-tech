@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building2, School, Award, CheckCircle2, ShieldCheck, Bell, Monitor, CreditCard } from 'lucide-react';
+import { Building2, School, Award, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function Highlights({ darkMode }) {
   const deployments = [
@@ -31,7 +31,7 @@ export default function Highlights({ darkMode }) {
   ];
 
   return (
-    <section id="highlights" class="py-20 relative z-10">
+    <section id="highlights" class="py-20 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
       <div class="max-w-5xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,14 @@ export default function Highlights({ darkMode }) {
           transition={{ duration: 0.6 }}
           class="text-center mb-14"
         >
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono-code uppercase text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/20 mb-3 font-semibold">
+          <div 
+            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-semibold mb-3 border backdrop-blur-md shadow-sm"
+            style={{
+              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              color: '#FF6B00'
+            }}
+          >
             <Award class="w-3.5 h-3.5" />
             <span>Proven Production Track Record</span>
           </div>
@@ -62,13 +69,13 @@ export default function Highlights({ darkMode }) {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                class={`p-7 rounded-2xl border relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between ${
-                  darkMode ? 'bg-[#0B0F17] border-slate-800 hover:border-[#FF6B00]/40' : 'bg-white border-slate-200 shadow-md hover:border-slate-300'
+                class={`p-7 rounded-3xl border relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between ${
+                  darkMode ? 'bg-[#0E131F] border-slate-800 hover:border-[#FF6B00]/40' : 'bg-slate-50 border-slate-200/80 shadow-sm hover:border-slate-300'
                 }`}
               >
                 <div>
                   <div class="flex items-start gap-4 mb-4">
-                    <div class="p-3.5 rounded-xl bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20 shrink-0 shadow-sm">
+                    <div class="p-3.5 rounded-2xl bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20 shrink-0 shadow-sm">
                       <IconComp class="w-6 h-6" />
                     </div>
                     <div>

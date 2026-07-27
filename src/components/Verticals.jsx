@@ -58,7 +58,16 @@ export default function Verticals({ onOpenAi, darkMode }) {
           transition={{ duration: 0.6 }}
           class="text-center mb-16"
         >
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00] font-semibold">Core Engineering Capabilities</span>
+          <span 
+            class="inline-block px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-semibold mb-2 border backdrop-blur-md shadow-sm"
+            style={{
+              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              color: '#FF6B00'
+            }}
+          >
+            Core Engineering Capabilities
+          </span>
           <h2 class={`text-3xl sm:text-5xl font-extrabold font-['Orbitron',sans-serif] mt-2 tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             OUR CORE VERTICALS
           </h2>
@@ -77,11 +86,18 @@ export default function Verticals({ onOpenAi, darkMode }) {
           }`}
         >
           <div class="space-y-3 flex-1 text-left relative z-10">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono-code text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-bold uppercase">
+            <div 
+              class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code font-bold uppercase border backdrop-blur-md shadow-sm"
+              style={{
+                borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
+                backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+                color: '#FF6B00'
+              }}
+            >
               <Sparkles class="w-3.5 h-3.5" />
               <span>LIVE SOFTWARE DEMO AVAILABLE</span>
             </div>
-            <h3 class={`text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            <h3 class={`text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-[#FF6B00]' : 'text-slate-900'}`}>
               CardGen – Institutional Smart ID Software
             </h3>
             <p class={`text-xs sm:text-sm leading-relaxed max-w-xl ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -97,7 +113,7 @@ export default function Verticals({ onOpenAi, darkMode }) {
                 href="https://cardgen.orangefuturetech.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-[7px] bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
               >
                 <span>Launch Live CardGen Demo</span>
                 <ExternalLink class="w-4 h-4" />
