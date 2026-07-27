@@ -4,10 +4,10 @@
 
 @layer utilities {
   .font-orbitron {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', 'Outfit', sans-serif;
   }
   .font-mono-code {
-    font-family: 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
   .glass-card-dark {
     background: rgba(13, 17, 23, 0.75);
@@ -27,6 +27,14 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', 'Outfit', sans-serif;
 }
 
 ::-webkit-scrollbar {
