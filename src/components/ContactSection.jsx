@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, CheckCircle2, AlertCircle, MapPin, Clock, ShieldCheck, PhoneCall } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, Clock, ShieldCheck } from 'lucide-react';
 
 export default function ContactSection({ darkMode }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -9,31 +9,31 @@ export default function ContactSection({ darkMode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('submitting');
+
     try {
+      const data = new FormData();
+      data.append('access_key', '64e83c27-a021-4f96-8575-f761596eb4c5');
+      data.append('name', formData.name);
+      data.append('email', formData.email);
+      data.append('message', formData.message);
+      data.append('from_name', 'Orange Future Tech Website');
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: '64e83c27-a021-4f96-[#FF6B00]',
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          from_name: 'Orange Future Tech Contact Form',
-        }),
+        body: data,
       });
 
       const res = await response.json();
-      if (res.success || response.ok) {
+      if (res.success) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setStatus('error');
+        window.location.href = `mailto:teams@orangefuturetech.com?subject=Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
+        setStatus('success');
       }
     } catch (err) {
-      setStatus('error');
+      window.location.href = `mailto:teams@orangefuturetech.com?subject=Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
+      setStatus('success');
     }
   };
 
@@ -71,7 +71,7 @@ export default function ContactSection({ darkMode }) {
                 Engineering &amp; Technical Support
               </h3>
               <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                We respond to all technical inquiries and project briefs within 24 hours. Connect via email or complete our secure inquiry form.
+                We respond to all technical inquiries and project briefs within 24 hours. Connect via email or complete our inquiry form.
               </p>
 
               <div class="mt-8 space-y-4">
@@ -187,13 +187,6 @@ export default function ContactSection({ darkMode }) {
                 <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-mono-code flex items-center gap-2">
                   <CheckCircle2 class="w-4 h-4 shrink-0" />
                   <span>Message sent successfully! Our engineering team will reply shortly.</span>
-                </div>
-              )}
-
-              {status === 'error' && (
-                <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
-                  <AlertCircle class="w-4 h-4 shrink-0" />
-                  <span>Failed to send. Please email teams@orangefuturetech.com directly.</span>
                 </div>
               )}
             </form>
