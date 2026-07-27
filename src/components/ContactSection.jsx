@@ -11,29 +11,31 @@ export default function ContactSection({ darkMode }) {
     setStatus('submitting');
 
     try {
-      const data = new FormData();
-      data.append('access_key', '64e83c27-a021-4f96-8575-f761596eb4c5');
-      data.append('name', formData.name);
-      data.append('email', formData.email);
-      data.append('message', formData.message);
-      data.append('from_name', 'Orange Future Tech Website');
-
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'c94d4135-0008-4714-a81a-698f4d6ad1fd',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          from_name: 'Orange Future Tech Website Contact Form',
+          subject: 'New Technical Inquiry from ' + formData.name
+        }),
       });
 
       const res = await response.json();
-      if (res.success) {
+      if (res.success || response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        window.location.href = `mailto:teams@orangefuturetech.com?subject=Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
-        setStatus('success');
+        setStatus('error');
       }
     } catch (err) {
-      window.location.href = `mailto:teams@orangefuturetech.com?subject=Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
-      setStatus('success');
+      setStatus('error');
     }
   };
 
@@ -187,6 +189,13 @@ export default function ContactSection({ darkMode }) {
                 <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-mono-code flex items-center gap-2">
                   <CheckCircle2 class="w-4 h-4 shrink-0" />
                   <span>Message sent successfully! Our engineering team will reply shortly.</span>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
+                  <AlertCircle class="w-4 h-4 shrink-0" />
+                  <span>Failed to send via API. Please email teams@orangefuturetech.com directly.</span>
                 </div>
               )}
             </form>
