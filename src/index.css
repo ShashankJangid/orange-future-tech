@@ -37,16 +37,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', 'Outfit', sans-serif;
 }
 
-a[href*="spline.design"],
-a[href*="spline.com"],
-#spline-watermark,
-.spline-watermark {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
 ::-webkit-scrollbar {
   width: 6px;
 }
