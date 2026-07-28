@@ -59,16 +59,16 @@ export default function Verticals({ onOpenAi, darkMode }) {
           class="text-center mb-16"
         >
           <span 
-            class="inline-block px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-semibold mb-2 border backdrop-blur-md shadow-sm"
+            class="inline-block px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code uppercase font-bold mb-2 border backdrop-blur-md shadow-sm"
             style={{
               borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
-              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.8)',
               color: '#FF6B00'
             }}
           >
             Core Engineering Capabilities
           </span>
-          <h2 class={`text-3xl sm:text-5xl font-extrabold font-['Orbitron',sans-serif] mt-2 tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+          <h2 class={`text-3xl sm:text-5xl font-extrabold font-['Space_Grotesk',sans-serif] mt-2 tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             OUR CORE VERTICALS
           </h2>
           <p class={`mt-3 text-sm sm:text-base max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -82,22 +82,22 @@ export default function Verticals({ onOpenAi, darkMode }) {
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           class={`mb-14 rounded-3xl p-8 border relative overflow-hidden transition-all duration-300 hover:shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 group ${
-            darkMode ? 'bg-[#0E131F] border-[#FF6B00]/40' : 'bg-slate-50 border-slate-200/80 shadow-sm'
+            darkMode ? 'bg-[#0E131F] border-[#FF6B00]/40' : 'bg-white border-slate-200/90 shadow-md hover:border-[#FF6B00]/40'
           }`}
         >
           <div class="space-y-3 flex-1 text-left relative z-10">
             <div 
-              class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code font-bold uppercase border backdrop-blur-md shadow-sm"
+              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code font-bold uppercase border backdrop-blur-md shadow-sm"
               style={{
                 borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
-                backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+                backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.8)',
                 color: '#FF6B00'
               }}
             >
               <Sparkles class="w-3.5 h-3.5" />
               <span>LIVE SOFTWARE DEMO AVAILABLE</span>
             </div>
-            <h3 class={`text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-[#FF6B00]' : 'text-slate-900'}`}>
+            <h3 class={`text-xl sm:text-2xl font-extrabold font-['Space_Grotesk',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
               CardGen – Institutional Smart ID Software
             </h3>
             <p class={`text-xs sm:text-sm leading-relaxed max-w-xl ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -144,7 +144,7 @@ export default function Verticals({ onOpenAi, darkMode }) {
                 class={`rounded-3xl border p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group ${
                   darkMode 
                     ? 'bg-[#0E131F] border-slate-800 hover:border-slate-700' 
-                    : 'bg-slate-50 border-slate-200/80 shadow-sm hover:border-slate-300'
+                    : 'bg-white border-slate-200/90 shadow-md hover:border-[#FF6B00]/40'
                 }`}
               >
                 <div>
@@ -152,8 +152,11 @@ export default function Verticals({ onOpenAi, darkMode }) {
                     <IconComp class="w-7 h-7" />
                   </div>
 
-                  <span class="text-[11px] font-mono-code uppercase text-[#FF6B00] font-bold tracking-wider">{vert.subtitle}</span>
-                  <h3 class={`text-xl font-bold font-['Orbitron',sans-serif] mt-1.5 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  <span class="inline-block px-2.5 py-0.5 rounded-[7px] text-[10px] font-mono-code text-[#FF6B00] font-bold tracking-wider uppercase bg-[#FF6B00]/10 border border-[#FF6B00]/20 mb-2">
+                    {vert.subtitle}
+                  </span>
+                  
+                  <h3 class={`text-xl font-extrabold font-['Space_Grotesk',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                     {vert.title}
                   </h3>
 
@@ -171,7 +174,7 @@ export default function Verticals({ onOpenAi, darkMode }) {
                   </ul>
                 </div>
 
-                <div class="mt-8 pt-5 border-t border-slate-200/20">
+                <div class="mt-8 pt-5 border-t border-slate-200/30">
                   <button
                     onClick={onOpenAi}
                     class="w-full flex items-center justify-between text-xs font-bold text-[#FF6B00] hover:underline cursor-pointer group/link"
