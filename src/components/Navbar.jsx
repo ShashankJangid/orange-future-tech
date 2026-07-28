@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Cpu, Menu, X, Sparkles, Sun, Moon, ExternalLink } from 'lucide-react';
+import { Menu, X, Sparkles, Sun, Moon, ExternalLink } from 'lucide-react';
+import SplineLogo from './SplineLogo';
 
 export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,11 +20,9 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
         : 'bg-white/80 border-slate-200 text-slate-900'
     }`}>
       <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-2.5 group">
-          <div class="w-8 h-8 rounded-lg bg-[#FF6B00] flex items-center justify-center text-white font-bold shadow-md group-hover:scale-105 transition-transform">
-            <Cpu class="w-5 h-5" />
-          </div>
-          <span class="font-['Orbitron',sans-serif] font-bold text-sm tracking-wider">
+        <a href="#" class="flex items-center gap-3 group">
+          <SplineLogo className="w-10 h-10 rounded-xl" />
+          <span class="font-['Space_Grotesk',sans-serif] font-bold text-sm tracking-wider">
             ORANGE <span class="text-[#FF6B00]">FUTURE</span> TECH
           </span>
         </a>
@@ -47,7 +46,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
             href="https://cardgen.orangefuturetech.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="px-3.5 py-1.5 rounded-lg bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center gap-1.5 shadow-sm hover:shadow-md cursor-pointer"
+            class="px-3.5 py-1.5 rounded-[7px] bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center gap-1.5 shadow-sm hover:shadow-md cursor-pointer"
           >
             <span>Try CardGen App</span>
             <ExternalLink class="w-3.5 h-3.5" />
@@ -56,7 +55,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
           <button
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            class={`p-2 rounded-lg border transition-colors cursor-pointer ${
+            class={`p-2 rounded-[7px] border transition-colors cursor-pointer ${
               darkMode 
                 ? 'bg-slate-900 border-slate-700 text-amber-400 hover:bg-slate-800' 
                 : 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
@@ -67,7 +66,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
 
           <button
             onClick={onOpenAi}
-            class={`px-3.5 py-1.5 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+            class={`px-3.5 py-1.5 rounded-[7px] border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
               darkMode 
                 ? 'bg-slate-900 border-slate-700 text-slate-200 hover:border-slate-500' 
                 : 'bg-slate-100 border-slate-300 text-slate-800 hover:bg-slate-200'
@@ -81,7 +80,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
         <div class="flex items-center gap-2 md:hidden">
           <button
             onClick={() => setDarkMode(!darkMode)}
-            class={`p-2 rounded-lg border transition-colors ${
+            class={`p-2 rounded-[7px] border transition-colors ${
               darkMode ? 'bg-slate-900 border-slate-700 text-amber-400' : 'bg-slate-100 border-slate-300 text-slate-700'
             }`}
           >
@@ -90,7 +89,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            class={`p-2 rounded-lg ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}
+            class={`p-2 rounded-[7px] ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}
           >
             {menuOpen ? <X class="w-6 h-6" /> : <Menu class="w-6 h-6" />}
           </button>
@@ -118,7 +117,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
             href="https://cardgen.orangefuturetech.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full py-2 bg-[#FF6B00] text-white rounded-lg text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
+            class="w-full py-2 bg-[#FF6B00] text-white rounded-[7px] text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>Try CardGen Software</span>
             <ExternalLink class="w-3.5 h-3.5" />
@@ -129,7 +128,7 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
               setMenuOpen(false);
               onOpenAi();
             }}
-            class="w-full py-2 bg-slate-900 border border-slate-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
+            class="w-full py-2 bg-slate-900 border border-slate-700 text-white rounded-[7px] text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
           >
             <Sparkles class="w-3.5 h-3.5 text-[#FF6B00]" />
             <span>Ask OrangeAI</span>
