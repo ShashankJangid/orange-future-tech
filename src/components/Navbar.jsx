@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Menu, X, Sparkles, Sun, Moon, ExternalLink } from 'lucide-react';
-import SplineLogo from './SplineLogo';
 
 export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,7 +20,9 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
     }`}>
       <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <a href="#" class="flex items-center gap-3 group">
-          <SplineLogo className="w-10 h-10 rounded-xl" />
+          <div class="w-10 h-10 rounded-[7px] overflow-hidden border border-[#FF6B00]/30 shadow-md group-hover:scale-105 transition-transform">
+            <img src="/logo.jpg" alt="Orange Future Tech Logo" class="w-full h-full object-cover" />
+          </div>
           <span class="font-['Space_Grotesk',sans-serif] font-bold text-sm tracking-wider">
             ORANGE <span class="text-[#FF6B00]">FUTURE</span> TECH
           </span>

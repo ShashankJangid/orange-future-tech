@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play } from 'lucide-react';
+import SplineLogo from './SplineLogo';
 
 export default function Hero({ onOpenAi, darkMode }) {
   return (
@@ -28,7 +29,7 @@ export default function Hero({ onOpenAi, darkMode }) {
               <span class="tracking-wide">ENTERPRISE SOFTWARE • PCB ELECTRONICS • SMART AUTOMATION</span>
             </div>
 
-            <h1 class={`text-4xl sm:text-5xl lg:text-6xl font-extrabold font-['Orbitron',sans-serif] tracking-tight leading-[1.1] ${
+            <h1 class={`text-4xl sm:text-5xl lg:text-6xl font-extrabold font-['Space_Grotesk',sans-serif] tracking-tight leading-[1.1] ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>
               ENGINEERING THE <br />
@@ -90,14 +91,10 @@ export default function Hero({ onOpenAi, darkMode }) {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             class="lg:col-span-5 relative"
           >
-            <div class={`rounded-3xl border p-4 sm:p-6 shadow-2xl relative backdrop-blur-xl ${
+            <div class={`rounded-3xl border p-2 sm:p-4 shadow-2xl relative backdrop-blur-xl overflow-hidden ${
               darkMode ? 'bg-[#0B0F17]/90 border-slate-800' : 'bg-white/90 border-slate-200'
             }`}>
-              <img
-                src="/assets/svg/coding.svg"
-                alt="Orange Future Tech Coding Animation"
-                class="w-full h-auto object-contain max-h-[360px] drop-shadow-xl"
-              />
+              <SplineLogo className="w-full h-[380px] sm:h-[420px] rounded-2xl" />
             </div>
           </motion.div>
 
