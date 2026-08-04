@@ -19,13 +19,10 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
         : 'bg-white/80 border-slate-200 text-slate-900'
     }`}>
       <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-[7px] overflow-hidden border border-[#FF6B00]/30 shadow-md group-hover:scale-105 transition-transform">
-            <img src="/logo.jpg" alt="Orange Future Tech Logo" class="w-full h-full object-cover" />
+        <a href="#" class="flex items-center group">
+          <div class="h-11 py-1 px-3 bg-white rounded-lg border border-[#FF6B00]/40 shadow-sm flex items-center group-hover:scale-105 transition-transform">
+            <img src="/logo.png" alt="Orange Future Tech Logo" class="h-full w-auto object-contain" />
           </div>
-          <span class="font-['Space_Grotesk',sans-serif] font-bold text-sm tracking-wider">
-            ORANGE <span class="text-[#FF6B00]">FUTURE</span> TECH
-          </span>
         </a>
 
         <nav class="hidden md:flex items-center gap-6 text-xs font-semibold">

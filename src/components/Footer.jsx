@@ -7,12 +7,9 @@ export default function Footer({ darkMode }) {
     }`}>
       <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-['Plus_Jakarta_Sans',sans-serif]">
         <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-[7px] overflow-hidden border border-[#FF6B00]/30 shadow-sm">
-            <img src="/logo.jpg" alt="Orange Future Tech Logo" class="w-full h-full object-cover" />
+          <div class="h-9 py-1 px-2.5 bg-white rounded-md border border-[#FF6B00]/40 shadow-sm flex items-center">
+            <img src="/logo.png" alt="Orange Future Tech Logo" class="h-full w-auto object-contain" />
           </div>
-          <span class={`font-['Space_Grotesk',sans-serif] font-bold tracking-wide ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-            ORANGE <span class="text-[#FF6B00]">FUTURE</span> TECH
-          </span>
         </div>
 
         <div>
