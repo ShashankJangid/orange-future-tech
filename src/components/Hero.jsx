@@ -4,51 +4,46 @@ import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play } fro
 
 export default function Hero({ onOpenAi, darkMode }) {
   return (
-    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden z-10 font-['Plus_Jakarta_Sans',sans-serif]">
-      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-[#FF6B00]/15 via-amber-500/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden z-10 font-apple">
+      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FF6B00]/15 via-amber-500/10 to-transparent rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             class="lg:col-span-7 text-left"
           >
-            <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code font-bold uppercase mb-6 border backdrop-blur-md shadow-sm"
-              style={{
-                borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
-                backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
-                color: '#FF6B00'
-              }}
-            >
+            <div class={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono-code font-semibold tracking-wider uppercase mb-8 border backdrop-blur-xl shadow-sm ${
+              darkMode 
+                ? 'bg-slate-900/60 border-slate-800 text-[#FF6B00]' 
+                : 'bg-white/80 border-slate-200 text-[#FF6B00]'
+            }`}>
               <Sparkles class="w-3.5 h-3.5 animate-spin [animation-duration:4s]" />
-              <span class="tracking-wide">ENTERPRISE SOFTWARE • PCB ELECTRONICS • SMART AUTOMATION</span>
+              <span>ENTERPRISE SOFTWARE • PCB ELECTRONICS • SMART AUTOMATION</span>
             </div>
 
-            <h1 class={`text-4xl sm:text-5xl lg:text-6xl font-extrabold font-['Space_Grotesk',sans-serif] tracking-tight leading-[1.1] ${
+            <h1 class={`apple-h1 tracking-tight ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>
               ENGINEERING THE <br />
-              <span class="bg-gradient-to-r from-[#FF6B00] via-amber-400 to-[#FF6B00] bg-clip-text text-transparent drop-shadow-sm">
+              <span class="text-apple-gradient-orange drop-shadow-sm">
                 FUTURE OF TECH
               </span>
             </h1>
 
-            <p class={`mt-6 text-base sm:text-lg max-w-xl font-normal leading-relaxed ${
-              darkMode ? 'text-slate-400' : 'text-slate-600'
-            }`}>
+            <p class="mt-6 apple-subtitle max-w-xl font-normal leading-relaxed">
               High-concurrency enterprise web software, AI models, custom multi-layer PCB design, Smart Automation, and Industrial IoT solutions.
             </p>
 
-            <div class="mt-8 flex flex-wrap items-center gap-4">
+            <div class="mt-10 flex flex-wrap items-center gap-4">
               <a
                 href="https://cardgen.orangefuturetech.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-7 py-3.5 rounded-[7px] bg-[#FF6B00] text-white font-bold text-xs hover:bg-[#e05e00] transition-all shadow-lg hover:shadow-orange-500/25 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer group"
+                class="btn-apple-primary cursor-pointer group"
               >
                 <Play class="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
                 <span>Launch Live CardGen Demo</span>
@@ -57,18 +52,14 @@ export default function Hero({ onOpenAi, darkMode }) {
 
               <a
                 href="#contact"
-                class={`px-7 py-3.5 rounded-[7px] font-semibold text-xs border transition-all hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer backdrop-blur-md ${
-                  darkMode 
-                    ? 'bg-slate-900/80 border-slate-700 text-slate-200 hover:border-slate-500 hover:bg-slate-800' 
-                    : 'bg-white/80 border-slate-300 text-slate-800 hover:bg-slate-50 shadow-sm'
-                }`}
+                class="btn-apple-secondary cursor-pointer"
               >
                 <span>Consult Engineers</span>
                 <ArrowRight class="w-4 h-4" />
               </a>
             </div>
 
-            <div class="mt-12 pt-6 border-t border-slate-200/20 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-mono-code">
+            <div class="mt-14 pt-6 border-t border-slate-200/15 flex flex-wrap items-center gap-8 text-xs text-slate-500 font-mono-code">
               <div class="flex items-center gap-2">
                 <ShieldCheck class="w-4 h-4 text-[#FF6B00]" />
                 <span>ENTERPRISE SOFTWARE</span>
@@ -85,18 +76,16 @@ export default function Hero({ onOpenAi, darkMode }) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            initial={{ opacity: 0, scale: 0.95, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             class="lg:col-span-5 relative"
           >
-            <div class={`rounded-3xl border p-4 sm:p-6 shadow-2xl relative backdrop-blur-xl ${
-              darkMode ? 'bg-[#0B0F17]/90 border-slate-800' : 'bg-white/90 border-slate-200'
-            }`}>
+            <div class="glass-apple-card p-6 relative">
               <img
                 src="/assets/svg/coding.svg"
                 alt="Orange Future Tech Coding Animation"
-                class="w-full h-auto object-contain max-h-[360px] drop-shadow-xl"
+                class="w-full h-auto object-contain max-h-[360px] drop-shadow-lg transition-transform duration-500 hover:scale-[1.02]"
               />
             </div>
           </motion.div>

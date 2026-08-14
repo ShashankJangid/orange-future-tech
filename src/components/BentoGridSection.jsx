@@ -8,14 +8,14 @@ export default function BentoGridSection({ darkMode }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1
+        staggerChildren: 0.1,
+        delayChildren: 0.05
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 35, scale: 0.97 },
+    hidden: { opacity: 0, y: 30, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
@@ -25,24 +25,21 @@ export default function BentoGridSection({ darkMode }) {
   };
 
   return (
-    <section class="py-24 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
+    <section class="py-24 relative z-10 font-apple">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
         <div class="mb-14">
-          <div 
-            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-[7px] text-xs font-mono-code uppercase font-bold mb-4 border backdrop-blur-md shadow-sm"
-            style={{
-              borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
-              backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.6)',
-              color: '#FF6B00'
-            }}
-          >
-            <span>Features</span>
+          <div class={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono-code uppercase font-semibold mb-4 border backdrop-blur-xl ${
+            darkMode 
+              ? 'bg-slate-900/60 border-slate-800 text-[#FF6B00]' 
+              : 'bg-white/80 border-slate-200 text-[#FF6B00]'
+          }`}>
+            <span>Features &amp; Capabilities</span>
           </div>
-          <h2 class={`text-4xl sm:text-5xl font-extrabold font-['Orbitron',sans-serif] tracking-tight leading-tight ${
+          <h2 class={`apple-h2 tracking-tight ${
             darkMode ? 'text-white' : 'text-slate-900'
           }`}>
-            Where your ambition<br />meets velocity.
+            Where ambition meets velocity.
           </h2>
         </div>
 
@@ -55,14 +52,12 @@ export default function BentoGridSection({ darkMode }) {
         >
           <motion.div
             variants={itemVariants}
-            class={`md:col-span-2 rounded-3xl p-8 sm:p-10 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl group ${
-              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
-            }`}
+            class="md:col-span-2 glass-apple-card hover-apple-lift p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group"
           >
             <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
               <div class="sm:col-span-7">
-                <h3 class={`text-2xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Every architecture, Turbo charged.
+                <h3 class={`text-2xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Every architecture, turbo-charged.
                 </h3>
                 <p class={`mt-3 text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                   Enterprise cloud software, neural AI models, custom multi-layer PCB hardware, and industrial IoT automation engineered from a single unified platform.
@@ -78,7 +73,7 @@ export default function BentoGridSection({ darkMode }) {
               </div>
             </div>
 
-            <div class="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between border-t border-slate-200/20 gap-4">
+            <div class="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between border-t border-slate-200/15 gap-4">
               <div class="flex items-center gap-6 text-xs font-mono-code text-slate-400">
                 <span class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -101,13 +96,11 @@ export default function BentoGridSection({ darkMode }) {
 
           <motion.div
             variants={itemVariants}
-            class={`md:col-span-1 rounded-3xl p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl group ${
-              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
-            }`}
+            class="md:col-span-1 glass-apple-card hover-apple-lift p-8 flex flex-col justify-between relative overflow-hidden group"
           >
             <div>
-              <h3 class={`text-xl font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Breach-free Security.
+              <h3 class={`text-xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                Breach-free security.
               </h3>
               <p class={`mt-3 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 Hardware-encrypted access control and institutional ID card platforms deployed at premier research institutes.
@@ -123,20 +116,18 @@ export default function BentoGridSection({ darkMode }) {
 
           <motion.div
             variants={itemVariants}
-            class={`rounded-3xl p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl group ${
-              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
-            }`}
+            class="glass-apple-card hover-apple-lift p-8 flex flex-col justify-between relative overflow-hidden group"
           >
             <div>
-              <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Performance, on demand
+              <h3 class={`text-lg font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                Performance on demand
               </h3>
               <p class={`mt-2 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 Sub-millisecond API response times and high-frequency database synchronization.
               </p>
             </div>
 
-            <div class="mt-8 pt-4 border-t border-slate-200/20 flex items-center justify-between text-xs font-mono-code text-[#FF6B00]">
+            <div class="mt-8 pt-4 border-t border-slate-200/15 flex items-center justify-between text-xs font-mono-code text-[#FF6B00]">
               <span class="font-bold">SUB-MS LATENCY</span>
               <Activity class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -144,12 +135,10 @@ export default function BentoGridSection({ darkMode }) {
 
           <motion.div
             variants={itemVariants}
-            class={`rounded-3xl p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl group ${
-              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
-            }`}
+            class="glass-apple-card hover-apple-lift p-8 flex flex-col justify-between relative overflow-hidden group"
           >
             <div>
-              <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+              <h3 class={`text-lg font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                 100% Data Sovereignty
               </h3>
               <p class={`mt-2 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -157,7 +146,7 @@ export default function BentoGridSection({ darkMode }) {
               </p>
             </div>
 
-            <div class="mt-8 pt-4 border-t border-slate-200/20 flex items-center justify-between text-xs font-mono-code text-emerald-500">
+            <div class="mt-8 pt-4 border-t border-slate-200/15 flex items-center justify-between text-xs font-mono-code text-emerald-500">
               <span class="font-bold">FULL CONTROL</span>
               <Lock class="w-5 h-5 group-hover:scale-110 transition-transform" />
             </div>
@@ -165,20 +154,18 @@ export default function BentoGridSection({ darkMode }) {
 
           <motion.div
             variants={itemVariants}
-            class={`rounded-3xl p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-2xl group ${
-              darkMode ? 'bg-[#0E131F] border-slate-800' : 'bg-slate-50 border-slate-200/80 shadow-sm'
-            }`}
+            class="glass-apple-card hover-apple-lift p-8 flex flex-col justify-between relative overflow-hidden group"
           >
             <div>
-              <h3 class={`text-lg font-bold font-['Orbitron',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                CEX-level speed for IoT
+              <h3 class={`text-lg font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                Ultra-fast IoT telemetry
               </h3>
               <p class={`mt-2 text-xs leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 ESP32 and LoRaWAN long-range sensor networks processing thousands of telemetry signals per second.
               </p>
             </div>
 
-            <div class="mt-8 pt-4 border-t border-slate-200/20 flex items-center justify-between text-xs font-mono-code text-[#00F0FF]">
+            <div class="mt-8 pt-4 border-t border-slate-200/15 flex items-center justify-between text-xs font-mono-code text-[#00F0FF]">
               <span class="font-bold">100,000+ MSG/SEC</span>
               <Gauge class="w-5 h-5 group-hover:rotate-45 transition-transform" />
             </div>
