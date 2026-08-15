@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "type": "http",
+      "url": "https://orangefuturetech.app.n8n.cloud/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODgxNDQ5Yi0wZjUzLTQ1YzMtOTI3Zi0yY2NkYzFkOTFlMWYiLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6ImFkZDg4Mzg0LTE4OWItNDcyZS05YjE0LTBlZDNiMDA5MWIwZSIsImlhdCI6MTc4Njc4ODE5OH0.yh3CfcIxflAgj8t56-4hGWHjRQ5pIoukpaT74iaTwhE"
+      }
+    }
+  }
+}
