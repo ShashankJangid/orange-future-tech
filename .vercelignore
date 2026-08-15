@@ -1,0 +1,6 @@
+omniroute/
+ai-engine/
+cc-connect/
+.git/
+*.db
+.env*
