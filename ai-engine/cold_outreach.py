@@ -8,6 +8,7 @@ from email.mime.multipart import MIMEMultipart
 from config import RESEND_API_KEY
 from db import log_action
 from notifier import Notifier
+from telegram_approver import TelegramApprover
 
 HOSTINGER_API_TOKEN = os.getenv("HOSTINGER_API_TOKEN", "57aae8293805f0e9d7424cfe755455df5fb7c4191030d1747b5086611f5facdf")
 HOSTINGER_MAILBOX_ID = os.getenv("HOSTINGER_MAILBOX_ID", "AC6b561e5b00e0bde3a92a445b3c1a")
@@ -18,11 +19,13 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
 
+REQUIRE_APPROVAL = os.getenv("REQUIRE_TELEGRAM_APPROVAL", "true").lower() == "true"
+
 class ColdOutreachEngine:
-    """Populates branded email templates and dispatches cold audit outreach."""
+    """Populates branded email templates and dispatches cold audit outreach with Telegram review."""
 
     @staticmethod
-    def send_outreach_email(company_name: str, target_email: str, audit_data: dict, report_path: str = None):
+    def send_outreach_email(company_name: str, target_email: str, audit_data: dict, report_path: str = None, skip_approval_check: bool = False):
         log_action("ColdOutreach", "DISPATCH_START", target_email, "IN_PROGRESS")
         
         score = audit_data.get("score", 70)
@@ -80,6 +83,15 @@ class ColdOutreachEngine:
   </table>
 </body>
 </html>'''
+
+        # Step 1: Pre-Flight Diagnostic Check & Telegram Approval Request
+        if REQUIRE_APPROVAL and not skip_approval_check:
+            approval_res = TelegramApprover.request_approval(company_name, target_email, subject, html_body, report_path)
+            check = approval_res["check"]
+            if not check["passed"]:
+                log_action("ColdOutreach", "DISPATCH_BLOCKED", target_email, "ERROR", {"errors": check["errors"]})
+                print(f"--> [COLD OUTREACH BLOCKED] Pre-flight check failed: {check['errors']}")
+                return False
 
         # Method 1: Hostinger Agentic Mail REST API (Official Domain teams@orangefuturetech.com)
         if HOSTINGER_API_TOKEN and HOSTINGER_MAILBOX_ID:
