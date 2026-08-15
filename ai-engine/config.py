@@ -1,12 +1,14 @@
 import os
 from pathlib import Path
 
-try:
-    from dotenv import load_dotenv
-    env_path = Path(__file__).parent / ".env"
-    load_dotenv(dotenv_path=env_path)
-except ImportError:
-    pass
+env_path = Path(__file__).parent / ".env"
+if env_path.exists():
+    with open(env_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ[k.strip()] = v.strip()
 
 # Company & Business Info
 COMPANY_NAME = "Orange Future Tech"
@@ -21,7 +23,7 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
 # Email Settings (Resend / SMTP)
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-SENDER_EMAIL = os.getenv("SENDER_EMAIL", "teams@orangefuturetech.com")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "onboarding@resend.dev")
 
 # Social Media Credentials
 LINKEDIN_ACCESS_TOKEN = os.getenv("LINKEDIN_ACCESS_TOKEN", "")
@@ -34,4 +36,4 @@ SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
 # Automation Cycle Interval (Seconds)
-CHECK_INTERVAL_SECONDS = 3600  # Run hourly check
+CHECK_INTERVAL_SECONDS = 3600

@@ -2,6 +2,7 @@ import os
 import json
 import smtplib
 import urllib.request
+import urllib.error
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from config import RESEND_API_KEY, SENDER_EMAIL
@@ -82,8 +83,9 @@ class ColdOutreachEngine:
         # Method A: Dispatch via Resend API
         if RESEND_API_KEY and len(RESEND_API_KEY) > 5 and RESEND_API_KEY != "your_resend_api_key_here":
             try:
+                sender = SENDER_EMAIL if SENDER_EMAIL else "onboarding@resend.dev"
                 payload = json.dumps({
-                    "from": SENDER_EMAIL,
+                    "from": sender,
                     "to": [target_email],
                     "subject": subject,
                     "html": html_body
@@ -94,15 +96,18 @@ class ColdOutreachEngine:
                     data=payload,
                     headers={
                         "Authorization": f"Bearer {RESEND_API_KEY}",
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
                     }
                 )
-                urllib.request.urlopen(req, timeout=10)
-                log_action("ColdOutreach", "DISPATCH_REAL_RESEND", target_email, "SUCCESS")
+                res = urllib.request.urlopen(req, timeout=10)
+                res_body = res.read().decode("utf-8")
+                log_action("ColdOutreach", "DISPATCH_REAL_RESEND", target_email, "SUCCESS", {"response": res_body})
                 Notifier.alert_email_sent(company_name, target_email, report_path)
                 return True
-            except Exception as e:
-                log_action("ColdOutreach", "DISPATCH_RESEND_FAILED", target_email, "ERROR", {"error": str(e)})
+            except urllib.error.HTTPError as e:
+                err_text = e.read().decode("utf-8")
+                log_action("ColdOutreach", "DISPATCH_RESEND_FAILED", target_email, "ERROR", {"error": err_text})
 
         # Method B: Dispatch via Standard SMTP (Gmail / Custom Mail Server)
         if SMTP_USER and SMTP_PASS:
@@ -130,4 +135,4 @@ class ColdOutreachEngine:
         return False
 
 if __name__ == "__main__":
-    ColdOutreachEngine.send_outreach_email("Shipmate Logistics", "sjangidji@gmail.com", {"score": 95, "issues": [{"title": "Slow mobile page load speed"}]})
+    ColdOutreachEngine.send_outreach_email("Shipmate Logistics", "shashankjangidofficial@gmail.com", {"score": 95, "issues": [{"title": "Slow mobile page load speed"}]})
