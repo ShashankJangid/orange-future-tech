@@ -1,0 +1,192 @@
+{
+  "name": "Orange Future Tech 24/7 Autonomous AI Business Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger (Every 6h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-audit-webhook",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Webhook Lead Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        500
+      ],
+      "webhookId": "orange-lead-webhook"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.body.websiteUrl || 'https://shipmatelogistics.in' }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "3",
+      "name": "Web Health & Audit Scanner",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const companyName = $node['Webhook Lead Trigger']?.json?.body?.companyName || 'Shipmate Logistics';\nconst targetEmail = $node['Webhook Lead Trigger']?.json?.body?.targetEmail || 'contact@shipmatelogistics.in';\nconst statusCode = $input.first()?.json?.statusCode || 200;\nconst score = statusCode === 200 ? 95 : 65;\n\nreturn [{\n  json: {\n    companyName,\n    targetEmail,\n    score,\n    topIssue: 'Sub-millisecond API & Cloud Database Optimization Required',\n    subject: `Technical Audit Summary for ${companyName} - Quick Feedback`,\n    htmlBody: `<!DOCTYPE html><html><body style=\"font-family: Arial; padding: 20px;\"><div style=\"max-width:600px; background:#fff; border-radius:10px;\"><div style=\"background:#0b0f17; padding:20px; border-bottom:4px solid #ff6b00;\"><span style=\"color:#fff; font-size:20px; font-weight:bold;\">ORANGE <span style=\"color:#ff6b00;\">FUTURE</span> TECH</span></div><div style=\"padding:30px;\"><h2>Technical Audit: ${companyName}</h2><p>Our automated scanner completed a health check. Score: <strong>${score}/100</strong>.</p><a href=\"https://orangefuturetech.com\" style=\"background:#ff6b00; color:#fff; padding:12px 24px; text-decoration:none; border-radius:6px;\">Schedule Strategy Session &rarr;</a></div></div></body></html>` \n  }\n}];"
+      },
+      "id": "4",
+      "name": "AI Report & Email Format Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.mail.hostinger.com/api/v1/mailboxes/AC6b561e5b00e0bde3a92a445b3c1a/send",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 57aae8293805f0e9d7424cfe755455df5fb7c4191030d1747b5086611f5facdf"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"to\": [\"{{ $json.targetEmail }}\"],\n  \"displayName\": \"Orange Future Tech\",\n  \"subject\": \"{{ $json.subject }}\",\n  \"html\": \"{{ $json.htmlBody }}\"\n}",
+        "options": {}
+      },
+      "id": "5",
+      "name": "Hostinger Agentic Mail API Dispatcher",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1000,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID || '12345678' }}",
+        "text": "=📩 *ORANGE AI N8N AUTOMATION DISPATCHED*\n\n• *Company*: {{ $json.companyName }}\n• *Recipient*: {{ $json.targetEmail }}\n• *Health Score*: {{ $json.score }}/100\n• *Sender*: teams@orangefuturetech.com (Hostinger API)",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "6",
+      "name": "Telegram Real-time Notifier",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1250,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Every 6h)": {
+      "main": [
+        [
+          {
+            "node": "Web Health & Audit Scanner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Lead Trigger": {
+      "main": [
+        [
+          {
+            "node": "Web Health & Audit Scanner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Web Health & Audit Scanner": {
+      "main": [
+        [
+          {
+            "node": "AI Report & Email Format Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Report & Email Format Code": {
+      "main": [
+        [
+          {
+            "node": "Hostinger Agentic Mail API Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hostinger Agentic Mail API Dispatcher": {
+      "main": [
+        [
+          {
+            "node": "Telegram Real-time Notifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "Orange Future Tech"
+    },
+    {
+      "name": "Autonomous AI Engine"
+    }
+  ]
+}
