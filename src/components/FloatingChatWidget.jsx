@@ -2,11 +2,29 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Sparkles, RefreshCw, Bot, ChevronDown, CheckCircle2 } from 'lucide-react';
 
+const cleanText = (text) => {
+  if (!text) return '';
+  return text
+    .replace(/^#{1,6}\s*/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    .replace(/```[a-zA-Z]*\n?/g, '')
+    .replace(/```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
+    .replace(/\*\*/g, '')
+    .replace(/~~/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+};
+
 export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode }) {
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      text: "👋 Hi! I'm Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We've delivered software for IIT and DPS.\n\nHow can I help you today?"
+      text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We have delivered software for IIT and DPS.\n\nHow can I help you today?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -16,8 +34,8 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
 
   const quickPrompts = [
     'Build a new website for my company',
-    'Software built for IIT & DPS',
-    'Custom PCB & Hardware Solutions',
+    'Software built for IIT and DPS',
+    'Custom PCB and Hardware Solutions',
     'Schedule a Discovery Call'
   ];
 
@@ -32,7 +50,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
     }
   }, [messages, isOpen, isTyping]);
 
-  // Hide greeting bubble after 12 seconds automatically if not clicked
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowGreetingBubble(false);
@@ -45,49 +62,49 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
 
     if (q.includes('iit') || q.includes('dps') || q.includes('client') || q.includes('portfolio') || q.includes('work') || q.includes('experience')) {
       return (
-        "🏆 **Proven Track Record & Client Software**\n\n" +
+        "Proven Track Record and Client Software\n\n" +
         "At Orange Future Tech, we have built high-performance software systems for prestigious organizations:\n\n" +
-        "• **IIT (Indian Institute of Technology)**: Specialized academic portals and high-concurrency database systems.\n" +
-        "• **DPS (Delhi Public School)**: Comprehensive cloud management and student-parent enterprise platforms.\n" +
-        "• **Shipmate Logistics**: Real-time supply chain telemetry & automated dispatch tracking.\n\n" +
+        "• IIT (Indian Institute of Technology): Specialized academic portals and high-concurrency database systems.\n" +
+        "• DPS (Delhi Public School): Comprehensive cloud management and student-parent enterprise platforms.\n" +
+        "• Shipmate Logistics: Real-time supply chain telemetry and automated dispatch tracking.\n\n" +
         "Would you like to build a high-performance web platform for your business?"
       );
     }
 
     if (q.includes('website') || q.includes('upgrade') || q.includes('build') || q.includes('software') || q.includes('web') || q.includes('app') || q.includes('price')) {
       return (
-        "🚀 **Enterprise Web & Software Development**\n\n" +
+        "Enterprise Web and Software Development\n\n" +
         "We build blazing-fast, modern web applications and mobile platforms using cutting-edge technology:\n\n" +
-        "• **React 19 & Next.js**: High-performance, SEO-optimized web experiences with Apple-grade animations.\n" +
-        "• **Scalable Cloud Backends**: Node.js, Python, Supabase, PostgreSQL, and Redis.\n" +
-        "• **24/7 Autonomous AI Agents**: Automated client outreach, CRM chatbots, and intelligent workflow automation.\n\n" +
-        "👉 You can book a free 20-minute discovery call with our engineering team at https://orangefuturetech.com/portal"
+        "• React 19 and Next.js: High-performance, SEO-optimized web experiences with clean animations.\n" +
+        "• Scalable Cloud Backends: Node.js, Python, Supabase, PostgreSQL, and Redis.\n" +
+        "• 24/7 Autonomous AI Agents: Automated client outreach, CRM chatbots, and intelligent workflow automation.\n\n" +
+        "You can book a free 20-minute discovery call with our engineering team at https://orangefuturetech.com/portal"
       );
     }
 
     if (q.includes('pcb') || q.includes('hardware') || q.includes('electronics') || q.includes('iot')) {
       return (
-        "⚡ **Custom Multi-Layer PCB & IoT Engineering**\n\n" +
+        "Custom Multi-Layer PCB and IoT Engineering\n\n" +
         "From schematic design to high-volume fabrication:\n\n" +
-        "• **Multi-Layer PCB Routing**: 2 to 8+ layer boards with controlled impedance & EMI shielding.\n" +
-        "• **IoT Telemetry Networks**: ESP32 & LoRaWAN wireless sensor networks (10km+ range).\n" +
-        "• **Embedded Firmware**: Real-time C/C++ programming for industrial actuators.\n\n" +
-        "Email your hardware specs directly to teams@orangefuturetech.com!"
+        "• Multi-Layer PCB Routing: 2 to 8+ layer boards with controlled impedance and EMI shielding.\n" +
+        "• IoT Telemetry Networks: ESP32 and LoRaWAN wireless sensor networks with 10km+ range.\n" +
+        "• Embedded Firmware: Real-time C/C++ programming for industrial actuators.\n\n" +
+        "Email your hardware specs directly to teams@orangefuturetech.com"
       );
     }
 
     return (
-      `Thank you for asking about "${query}"!\n\n` +
+      `Thank you for asking about "${query}".\n\n` +
       "At Orange Future Tech, we engineer:\n" +
-      "• Enterprise Web & Mobile Software (IIT & DPS track record)\n" +
-      "• Custom Multi-Layer PCB Engineering & IoT Hardware\n" +
-      "• 24/7 Autonomous AI Business & CRM Engines\n\n" +
+      "• Enterprise Web and Mobile Software (IIT and DPS track record)\n" +
+      "• Custom Multi-Layer PCB Engineering and IoT Hardware\n" +
+      "• 24/7 Autonomous AI Business and CRM Engines\n\n" +
       "Feel free to connect directly with our engineering team at teams@orangefuturetech.com or book a discovery call at https://orangefuturetech.com/portal"
     );
   };
 
   const handleSend = async (textToSend) => {
-    const msgText = textToSend || input;
+    const msgText = cleanText(textToSend || input);
     if (!msgText.trim()) return;
 
     const userMsg = { sender: 'user', text: msgText };
@@ -122,13 +139,14 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
       }
 
       if (resData && resData.reply) {
-        setMessages((prev) => [...prev, { sender: 'ai', text: resData.reply }]);
+        const refinedReply = cleanText(resData.reply);
+        setMessages((prev) => [...prev, { sender: 'ai', text: refinedReply }]);
       } else {
-        const fallback = generateFallbackResponse(msgText);
+        const fallback = cleanText(generateFallbackResponse(msgText));
         setMessages((prev) => [...prev, { sender: 'ai', text: fallback }]);
       }
     } catch (error) {
-      const fallback = generateFallbackResponse(msgText);
+      const fallback = cleanText(generateFallbackResponse(msgText));
       setMessages((prev) => [...prev, { sender: 'ai', text: fallback }]);
     } finally {
       setIsTyping(false);
@@ -146,14 +164,14 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
     setMessages([
       {
         sender: 'ai',
-        text: "👋 Hi! I'm Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We've delivered software for IIT and DPS.\n\nHow can I help you today?"
+        text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We have delivered software for IIT and DPS.\n\nHow can I help you today?"
       }
     ]);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Floating Greeting Bubble (Visible before user clicks) */}
+      {/* Floating Greeting Bubble */}
       <AnimatePresence>
         {!isOpen && showGreetingBubble && (
           <motion.div
@@ -250,7 +268,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                         : 'bg-slate-900/90 border border-slate-800 text-slate-200 rounded-tl-none backdrop-blur-md'
                     }`}
                   >
-                    <div className="whitespace-pre-wrap leading-relaxed">{msg.text}</div>
+                    <div className="whitespace-pre-wrap leading-relaxed font-sans">{msg.text}</div>
                   </div>
                 </div>
               ))}

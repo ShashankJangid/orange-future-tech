@@ -1,6 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Sparkles, RefreshCw, Bot, User } from 'lucide-react';
+import { X, Send, Sparkles, RefreshCw, Bot } from 'lucide-react';
+
+const cleanText = (text) => {
+  if (!text) return '';
+  return text
+    .replace(/^#{1,6}\s*/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    .replace(/```[a-zA-Z]*\n?/g, '')
+    .replace(/```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
+    .replace(/\*\*/g, '')
+    .replace(/~~/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+};
 
 export default function AiAssistantModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
@@ -16,8 +34,8 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
   const quickPrompts = [
     'Can you build a new website for my company?',
-    'Tell me about your software work for IIT & DPS',
-    'Custom PCB Design & Hardware Solutions',
+    'Tell me about your software work for IIT and DPS',
+    'Custom PCB Design and Hardware Solutions',
     'Schedule a Discovery Call'
   ];
 
@@ -36,7 +54,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
     if (q.includes('iit') || q.includes('dps') || q.includes('client') || q.includes('portfolio') || q.includes('work') || q.includes('experience')) {
       return {
-        title: 'Proven Track Record & Flagship Client Software',
+        title: 'Proven Track Record and Flagship Client Software',
         intro: 'At Orange Future Tech, we have architected and deployed high-performance software systems for prestigious institutions:',
         points: [
           'IIT (Indian Institute of Technology): Specialized academic software portals and high-concurrency database systems.',
@@ -49,10 +67,10 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
     if (q.includes('website') || q.includes('upgrade') || q.includes('build') || q.includes('software') || q.includes('web') || q.includes('app')) {
       return {
-        title: 'Enterprise Web & Software Development',
+        title: 'Enterprise Web and Software Development',
         intro: 'We build blazing-fast, modern web applications and mobile platforms using cutting-edge tech:',
         points: [
-          'Next.js & React 19: High-performance, SEO-optimized web experiences with Apple-grade animations.',
+          'Next.js and React 19: High-performance, SEO-optimized web experiences with clean animations.',
           'Scalable Microservices: Node.js, Python, PostgreSQL, Supabase, and Redis backends.',
           'Autonomous AI Agents: Automated client outreach, CRM chatbots, and intelligent workflow automation.'
         ],
@@ -62,7 +80,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
     if (q.includes('pcb') || q.includes('hardware') || q.includes('electronics') || q.includes('iot')) {
       return {
-        title: 'Custom Multi-Layer PCB & IoT Engineering',
+        title: 'Custom Multi-Layer PCB and IoT Engineering',
         intro: 'From schematic design to high-volume fabrication, our hardware engineering covers:',
         points: [
           'Multi-Layer PCB Routing: 2 to 8+ layer boards with controlled impedance and EMI shielding.',
@@ -77,16 +95,16 @@ export default function AiAssistantModal({ isOpen, onClose }) {
       title: 'Orange Future Tech Solutions',
       intro: `Thank you for asking about "${query}".`,
       points: [
-        'Enterprise Web & Mobile Software (IIT & DPS track record)',
-        'Custom Multi-Layer PCB Engineering & IoT Telemetry',
-        '24/7 Autonomous AI Business & CRM Engines'
+        'Enterprise Web and Mobile Software (IIT and DPS track record)',
+        'Custom Multi-Layer PCB Engineering and IoT Telemetry',
+        '24/7 Autonomous AI Business and CRM Engines'
       ],
       footer: 'Connect directly with our team at teams@orangefuturetech.com or book a discovery call at https://orangefuturetech.com/portal'
     };
   };
 
   const handleSend = async (textToSend) => {
-    const msgText = textToSend || input;
+    const msgText = cleanText(textToSend || input);
     if (!msgText.trim()) return;
 
     const userMsg = { sender: 'user', text: msgText };
@@ -95,7 +113,6 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     if (!textToSend) setInput('');
     setIsTyping(true);
 
-    // Format chat history for backend LLM
     const apiMessages = updatedMessages
       .filter((m) => m.text || m.intro)
       .map((m) => ({
@@ -104,7 +121,6 @@ export default function AiAssistantModal({ isOpen, onClose }) {
       }));
 
     try {
-      // Try local/configured API server endpoints
       const endpoints = ['http://localhost:8080/api/chat', '/api/chat'];
       let resData = null;
 
@@ -120,14 +136,14 @@ export default function AiAssistantModal({ isOpen, onClose }) {
             if (resData && resData.reply) break;
           }
         } catch (err) {
-          // try next endpoint
+          // try next
         }
       }
 
       if (resData && resData.reply) {
-        setMessages((prev) => [...prev, { sender: 'ai', text: resData.reply }]);
+        const refinedReply = cleanText(resData.reply);
+        setMessages((prev) => [...prev, { sender: 'ai', text: refinedReply }]);
       } else {
-        // Fallback to client knowledge base
         const fallback = generateFallbackResponse(msgText);
         setMessages((prev) => [...prev, { sender: 'ai', ...fallback }]);
       }
@@ -228,7 +244,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                       )}
 
                       {msg.text && (
-                        <div className="text-slate-200 whitespace-pre-wrap leading-relaxed">{msg.text}</div>
+                        <div className="text-slate-200 whitespace-pre-wrap leading-relaxed font-sans">{msg.text}</div>
                       )}
 
                       {msg.intro && (
