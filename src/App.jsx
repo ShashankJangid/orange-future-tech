@@ -8,6 +8,7 @@ import BentoGridSection from './components/BentoGridSection';
 import IsometricStageSection from './components/IsometricStageSection';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
 import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
+import StaggerTestimonials from './components/StaggerTestimonials';
 import AiAssistantModal from './components/AiAssistantModal';
 import FloatingChatWidget from './components/FloatingChatWidget';
 import AdminAuthModal from './components/AdminAuthModal';
@@ -48,6 +49,10 @@ export default function App() {
         <IsometricStageSection darkMode={darkMode} />
         <HardwareCodePlayground darkMode={darkMode} />
         <ElectronicsSolutionsSection onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
+        
+        {/* Stagger Testimonials Section */}
+        <StaggerTestimonials darkMode={darkMode} />
+        
         <ContactSection darkMode={darkMode} />
       </main>
       <Footer darkMode={darkMode} />
