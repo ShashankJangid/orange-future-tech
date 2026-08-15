@@ -9,6 +9,7 @@ import IsometricStageSection from './components/IsometricStageSection';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
 import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
 import AiAssistantModal from './components/AiAssistantModal';
+import FloatingChatWidget from './components/FloatingChatWidget';
 import AdminAuthModal from './components/AdminAuthModal';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
@@ -29,7 +30,7 @@ export default function App() {
   }, [darkMode]);
 
   return (
-    <div class={`relative min-h-screen transition-colors duration-300 font-apple overflow-x-hidden selection:bg-[#FF6B00] selection:text-white ${
+    <div className={`relative min-h-screen transition-colors duration-300 font-apple overflow-x-hidden selection:bg-[#FF6B00] selection:text-white ${
       darkMode ? 'bg-[#080B11] text-slate-100' : 'bg-[#F8FAFC] text-slate-900'
     }`}>
       <ThreeBackground darkMode={darkMode} />
@@ -50,7 +51,15 @@ export default function App() {
         <ContactSection darkMode={darkMode} />
       </main>
       <Footer darkMode={darkMode} />
-      <AiAssistantModal isOpen={aiOpen} onClose={() => setAiOpen(false)} />
+      
+      {/* 24/7 Floating AI Chatbot for Website Visitors */}
+      <FloatingChatWidget
+        isOpen={aiOpen}
+        onToggle={() => setAiOpen(!aiOpen)}
+        onClose={() => setAiOpen(false)}
+        darkMode={darkMode}
+      />
+      
       <AdminAuthModal isOpen={adminAuthOpen} onClose={() => setAdminAuthOpen(false)} darkMode={darkMode} />
     </div>
   );
