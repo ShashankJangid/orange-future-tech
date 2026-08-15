@@ -9,12 +9,14 @@ from config import RESEND_API_KEY
 from db import log_action
 from notifier import Notifier
 
-# Read SMTP config from environment if present
+HOSTINGER_API_TOKEN = os.getenv("HOSTINGER_API_TOKEN", "57aae8293805f0e9d7424cfe755455df5fb7c4191030d1747b5086611f5facdf")
+HOSTINGER_MAILBOX_ID = os.getenv("HOSTINGER_MAILBOX_ID", "AC6b561e5b00e0bde3a92a445b3c1a")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "teams@orangefuturetech.com")
+
 SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
-SENDER_EMAIL = os.getenv("SENDER_EMAIL", "teams@orangefuturetech.com")
 
 class ColdOutreachEngine:
     """Populates branded email templates and dispatches cold audit outreach."""
@@ -79,7 +81,35 @@ class ColdOutreachEngine:
 </body>
 </html>'''
 
-        # Method A: Dispatch via SMTP (Sender set to Orange Future Tech <teams@orangefuturetech.com>)
+        # Method 1: Hostinger Agentic Mail REST API (Official Domain teams@orangefuturetech.com)
+        if HOSTINGER_API_TOKEN and HOSTINGER_MAILBOX_ID:
+            try:
+                url = f"https://api.mail.hostinger.com/api/v1/mailboxes/{HOSTINGER_MAILBOX_ID}/send"
+                payload = json.dumps({
+                    "to": [target_email],
+                    "displayName": "Orange Future Tech",
+                    "subject": subject,
+                    "html": html_body
+                }).encode("utf-8")
+
+                req = urllib.request.Request(
+                    url,
+                    data=payload,
+                    headers={
+                        "Authorization": f"Bearer {HOSTINGER_API_TOKEN}",
+                        "Content-Type": "application/json",
+                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                    }
+                )
+                res = urllib.request.urlopen(req, timeout=10)
+                if res.getcode() in [200, 204]:
+                    log_action("ColdOutreach", "DISPATCH_HOSTINGER_AGENTIC_API", target_email, "SUCCESS")
+                    Notifier.alert_email_sent(company_name, target_email, report_path)
+                    return True
+            except Exception as e:
+                log_action("ColdOutreach", "DISPATCH_HOSTINGER_FAILED", target_email, "ERROR", {"error": str(e)})
+
+        # Method 2: Standard SMTP Fallback
         if SMTP_USER and SMTP_PASS:
             try:
                 msg = MIMEMultipart("alternative")
@@ -100,12 +130,11 @@ class ColdOutreachEngine:
             except Exception as e:
                 log_action("ColdOutreach", "DISPATCH_SMTP_FAILED", target_email, "ERROR", {"error": str(e)})
 
-        # Method B: Dispatch via Resend API
+        # Method 3: Resend API Fallback
         if RESEND_API_KEY and len(RESEND_API_KEY) > 5 and RESEND_API_KEY != "your_resend_api_key_here":
             try:
-                sender = SENDER_EMAIL if SENDER_EMAIL else "onboarding@resend.dev"
                 payload = json.dumps({
-                    "from": f"Orange Future Tech <{sender}>",
+                    "from": f"Orange Future Tech <{SENDER_EMAIL}>",
                     "to": [target_email],
                     "subject": subject,
                     "html": html_body
@@ -117,21 +146,17 @@ class ColdOutreachEngine:
                     headers={
                         "Authorization": f"Bearer {RESEND_API_KEY}",
                         "Content-Type": "application/json",
-                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                        "User-Agent": "Mozilla/5.0"
                     }
                 )
                 res = urllib.request.urlopen(req, timeout=10)
-                res_body = res.read().decode("utf-8")
-                log_action("ColdOutreach", "DISPATCH_REAL_RESEND", target_email, "SUCCESS", {"response": res_body})
+                log_action("ColdOutreach", "DISPATCH_REAL_RESEND", target_email, "SUCCESS")
                 Notifier.alert_email_sent(company_name, target_email, report_path)
                 return True
-            except urllib.error.HTTPError as e:
-                err_text = e.read().decode("utf-8")
-                log_action("ColdOutreach", "DISPATCH_RESEND_FAILED", target_email, "ERROR", {"error": err_text})
+            except Exception as e:
+                log_action("ColdOutreach", "DISPATCH_RESEND_FAILED", target_email, "ERROR", {"error": str(e)})
 
-        # Method C: Simulated Sandbox Log
         log_action("ColdOutreach", "SIMULATED_DISPATCH", target_email, "SUCCESS")
-        Notifier.alert_email_sent(company_name, target_email, "Simulated Dispatch Logged")
         return False
 
 if __name__ == "__main__":
