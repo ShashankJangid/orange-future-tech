@@ -11,6 +11,7 @@ DEFAULT_MASTER_PASSWORD_HASH = hashlib.sha256("OrangeFutureTech2026!".encode("ut
 def read_env():
     env_vars = {
         "MASTER_PASSWORD_HASH": DEFAULT_MASTER_PASSWORD_HASH,
+        "GROQ_API_KEY": "",
         "GEMINI_API_KEY": "",
         "TELEGRAM_BOT_TOKEN": "",
         "TELEGRAM_CHAT_ID": "",
@@ -50,6 +51,19 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
         self._send_cors_headers()
         self.end_headers()
 
+    def do_GET(self):
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self._send_cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "online", "service": "Orange Future Tech AI Server"}).encode("utf-8"))
+            return
+        
+        self.send_response(404)
+        self.end_headers()
+
     def verify_auth(self):
         auth_header = self.headers.get("X-Admin-Password", "")
         if not auth_header:
@@ -63,6 +77,36 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
+
+        # Public Endpoint: AI Chat Assistant (Groq-powered Aria)
+        if parsed.path == "/api/chat":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from chat_bot import chat
+                data = json.loads(post_body)
+                messages = data.get("messages", [])
+                session_id = data.get("session_id", "web-visitor")
+                
+                # Single message query fallback
+                if not messages and "query" in data:
+                    messages = [{"role": "user", "content": data["query"]}]
+                elif not messages and "message" in data:
+                    messages = [{"role": "user", "content": data["message"]}]
+
+                reply = chat(messages, session_id=session_id)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "reply": reply}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
         
         # Endpoint: Login Verification
         if parsed.path == "/api/login":
@@ -156,7 +200,7 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
 def run_server(port=8080):
     server_address = ("", port)
     httpd = HTTPServer(server_address, SecureAPIHandler)
-    print(f"--> [SECURE ADMIN API SERVER] Running at http://localhost:{port}")
+    print(f"--> [SECURE ADMIN & AI API SERVER] Running at http://localhost:{port}")
     httpd.serve_forever()
 
 if __name__ == "__main__":

@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Sparkles, RefreshCw } from 'lucide-react';
+import { X, Send, Sparkles, RefreshCw, Bot, User } from 'lucide-react';
 
 export default function AiAssistantModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      title: 'Welcome to OrangeAI Advisor',
-      text: 'Hello! I am your senior engineering consultant for Orange Future Tech.\nHow can I assist you today with Enterprise Software, Custom Multi-Layer PCB Design, or Smart Automation & Industrial IoT Systems?'
+      title: 'Aria — Orange Future Tech AI Consultant',
+      text: 'Hello! I am Aria, your AI business & engineering consultant for Orange Future Tech.\n\nHow can I assist you today? We build enterprise software, custom websites, AI solutions, and multi-layer PCB hardware. We have delivered software for IIT, DPS, and Shipmate Logistics.'
     }
   ]);
   const [input, setInput] = useState('');
@@ -15,10 +15,10 @@ export default function AiAssistantModal({ isOpen, onClose }) {
   const messagesEndRef = useRef(null);
 
   const quickPrompts = [
-    'Custom PCB Design Capabilities',
-    'Smart Automation & Industrial IoT',
-    'Enterprise Cloud & Web Platforms',
-    'Request Technical Proposal'
+    'Can you build a new website for my company?',
+    'Tell me about your software work for IIT & DPS',
+    'Custom PCB Design & Hardware Solutions',
+    'Schedule a Discovery Call'
   ];
 
   const scrollToBottom = () => {
@@ -31,90 +31,112 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     }
   }, [messages, isOpen, isTyping]);
 
-  const generateResponse = (query) => {
+  const generateFallbackResponse = (query) => {
     const q = query.toLowerCase();
 
-    if (q.includes('pcb') || q.includes('circuit') || q.includes('hardware') || q.includes('electronics') || q.includes('schematic')) {
+    if (q.includes('iit') || q.includes('dps') || q.includes('client') || q.includes('portfolio') || q.includes('work') || q.includes('experience')) {
       return {
-        title: 'Custom Multi-Layer PCB & Electronics Engineering',
-        intro: 'At Orange Future Tech, we engineer high-reliability custom electronics from initial schematic concept to final fabrication:',
+        title: 'Proven Track Record & Flagship Client Software',
+        intro: 'At Orange Future Tech, we have architected and deployed high-performance software systems for prestigious institutions:',
         points: [
-          'Multi-Layer CAD Schematics: 2 to 8+ layer PCB routing with controlled impedance and EMI shielding.',
-          'Embedded C/C++ Firmware: High-performance microcontroller programming (ESP32, STM32, ARM Cortex).',
-          'Industrial Power Electronics: Custom power regulators, motor drivers, and sensor breakout boards.',
-          'DFM & Fabrication Sourcing: Component sourcing and prototyping.'
+          'IIT (Indian Institute of Technology): Specialized academic software portals and high-concurrency database systems.',
+          'DPS (Delhi Public School): Comprehensive educational management systems and student-parent cloud platforms.',
+          'Shipmate Logistics: Real-time supply chain telemetry and automated cloud dispatch tracking.'
         ],
-        footer: 'Would you like to share your hardware schematics or request a technical BOM review?'
+        footer: 'Would you like to explore a custom web platform or software build for your organization?'
       };
     }
 
-    if (q.includes('iot') || q.includes('automation') || q.includes('smart') || q.includes('sensor') || q.includes('lora')) {
+    if (q.includes('website') || q.includes('upgrade') || q.includes('build') || q.includes('software') || q.includes('web') || q.includes('app')) {
       return {
-        title: 'Smart Automation & Industrial IoT Solutions',
-        intro: 'We design end-to-end IoT telemetry networks and automated control systems:',
+        title: 'Enterprise Web & Software Development',
+        intro: 'We build blazing-fast, modern web applications and mobile platforms using cutting-edge tech:',
         points: [
-          'Industrial Telemetry: ESP32 and LoRaWAN long-range wireless sensor networks up to 10km+ range.',
-          'Smart Building & Campus Automation: Automated access control, HVAC, and power management.',
-          'Real-Time Dashboards: Web and mobile dashboards for remote device monitoring and instant alert triggers.',
-          'Edge Computing: On-device sensor data filtering and real-time actuator control.'
+          'Next.js & React 19: High-performance, SEO-optimized web experiences with Apple-grade animations.',
+          'Scalable Microservices: Node.js, Python, PostgreSQL, Supabase, and Redis backends.',
+          'Autonomous AI Agents: Automated client outreach, CRM chatbots, and intelligent workflow automation.'
         ],
-        footer: 'How can we help automate your facility or building infrastructure?'
+        footer: 'Schedule a free 20-minute technical roadmap session at https://orangefuturetech.com/portal'
       };
     }
 
-    if (q.includes('software') || q.includes('web') || q.includes('app') || q.includes('ai') || q.includes('cloud') || q.includes('react')) {
+    if (q.includes('pcb') || q.includes('hardware') || q.includes('electronics') || q.includes('iot')) {
       return {
-        title: 'Enterprise Software & AI Platform Engineering',
-        intro: 'We architect resilient, high-concurrency software ecosystems tailored for enterprise scale:',
+        title: 'Custom Multi-Layer PCB & IoT Engineering',
+        intro: 'From schematic design to high-volume fabrication, our hardware engineering covers:',
         points: [
-          'Modern Full-Stack Applications: Built with React, Next.js, Node.js, and clean CSS.',
-          'High-Concurrency Backends: Distributed microservices, PostgreSQL/MongoDB, and Redis caching.',
-          'AI & Machine Learning: Custom LLM integration, predictive analytics, and automated workflow agents.',
-          'API Gateways: Secure REST and GraphQL endpoints with OAuth2 authentication.'
+          'Multi-Layer PCB Routing: 2 to 8+ layer boards with controlled impedance and EMI shielding.',
+          'IoT Telemetry Networks: ESP32 and LoRaWAN wireless sensor hardware (10km+ range).',
+          'Embedded Firmware: Real-time C/C++ firmware for industrial actuators and sensors.'
         ],
-        footer: 'Tell me about your software project goals or upcoming feature release!'
-      };
-    }
-
-    if (q.includes('proposal') || q.includes('contact') || q.includes('price') || q.includes('quote') || q.includes('hire') || q.includes('email')) {
-      return {
-        title: 'Requesting a Technical Proposal',
-        intro: 'We would be delighted to collaborate on your project. Connect with our engineering team:',
-        points: [
-          'Email: Send your requirements directly to teams@orangefuturetech.com',
-          'Website Form: Submit your project brief in the Contact Section.',
-          'Turnaround Time: We typically respond with a detailed technical scope and proposal within 24 hours.'
-        ],
-        footer: 'You can also test our live software demo at cardgen.orangefuturetech.com!'
+        footer: 'Email your hardware requirements directly to teams@orangefuturetech.com'
       };
     }
 
     return {
-      title: 'Orange Future Tech Advisory',
-      intro: `Thank you for your inquiry regarding "${query}".`,
+      title: 'Orange Future Tech Solutions',
+      intro: `Thank you for asking about "${query}".`,
       points: [
-        'Enterprise Web Software Development & High-Concurrency Systems',
-        'Custom Multi-Layer PCB Engineering & Firmware',
-        'Smart Building Automation & Industrial IoT Networks'
+        'Enterprise Web & Mobile Software (IIT & DPS track record)',
+        'Custom Multi-Layer PCB Engineering & IoT Telemetry',
+        '24/7 Autonomous AI Business & CRM Engines'
       ],
-      footer: 'To discuss your specific technical requirements, email our team directly at teams@orangefuturetech.com!'
+      footer: 'Connect directly with our team at teams@orangefuturetech.com or book a discovery call at https://orangefuturetech.com/portal'
     };
   };
 
-  const handleSend = (textToSend) => {
+  const handleSend = async (textToSend) => {
     const msgText = textToSend || input;
     if (!msgText.trim()) return;
 
     const userMsg = { sender: 'user', text: msgText };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     if (!textToSend) setInput('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      const aiReply = generateResponse(msgText);
-      setMessages((prev) => [...prev, { sender: 'ai', ...aiReply }]);
+    // Format chat history for backend LLM
+    const apiMessages = updatedMessages
+      .filter((m) => m.text || m.intro)
+      .map((m) => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text || (m.intro ? `${m.intro}\n${(m.points || []).join('\n')}\n${m.footer || ''}` : '')
+      }));
+
+    try {
+      // Try local/configured API server endpoints
+      const endpoints = ['http://localhost:8080/api/chat', '/api/chat'];
+      let resData = null;
+
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: apiMessages, session_id: 'web-user' })
+          });
+          if (res.ok) {
+            resData = await res.json();
+            if (resData && resData.reply) break;
+          }
+        } catch (err) {
+          // try next endpoint
+        }
+      }
+
+      if (resData && resData.reply) {
+        setMessages((prev) => [...prev, { sender: 'ai', text: resData.reply }]);
+      } else {
+        // Fallback to client knowledge base
+        const fallback = generateFallbackResponse(msgText);
+        setMessages((prev) => [...prev, { sender: 'ai', ...fallback }]);
+      }
+    } catch (error) {
+      const fallback = generateFallbackResponse(msgText);
+      setMessages((prev) => [...prev, { sender: 'ai', ...fallback }]);
+    } finally {
       setIsTyping(false);
-    }, 500);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -128,8 +150,8 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     setMessages([
       {
         sender: 'ai',
-        title: 'Welcome to OrangeAI Advisor',
-        text: 'Hello! I am your senior engineering consultant for Orange Future Tech.\nHow can I assist you today with Enterprise Software, Custom Multi-Layer PCB Design, or Smart Automation & Industrial IoT Systems?'
+        title: 'Aria — Orange Future Tech AI Consultant',
+        text: 'Hello! I am Aria, your AI business & engineering consultant for Orange Future Tech.\n\nHow can I assist you today? We build enterprise software, custom websites, AI solutions, and multi-layer PCB hardware. We have delivered software for IIT, DPS, and Shipmate Logistics.'
       }
     ]);
   };
@@ -138,57 +160,57 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
   return (
     <AnimatePresence>
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 8 }}
           transition={{ duration: 0.2 }}
-          class="relative w-full max-w-xl bg-[#0B0F17] text-white rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[85vh]"
+          className="relative w-full max-w-xl bg-[#0B0F17] text-white rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[85vh]"
         >
-          <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between relative overflow-hidden">
-            <div class="flex items-center gap-3 relative z-10">
-              <div class="w-10 h-10 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shadow-md">
-                <Sparkles class="w-5 h-5" />
+          <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between relative overflow-hidden">
+            <div className="flex items-center gap-3 relative z-10">
+              <div className="w-10 h-10 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shadow-md">
+                <Sparkles className="w-5 h-5" />
               </div>
               <div>
-                <h3 class="text-sm font-bold font-['Orbitron',sans-serif] text-white flex items-center gap-2">
-                  <span>OrangeAI Engineering Advisor</span>
-                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <h3 className="text-sm font-bold font-['Orbitron',sans-serif] text-white flex items-center gap-2">
+                  <span>Aria AI Consultant</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 </h3>
-                <p class="text-[11px] text-slate-400 font-mono-code">Software • PCB • Smart Automation &amp; IoT</p>
+                <p className="text-[11px] text-slate-400 font-mono-code">Live 24/7 • Software • PCB • AI Solutions</p>
               </div>
             </div>
 
-            <div class="flex items-center gap-1.5 relative z-10">
+            <div className="flex items-center gap-1.5 relative z-10">
               <button
                 onClick={resetChat}
                 title="Reset Conversation"
-                class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
               >
-                <RefreshCw class="w-4 h-4" />
+                <RefreshCw className="w-4 h-4" />
               </button>
               <button
                 onClick={onClose}
-                class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
               >
-                <X class="w-5 h-5" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          <div class="flex-1 p-6 overflow-y-auto space-y-4 text-xs relative">
-            <div class="absolute right-4 top-4 w-40 opacity-15 pointer-events-none">
-              <img src="/assets/svg/ai-brain-board.svg" alt="AI Brain Animation" class="w-full h-auto object-contain" />
+          <div className="flex-1 p-6 overflow-y-auto space-y-4 text-xs relative">
+            <div className="absolute right-4 top-4 w-40 opacity-15 pointer-events-none">
+              <img src="/assets/svg/ai-brain-board.svg" alt="AI Brain Animation" className="w-full h-auto object-contain" />
             </div>
 
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                class={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  class={`max-w-[88%] rounded-2xl p-4 leading-relaxed ${
+                  className={`max-w-[88%] rounded-2xl p-4 leading-relaxed ${
                     msg.sender === 'user'
                       ? 'bg-[#FF6B00] text-white font-medium rounded-tr-none shadow-md'
                       : 'bg-slate-900/90 border border-slate-800 text-slate-200 rounded-tl-none space-y-2.5 backdrop-blur-md'
@@ -199,25 +221,25 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                   ) : (
                     <div>
                       {msg.title && (
-                        <div class="font-bold text-sm font-['Orbitron',sans-serif] text-white border-b border-slate-800 pb-1.5 mb-2 flex items-center gap-2">
-                          <span class="w-1.5 h-1.5 rounded-full bg-[#FF6B00]"></span>
+                        <div className="font-bold text-sm font-['Orbitron',sans-serif] text-white border-b border-slate-800 pb-1.5 mb-2 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00]"></span>
                           <span>{msg.title}</span>
                         </div>
                       )}
 
                       {msg.text && (
-                        <div class="text-slate-300 whitespace-pre-wrap">{msg.text}</div>
+                        <div className="text-slate-200 whitespace-pre-wrap leading-relaxed">{msg.text}</div>
                       )}
 
                       {msg.intro && (
-                        <div class="text-slate-300 font-medium">{msg.intro}</div>
+                        <div className="text-slate-300 font-medium">{msg.intro}</div>
                       )}
 
                       {msg.points && (
-                        <ul class="space-y-1.5 pt-1">
+                        <ul className="space-y-1.5 pt-1">
                           {msg.points.map((pt, pIdx) => (
-                            <li key={pIdx} class="flex items-start gap-2 text-slate-300">
-                              <span class="text-[#FF6B00] font-bold shrink-0 mt-0.5">•</span>
+                            <li key={pIdx} className="flex items-start gap-2 text-slate-300">
+                              <span className="text-[#FF6B00] font-bold shrink-0 mt-0.5">•</span>
                               <span>{pt}</span>
                             </li>
                           ))}
@@ -225,7 +247,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                       )}
 
                       {msg.footer && (
-                        <div class="pt-2 text-slate-400 italic border-t border-slate-800/80 mt-2">
+                        <div className="pt-2 text-slate-400 italic border-t border-slate-800/80 mt-2">
                           {msg.footer}
                         </div>
                       )}
@@ -236,24 +258,24 @@ export default function AiAssistantModal({ isOpen, onClose }) {
             ))}
 
             {isTyping && (
-              <div class="flex justify-start">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce"></span>
-                  <span class="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce [animation-delay:0.2s]"></span>
-                  <span class="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce [animation-delay:0.4s]"></span>
+              <div className="flex justify-start">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-bounce [animation-delay:0.4s]"></span>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {messages.length < 4 && (
-            <div class="px-6 py-2.5 bg-slate-950 border-t border-slate-800/80 flex flex-wrap gap-1.5">
+          {messages.length < 5 && (
+            <div className="px-6 py-2.5 bg-slate-950 border-t border-slate-800/80 flex flex-wrap gap-1.5">
               {quickPrompts.map((prompt, pIdx) => (
                 <button
                   key={pIdx}
                   onClick={() => handleSend(prompt)}
-                  class="text-[11px] font-mono-code px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00] transition-all cursor-pointer text-left"
+                  className="text-[11px] font-mono-code px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00] transition-all cursor-pointer text-left"
                 >
                   {prompt}
                 </button>
@@ -261,24 +283,24 @@ export default function AiAssistantModal({ isOpen, onClose }) {
             </div>
           )}
 
-          <div class="p-4 bg-slate-950 border-t border-slate-800">
-            <div class="flex items-center gap-2">
+          <div className="p-4 bg-slate-950 border-t border-slate-800">
+            <div className="flex items-center gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask OrangeAI about Software, PCB, or Smart Automation..."
-                class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#FF6B00] transition-colors"
+                placeholder="Ask Aria about building websites, AI bots, or hardware..."
+                className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#FF6B00] transition-colors"
               />
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim()}
-                class={`p-2.5 rounded-xl bg-[#FF6B00] text-white transition-all cursor-pointer ${
+                className={`p-2.5 rounded-xl bg-[#FF6B00] text-white transition-all cursor-pointer ${
                   input.trim() ? 'hover:bg-[#e05e00] shadow-md' : 'opacity-50 cursor-not-allowed'
                 }`}
               >
-                <Send class="w-4 h-4" />
+                <Send className="w-4 h-4" />
               </button>
             </div>
           </div>
