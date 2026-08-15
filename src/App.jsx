@@ -9,11 +9,13 @@ import IsometricStageSection from './components/IsometricStageSection';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
 import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
 import AiAssistantModal from './components/AiAssistantModal';
+import ApiKeysModal from './components/ApiKeysModal';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 
 export default function App() {
   const [aiOpen, setAiOpen] = useState(false);
+  const [apiKeysOpen, setApiKeysOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -27,11 +29,16 @@ export default function App() {
   }, [darkMode]);
 
   return (
-    <div class={`relative min-h-screen transition-colors duration-300 font-['Plus_Jakarta_Sans',sans-serif] overflow-x-hidden selection:bg-[#FF6B00] selection:text-white ${
+    <div class={`relative min-h-screen transition-colors duration-300 font-apple overflow-x-hidden selection:bg-[#FF6B00] selection:text-white ${
       darkMode ? 'bg-[#080B11] text-slate-100' : 'bg-[#F8FAFC] text-slate-900'
     }`}>
       <ThreeBackground darkMode={darkMode} />
-      <Navbar onOpenAi={() => setAiOpen(true)} darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Navbar
+        onOpenAi={() => setAiOpen(true)}
+        onOpenApiKeys={() => setApiKeysOpen(true)}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <main>
         <Hero onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
         <Highlights darkMode={darkMode} />
@@ -44,6 +51,7 @@ export default function App() {
       </main>
       <Footer darkMode={darkMode} />
       <AiAssistantModal isOpen={aiOpen} onClose={() => setAiOpen(false)} />
+      <ApiKeysModal isOpen={apiKeysOpen} onClose={() => setApiKeysOpen(false)} darkMode={darkMode} />
     </div>
   );
 }
