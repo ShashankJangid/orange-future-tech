@@ -74,8 +74,7 @@
       "parameters": {
         "method": "POST",
         "url": "https://api.mail.hostinger.com/api/v1/mailboxes/AC6b561e5b00e0bde3a92a445b3c1a/send",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
+        "authentication": "none",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -107,6 +106,7 @@
       "parameters": {
         "method": "POST",
         "url": "https://api.telegram.org/bot8805441904:AAF4ah6zdAergXdEX-bKy5wOi7XrKqQxYPk/sendMessage",
+        "authentication": "none",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
