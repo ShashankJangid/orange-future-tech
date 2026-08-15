@@ -9,13 +9,13 @@ import IsometricStageSection from './components/IsometricStageSection';
 import HardwareCodePlayground from './components/HardwareCodePlayground';
 import ElectronicsSolutionsSection from './components/ElectronicsSolutionsSection';
 import AiAssistantModal from './components/AiAssistantModal';
-import ApiKeysModal from './components/ApiKeysModal';
+import AdminAuthModal from './components/AdminAuthModal';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 
 export default function App() {
   const [aiOpen, setAiOpen] = useState(false);
-  const [apiKeysOpen, setApiKeysOpen] = useState(false);
+  const [adminAuthOpen, setAdminAuthOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function App() {
       <ThreeBackground darkMode={darkMode} />
       <Navbar
         onOpenAi={() => setAiOpen(true)}
-        onOpenApiKeys={() => setApiKeysOpen(true)}
+        onOpenApiKeys={() => setAdminAuthOpen(true)}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
@@ -51,7 +51,7 @@ export default function App() {
       </main>
       <Footer darkMode={darkMode} />
       <AiAssistantModal isOpen={aiOpen} onClose={() => setAiOpen(false)} />
-      <ApiKeysModal isOpen={apiKeysOpen} onClose={() => setApiKeysOpen(false)} darkMode={darkMode} />
+      <AdminAuthModal isOpen={adminAuthOpen} onClose={() => setAdminAuthOpen(false)} darkMode={darkMode} />
     </div>
   );
 }
