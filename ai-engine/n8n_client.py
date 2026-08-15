@@ -16,7 +16,11 @@ class N8nClient:
             "jsonrpc": "2.0",
             "id": 1,
             "method": method,
-            "params": params or {}
+            "params": params or {
+                "protocolVersion": "2024-11-05",
+                "capabilities": {},
+                "clientInfo": {"name": "orange-ai-engine", "version": "1.0.0"}
+            }
         }).encode("utf-8")
 
         req = urllib.request.Request(
@@ -25,12 +29,23 @@ class N8nClient:
             headers={
                 "Authorization": f"Bearer {N8N_BEARER_TOKEN}",
                 "Content-Type": "application/json",
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                "Accept": "application/json, text/event-stream",
+                "User-Agent": "OrangeFutureTech/1.0"
             }
         )
         try:
             res = urllib.request.urlopen(req, timeout=10)
-            data = json.loads(res.read().decode("utf-8"))
+            raw_response = res.read().decode("utf-8")
+            
+            # Parse SSE format if present (e.g. data: {...})
+            data = None
+            for line in raw_response.splitlines():
+                if line.startswith("data: "):
+                    data = json.loads(line[6:])
+                    break
+            if data is None:
+                data = json.loads(raw_response)
+
             log_action("N8nClient", "MCP_CALL_SUCCESS", method, "SUCCESS")
             return data
         except Exception as e:
@@ -39,4 +54,4 @@ class N8nClient:
 
 if __name__ == "__main__":
     res = N8nClient.call_mcp_method("initialize")
-    print("N8n MCP Response:", res)
+    print("N8n MCP Response:", json.dumps(res, indent=2))
