@@ -22,4 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.vercel
+
+# Environment Secrets
+.env
+.env.*
+!.env.example
+ai-engine/.env
+*.db

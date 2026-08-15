@@ -5,7 +5,7 @@ import urllib.request
 import urllib.error
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from config import RESEND_API_KEY, SENDER_EMAIL
+from config import RESEND_API_KEY
 from db import log_action
 from notifier import Notifier
 
@@ -14,6 +14,7 @@ SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "teams@orangefuturetech.com")
 
 class ColdOutreachEngine:
     """Populates branded email templates and dispatches cold audit outreach."""
@@ -26,10 +27,8 @@ class ColdOutreachEngine:
         bugs = audit_data.get("issues", [])
         top_bug = bugs[0]["title"] if bugs else "Page speed bottlenecks"
 
-        # Subject line optimized for high open rates
         subject = f"Technical Audit Summary for {company_name} - Quick Feedback"
 
-        # Populate custom HTML email body using Orange Future Tech branding
         html_body = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,12 +79,33 @@ class ColdOutreachEngine:
 </body>
 </html>'''
 
-        # Method A: Dispatch via Resend API
+        # Method A: Dispatch via SMTP (Sender set to Orange Future Tech <teams@orangefuturetech.com>)
+        if SMTP_USER and SMTP_PASS:
+            try:
+                msg = MIMEMultipart("alternative")
+                msg["Subject"] = subject
+                msg["From"] = f"Orange Future Tech <{SENDER_EMAIL}>"
+                msg["Reply-To"] = SENDER_EMAIL
+                msg["To"] = target_email
+                msg.attach(MIMEText(html_body, "html"))
+
+                with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+                    server.starttls()
+                    server.login(SMTP_USER, SMTP_PASS)
+                    server.sendmail(SMTP_USER, target_email, msg.as_string())
+
+                log_action("ColdOutreach", "DISPATCH_REAL_SMTP", target_email, "SUCCESS")
+                Notifier.alert_email_sent(company_name, target_email, report_path)
+                return True
+            except Exception as e:
+                log_action("ColdOutreach", "DISPATCH_SMTP_FAILED", target_email, "ERROR", {"error": str(e)})
+
+        # Method B: Dispatch via Resend API
         if RESEND_API_KEY and len(RESEND_API_KEY) > 5 and RESEND_API_KEY != "your_resend_api_key_here":
             try:
                 sender = SENDER_EMAIL if SENDER_EMAIL else "onboarding@resend.dev"
                 payload = json.dumps({
-                    "from": sender,
+                    "from": f"Orange Future Tech <{sender}>",
                     "to": [target_email],
                     "subject": subject,
                     "html": html_body
@@ -109,30 +129,10 @@ class ColdOutreachEngine:
                 err_text = e.read().decode("utf-8")
                 log_action("ColdOutreach", "DISPATCH_RESEND_FAILED", target_email, "ERROR", {"error": err_text})
 
-        # Method B: Dispatch via Standard SMTP (Gmail / Custom Mail Server)
-        if SMTP_USER and SMTP_PASS:
-            try:
-                msg = MIMEMultipart("alternative")
-                msg["Subject"] = subject
-                msg["From"] = SMTP_USER
-                msg["To"] = target_email
-                msg.attach(MIMEText(html_body, "html"))
-
-                with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-                    server.starttls()
-                    server.login(SMTP_USER, SMTP_PASS)
-                    server.sendmail(SMTP_USER, target_email, msg.as_string())
-
-                log_action("ColdOutreach", "DISPATCH_REAL_SMTP", target_email, "SUCCESS")
-                Notifier.alert_email_sent(company_name, target_email, report_path)
-                return True
-            except Exception as e:
-                log_action("ColdOutreach", "DISPATCH_SMTP_FAILED", target_email, "ERROR", {"error": str(e)})
-
-        # Method C: Simulated Sandbox Log (when no live email credentials provided)
-        log_action("ColdOutreach", "SIMULATED_DISPATCH", target_email, "SUCCESS", {"note": "No live RESEND_API_KEY or SMTP credentials configured in .env"})
+        # Method C: Simulated Sandbox Log
+        log_action("ColdOutreach", "SIMULATED_DISPATCH", target_email, "SUCCESS")
         Notifier.alert_email_sent(company_name, target_email, "Simulated Dispatch Logged")
         return False
 
 if __name__ == "__main__":
-    ColdOutreachEngine.send_outreach_email("Shipmate Logistics", "shashankjangidofficial@gmail.com", {"score": 95, "issues": [{"title": "Slow mobile page load speed"}]})
+    ColdOutreachEngine.send_outreach_email("Shipmate Logistics", "sjangidji@gmail.com", {"score": 95, "issues": [{"title": "Sub-millisecond API & Cloud Database Architecture"}]})
