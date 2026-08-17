@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play } from 'lucide-react';
+import { GradientShimmer } from '@/components/ui/gradient-shimmer';
 
 export default function Hero({ onOpenAi, darkMode }) {
   return (
@@ -29,9 +30,16 @@ export default function Hero({ onOpenAi, darkMode }) {
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>
               ENGINEERING THE <br />
-              <span class="text-apple-gradient-orange drop-shadow-sm">
+              <GradientShimmer
+                gradient="orange"
+                easing="smooth"
+                duration={1.5}
+                spread={4}
+                baseColor="#FF6B00"
+                className="drop-shadow-sm font-extrabold"
+              >
                 FUTURE OF TECH
-              </span>
+              </GradientShimmer>
             </h1>
 
             <p class="mt-6 apple-subtitle max-w-xl font-normal leading-relaxed">
