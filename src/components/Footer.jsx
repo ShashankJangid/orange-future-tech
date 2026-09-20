@@ -9,7 +9,13 @@ export default function Footer({ darkMode }) {
         <div className="flex items-center gap-3">
           <a href="#" className="flex items-center gap-2.5 group">
             <div className="h-9 w-9 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden">
-              <img src="/logo-concept-b-icon.png" alt="Orange Future Tech Emblem" className="h-full w-full object-cover rounded-lg" />
+              <img 
+                src="/logo-concept-b-icon.webp" 
+                alt="Orange Future Tech Emblem" 
+                className="h-full w-full object-cover rounded-lg"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <span className={`text-xs font-bold tracking-tight ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
               ORANGE <span className="text-[#FF6B00]">FUTURE TECH</span>

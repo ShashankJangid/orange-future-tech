@@ -100,10 +100,10 @@ export default function Hero({ onOpenAi, darkMode }) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 40 }}
+            initial={{ opacity: 0, scale: 0.98, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            class="lg:col-span-5 relative space-y-4"
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative space-y-4"
           >
             <div className="glass-apple-card p-6 relative overflow-hidden group">
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#FF6B00]/25 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF6B00]/40 transition-all duration-700"></div>
@@ -111,9 +111,12 @@ export default function Hero({ onOpenAi, darkMode }) {
 
               <div className="relative flex items-center justify-center">
                 <img
-                  src="/logo-concept-b-square.png"
+                  src="/logo-concept-b-square.webp"
                   alt="Orange Future Tech 3D Silicon & PCB Architecture"
                   className="w-full h-auto object-contain max-h-[290px] rounded-2xl drop-shadow-[0_20px_40px_rgba(255,107,0,0.22)] transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
 
@@ -158,7 +161,7 @@ export default function Hero({ onOpenAi, darkMode }) {
           <div className="flex overflow-x-hidden">
             <motion.div
               animate={{ x: [0, -1200] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 11 }}
               className="flex items-center gap-4 whitespace-nowrap shrink-0 pr-4"
             >
               {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, mIdx) => {
@@ -172,7 +175,7 @@ export default function Hero({ onOpenAi, darkMode }) {
                         : 'bg-white/90 border-slate-200 text-slate-700 shadow-sm'
                     }`}
                   >
-                    <img src="/logo-concept-b-icon.png" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" />
+                    <img src="/logo-concept-b-icon.webp" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" loading="eager" />
                     <IconComponent className="w-3.5 h-3.5 text-[#FF6B00]" />
                     <span className="font-medium">{item.label}</span>
                   </div>

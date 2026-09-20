@@ -3,12 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Sparkles, RefreshCw } from 'lucide-react';
 
 const getApiKey = () => {
-  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GROQ_API_KEY) {
-    return import.meta.env.VITE_GROQ_API_KEY;
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    if (import.meta.env.VITE_AI_API_KEY) return import.meta.env.VITE_AI_API_KEY;
+    if (import.meta.env.VITE_GROQ_API_KEY) return import.meta.env.VITE_GROQ_API_KEY;
   }
-  const prefix = "gsk_Cf3FpBMDD2C7zhqKiPJg";
-  const suffix = "WGdyb3FYQ12rZMuW8sHTFhmeKZzg46gP";
-  return `${prefix}${suffix}`;
+  const savedKeys = localStorage.getItem('oft_api_keys');
+  if (savedKeys) {
+    try {
+      const parsed = JSON.parse(savedKeys);
+      if (parsed?.GEMINI_API_KEY) return parsed.GEMINI_API_KEY;
+    } catch (e) {}
+  }
+  return null;
 };
 
 const AI_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
@@ -109,6 +115,16 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     if (!textToSend) setInput('');
     setIsTyping(true);
 
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      setTimeout(() => {
+        const fallback = generateFallbackResponse(msgText);
+        setMessages((prev) => [...prev, { sender: 'ai', ...fallback }]);
+        setIsTyping(false);
+      }, 400);
+      return;
+    }
+
     const apiMessages = [
       { role: 'system', content: SYSTEM_PROMPT },
       ...updatedMessages.map((m) => ({
@@ -118,7 +134,6 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     ];
 
     try {
-      const apiKey = getApiKey();
       const models = ['openai/gpt-oss-20b', 'groq/compound', 'openai/gpt-oss-120b'];
       let response = null;
 

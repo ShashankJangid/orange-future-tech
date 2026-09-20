@@ -22,7 +22,14 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3 group">
           <div className="h-10 w-10 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 group-hover:border-[#FF6B00] transition-all duration-300 overflow-hidden">
-            <img src="/logo-concept-b-icon.png" alt="Orange Future Tech Emblem" className="h-full w-full object-cover rounded-lg" />
+            <img 
+              src="/logo-concept-b-icon.webp" 
+              alt="Orange Future Tech Emblem" 
+              className="h-full w-full object-cover rounded-lg"
+              loading="eager"
+              fetchPriority="high"
+              decoding="sync"
+            />
           </div>
           <div className="flex flex-col">
             <span className={`text-sm font-extrabold tracking-tight leading-none transition-colors group-hover:text-[#FF6B00] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
