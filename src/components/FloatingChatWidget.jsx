@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Sparkles, RefreshCw, Bot, ChevronDown, CheckCircle2 } from 'lucide-react';
 
-const getGroqApiKey = () => {
+const getApiKey = () => {
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GROQ_API_KEY) {
     return import.meta.env.VITE_GROQ_API_KEY;
   }
@@ -10,7 +10,7 @@ const getGroqApiKey = () => {
   return parts.join('_');
 };
 
-const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+const AI_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 const SYSTEM_PROMPT = `You are Aria, the lead AI Engineering Consultant at Orange Future Tech (orangefuturetech.com).
 Orange Future Tech is an AI implementation firm, enterprise web engineering team, multi-layer PCB hardware design house, and smart automation provider.
@@ -132,8 +132,8 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
     ];
 
     try {
-      const apiKey = getGroqApiKey();
-      const response = await fetch(GROQ_ENDPOINT, {
+      const apiKey = getApiKey();
+      const response = await fetch(AI_ENDPOINT, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
@@ -210,7 +210,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-white">Chat with Aria (Groq AI)</p>
+                <p className="text-xs font-semibold text-white">Chat with Aria (AI)</p>
                 <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
                   Need a website, AI agent, or custom hardware? Let's chat!
                 </p>
@@ -244,7 +244,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                   </h3>
                   <p className="text-[10px] text-slate-400 font-mono-code flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Online • Powered by Groq AI
+                    Online • Autonomous AI
                   </p>
                 </div>
               </div>

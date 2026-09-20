@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Sparkles, RefreshCw } from 'lucide-react';
 
-const getGroqApiKey = () => {
+const getApiKey = () => {
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GROQ_API_KEY) {
     return import.meta.env.VITE_GROQ_API_KEY;
   }
@@ -10,7 +10,7 @@ const getGroqApiKey = () => {
   return parts.join('_');
 };
 
-const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+const AI_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 const SYSTEM_PROMPT = `You are Aria, the lead AI Engineering Consultant at Orange Future Tech (orangefuturetech.com).
 Orange Future Tech is an AI implementation firm, enterprise web engineering team, multi-layer PCB hardware design house, and smart automation provider.
@@ -117,15 +117,15 @@ export default function AiAssistantModal({ isOpen, onClose }) {
     ];
 
     try {
-      const apiKey = getGroqApiKey();
-      const response = await fetch(GROQ_ENDPOINT, {
+      const apiKey = getApiKey();
+      const response = await fetch(AI_ENDPOINT, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'groq/compound',
+          model: 'llama-3.3-70b-versatile',
           messages: apiMessages,
           temperature: 0.7,
           max_tokens: 600
@@ -193,7 +193,7 @@ export default function AiAssistantModal({ isOpen, onClose }) {
                   <span>Aria AI Consultant</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 </h3>
-                <p className="text-[11px] text-slate-400 font-mono-code">Live 24/7 • Powered by Groq AI</p>
+                <p className="text-[11px] text-slate-400 font-mono-code">Live 24/7 • Orange Future Tech AI</p>
               </div>
             </div>
 
