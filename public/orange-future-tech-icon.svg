@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="iconOrangeGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF964A" />
+      <stop offset="60%" stop-color="#FF6B00" />
+      <stop offset="100%" stop-color="#D94E00" />
+    </linearGradient>
+
+    <linearGradient id="iconCoreGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFA86B" />
+      <stop offset="100%" stop-color="#FF6B00" />
+    </linearGradient>
+
+    <linearGradient id="iconMetalBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E232E" />
+      <stop offset="50%" stop-color="#12161F" />
+      <stop offset="100%" stop-color="#080A0E" />
+    </linearGradient>
+
+    <filter id="iconSoftShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#FF6B00" flood-opacity="0.4" />
+    </filter>
+
+    <filter id="iconInnerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowDiff" />
+      <feFlood flood-color="#FFE7D6" flood-opacity="0.8" />
+      <feComposite in2="shadowDiff" operator="in" />
+      <feComposite in2="SourceGraphic" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Dark Squircle Plate -->
+  <rect x="14" y="14" width="172" height="172" rx="44" fill="url(#iconMetalBg)" stroke="#FF6B00" stroke-width="2.5" stroke-opacity="0.4" filter="url(#iconSoftShadow)" />
+
+  <g transform="translate(100, 100)">
+    <!-- Outer Precision Citrus / Tech Ring Segments -->
+    <!-- Segment Top Right -->
+    <path d="M 0 -64 A 64 64 0 0 1 64 0 L 44 0 A 44 44 0 0 0 0 -44 Z" fill="url(#iconOrangeGlow)" opacity="0.95" />
+    
+    <!-- Segment Bottom Right -->
+    <path d="M 64 0 A 64 64 0 0 1 0 64 L 0 44 A 44 44 0 0 0 44 0 Z" fill="url(#iconOrangeGlow)" opacity="0.85" />
+    
+    <!-- Segment Bottom Left -->
+    <path d="M 0 64 A 64 64 0 0 1 -64 0 L -44 0 A 44 44 0 0 0 0 44 Z" fill="url(#iconOrangeGlow)" opacity="0.95" />
+    
+    <!-- Segment Top Left -->
+    <path d="M -64 0 A 64 64 0 0 1 0 -64 L 0 -44 A 44 44 0 0 0 -44 0 Z" fill="url(#iconOrangeGlow)" opacity="0.85" />
+
+    <!-- Central Silicon AI Die -->
+    <rect x="-25" y="-25" width="50" height="50" rx="10" fill="#07090E" stroke="url(#iconCoreGlow)" stroke-width="3" />
+    <rect x="-14" y="-14" width="28" height="28" rx="6" fill="url(#iconOrangeGlow)" filter="url(#iconInnerGlow)" />
+
+    <!-- Traces -->
+    <line x1="0" y1="-25" x2="0" y2="-58" stroke="#FF964A" stroke-width="3" stroke-linecap="round" />
+    <circle cx="0" cy="-58" r="4.5" fill="#FFFFFF" stroke="#FF6B00" stroke-width="2.5" />
+    
+    <path d="M 25 0 L 42 0 L 54 -12" fill="none" stroke="#FF964A" stroke-width="3" stroke-linecap="round" />
+    <circle cx="54" cy="-12" r="4.5" fill="#FFFFFF" stroke="#FF6B00" stroke-width="2.5" />
+    
+    <line x1="0" y1="25" x2="0" y2="58" stroke="#FF964A" stroke-width="3" stroke-linecap="round" />
+    <circle cx="0" cy="58" r="4.5" fill="#FFFFFF" stroke="#FF6B00" stroke-width="2.5" />
+    
+    <path d="M -25 0 L -42 0 L -54 12" fill="none" stroke="#FF964A" stroke-width="3" stroke-linecap="round" />
+    <circle cx="-54" cy="12" r="4.5" fill="#FFFFFF" stroke="#FF6B00" stroke-width="2.5" />
+
+    <!-- Quantum center node -->
+    <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
+  </g>
+</svg>

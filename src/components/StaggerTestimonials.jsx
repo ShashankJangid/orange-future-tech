@@ -91,12 +91,10 @@ export default function StaggerTestimonials({ darkMode = true }) {
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Background Glows */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#FF6B00]/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code mb-4 border bg-[#FF6B00]/10 border-[#FF6B00]/30 text-[#FF6B00]">
             <Award className="w-3.5 h-3.5" />
@@ -114,18 +112,14 @@ export default function StaggerTestimonials({ darkMode = true }) {
           </p>
         </div>
 
-        {/* Staggered Cards Showcase */}
         <div className="relative min-h-[460px] sm:min-h-[420px] flex items-center justify-center">
           <div className="w-full max-w-3xl relative">
             {testimonials.map((t, idx) => {
-              // Calculate offset relative to active index
               const offset = (idx - activeIndex + testimonials.length) % testimonials.length;
               
-              // Only render visible staggered cards (active, +1, +2)
               const isVisible = offset === 0 || offset === 1 || offset === 2;
               if (!isVisible) return null;
 
-              // Stagger offsets
               let transformStyles = '';
               let zIndex = 30 - offset * 10;
               let opacity = 1 - offset * 0.28;
@@ -152,7 +146,6 @@ export default function StaggerTestimonials({ darkMode = true }) {
                       : 'absolute top-0 left-0 right-0 bg-slate-100/90 border-slate-200 shadow-lg'
                   }`}
                 >
-                  {/* Top Row: Tag, Rating & Quote Mark */}
                   <div className="flex items-center justify-between gap-4 mb-6">
                     <div className="flex items-center gap-3">
                       <span className="text-[11px] font-mono-code font-semibold px-3 py-1 rounded-full bg-[#FF6B00]/15 text-[#FF6B00] border border-[#FF6B00]/30 flex items-center gap-1.5">
@@ -170,14 +163,12 @@ export default function StaggerTestimonials({ darkMode = true }) {
                     </div>
                   </div>
 
-                  {/* Quote Body */}
                   <p className={`text-base sm:text-lg md:text-xl font-medium leading-relaxed font-sans ${
                     darkMode ? 'text-slate-100' : 'text-slate-800'
                   }`}>
                     "{t.quote}"
                   </p>
 
-                  {/* Bottom Row: Author & Metric */}
                   <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                       <div className="relative shrink-0">
@@ -220,9 +211,7 @@ export default function StaggerTestimonials({ darkMode = true }) {
           </div>
         </div>
 
-        {/* Carousel Controls & Avatar Selector */}
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto">
-          {/* Client Avatar Indicators */}
           <div className="flex items-center gap-2.5">
             {testimonials.map((t, idx) => (
               <button
@@ -244,7 +233,6 @@ export default function StaggerTestimonials({ darkMode = true }) {
             ))}
           </div>
 
-          {/* Next / Previous Arrow Buttons */}
           <div className="flex items-center gap-3">
             <button
               onClick={prevTestimonial}

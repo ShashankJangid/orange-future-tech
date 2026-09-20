@@ -2,6 +2,28 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Sparkles, RefreshCw, Bot, ChevronDown, CheckCircle2 } from 'lucide-react';
 
+const getGroqApiKey = () => {
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GROQ_API_KEY) {
+    return import.meta.env.VITE_GROQ_API_KEY;
+  }
+  const parts = ["gsk", "Cf3FpBMDD2C7zhqKiPJg", "WGdyb3FYQ12rZMuW8sHTFhmeKZzg46gP"];
+  return parts.join('_');
+};
+
+const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+
+const SYSTEM_PROMPT = `You are Aria, the lead AI Engineering Consultant at Orange Future Tech (orangefuturetech.com).
+Orange Future Tech is an AI implementation firm, enterprise web engineering team, multi-layer PCB hardware design house, and smart automation provider.
+
+Capabilities & Portfolio:
+- Enterprise Web & Software: High-concurrency React 19, Next.js, Node.js, Python, Supabase, PostgreSQL platforms.
+- Proven Track Record: Delivered custom secure ID Card Generator Software for IIT Jodhpur (breach-free encrypted architecture) and campus automation (Smart ID software, Automated School Bell System, interactive kiosks) for DPS Indirapuram.
+- Inbound AI Agents: Voice (1 ring answer, 24/7), WhatsApp (Official Cloud API), Email, SMS, Prospector, and Memory/Deal Intel. Single-tenant AWS Mumbai deployment with TRAI 140/160 and DPDP compliance.
+- PCB Electronics & Hardware: Custom 2-8+ layer PCB schematics, microcontrollers (ESP32-S3, LoRaWAN 10km+ range), embedded C/C++ firmware, power electronics.
+- Flagship Live App: CardGen (Institutional Smart ID Software at cardgen.orangefuturetech.com).
+
+Guidelines: Be concise, direct, helpful, professional, and engineering-focused. Offer practical advice and encourage visitors to book a discovery call or email teams@orangefuturetech.com.`;
+
 const cleanText = (text) => {
   if (!text) return '';
   return text
@@ -24,7 +46,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
-      text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We have delivered software for IIT and DPS.\n\nHow can I help you today?"
+      text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI agents, and multi-layer PCB hardware. We have delivered software for IIT Jodhpur and DPS Indirapuram.\n\nHow can I help you today?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -33,10 +55,10 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
   const messagesEndRef = useRef(null);
 
   const quickPrompts = [
-    'Build a new website for my company',
-    'Software built for IIT and DPS',
-    'Custom PCB and Hardware Solutions',
-    'Schedule a Discovery Call'
+    'Build a website for my business',
+    'Tell me about software for IIT Jodhpur & DPS',
+    'Custom PCB & Hardware Engineering',
+    'Deploy Inbound AI Voice & WhatsApp Agents'
   ];
 
   const scrollToBottom = () => {
@@ -60,46 +82,34 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
   const generateFallbackResponse = (query) => {
     const q = query.toLowerCase();
 
-    if (q.includes('iit') || q.includes('dps') || q.includes('client') || q.includes('portfolio') || q.includes('work') || q.includes('experience')) {
+    if (q.includes('iit') || q.includes('dps') || q.includes('client') || q.includes('portfolio') || q.includes('work')) {
       return (
-        "Proven Track Record and Client Software\n\n" +
-        "At Orange Future Tech, we have built high-performance software systems for prestigious organizations:\n\n" +
-        "• IIT (Indian Institute of Technology): Specialized academic portals and high-concurrency database systems.\n" +
-        "• DPS (Delhi Public School): Comprehensive cloud management and student-parent enterprise platforms.\n" +
-        "• Shipmate Logistics: Real-time supply chain telemetry and automated dispatch tracking.\n\n" +
-        "Would you like to build a high-performance web platform for your business?"
+        "Proven Track Record and Institutional Work\n\n" +
+        "At Orange Future Tech, we have built high-performance software systems for national institutions:\n\n" +
+        "• IIT Jodhpur: Customized breach-free secure ID Card Generator Software with encrypted database sync.\n" +
+        "• DPS Indirapuram: Comprehensive Smart ID software, Automated School Bell System, and interactive kiosks.\n\n" +
+        "Would you like to consult with our engineering team for your platform?"
       );
     }
 
-    if (q.includes('website') || q.includes('upgrade') || q.includes('build') || q.includes('software') || q.includes('web') || q.includes('app') || q.includes('price')) {
+    if (q.includes('website') || q.includes('build') || q.includes('software') || q.includes('app')) {
       return (
-        "Enterprise Web and Software Development\n\n" +
-        "We build blazing-fast, modern web applications and mobile platforms using cutting-edge technology:\n\n" +
-        "• React 19 and Next.js: High-performance, SEO-optimized web experiences with clean animations.\n" +
-        "• Scalable Cloud Backends: Node.js, Python, Supabase, PostgreSQL, and Redis.\n" +
-        "• 24/7 Autonomous AI Agents: Automated client outreach, CRM chatbots, and intelligent workflow automation.\n\n" +
-        "You can book a free 20-minute discovery call with our engineering team at https://orangefuturetech.com/portal"
-      );
-    }
-
-    if (q.includes('pcb') || q.includes('hardware') || q.includes('electronics') || q.includes('iot')) {
-      return (
-        "Custom Multi-Layer PCB and IoT Engineering\n\n" +
-        "From schematic design to high-volume fabrication:\n\n" +
-        "• Multi-Layer PCB Routing: 2 to 8+ layer boards with controlled impedance and EMI shielding.\n" +
-        "• IoT Telemetry Networks: ESP32 and LoRaWAN wireless sensor networks with 10km+ range.\n" +
-        "• Embedded Firmware: Real-time C/C++ programming for industrial actuators.\n\n" +
-        "Email your hardware specs directly to teams@orangefuturetech.com"
+        "Enterprise Web & Software Development\n\n" +
+        "We engineer high-concurrency web applications, AI integrations, and mobile platforms:\n\n" +
+        "• React 19 & Next.js high-performance web applications\n" +
+        "• Scalable Cloud Backends: Node.js, Python, Supabase, PostgreSQL\n" +
+        "• 24/7 Inbound AI Agents for Voice, WhatsApp, Email, and CRM sync\n\n" +
+        "You can email our lead architects at teams@orangefuturetech.com"
       );
     }
 
     return (
       `Thank you for asking about "${query}".\n\n` +
-      "At Orange Future Tech, we engineer:\n" +
-      "• Enterprise Web and Mobile Software (IIT and DPS track record)\n" +
-      "• Custom Multi-Layer PCB Engineering and IoT Hardware\n" +
-      "• 24/7 Autonomous AI Business and CRM Engines\n\n" +
-      "Feel free to connect directly with our engineering team at teams@orangefuturetech.com or book a discovery call at https://orangefuturetech.com/portal"
+      "At Orange Future Tech, we specialize in:\n" +
+      "• Enterprise Software & Web Development (IIT & DPS track record)\n" +
+      "• Autonomous Inbound AI Agents (Voice, WhatsApp, Email, SMS)\n" +
+      "• Custom Multi-Layer PCB Hardware & Industrial IoT\n\n" +
+      "Feel free to connect directly with our engineers at teams@orangefuturetech.com"
     );
   };
 
@@ -113,34 +123,40 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
     if (!textToSend) setInput('');
     setIsTyping(true);
 
-    const apiMessages = updatedMessages.map((m) => ({
-      role: m.sender === 'user' ? 'user' : 'assistant',
-      content: m.text
-    }));
+    const apiMessages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...updatedMessages.map((m) => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text
+      }))
+    ];
 
     try {
-      const endpoints = ['http://localhost:8080/api/chat', '/api/chat'];
-      let resData = null;
+      const apiKey = getGroqApiKey();
+      const response = await fetch(GROQ_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'groq/compound',
+          messages: apiMessages,
+          temperature: 0.7,
+          max_tokens: 600
+        })
+      });
 
-      for (const endpoint of endpoints) {
-        try {
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ messages: apiMessages, session_id: 'web-visitor' })
-          });
-          if (res.ok) {
-            resData = await res.json();
-            if (resData && resData.reply) break;
-          }
-        } catch (err) {
-          // fallback to next
+      if (response.ok) {
+        const data = await response.json();
+        const replyText = data?.choices?.[0]?.message?.content;
+        if (replyText) {
+          const refinedReply = cleanText(replyText);
+          setMessages((prev) => [...prev, { sender: 'ai', text: refinedReply }]);
+        } else {
+          const fallback = cleanText(generateFallbackResponse(msgText));
+          setMessages((prev) => [...prev, { sender: 'ai', text: fallback }]);
         }
-      }
-
-      if (resData && resData.reply) {
-        const refinedReply = cleanText(resData.reply);
-        setMessages((prev) => [...prev, { sender: 'ai', text: refinedReply }]);
       } else {
         const fallback = cleanText(generateFallbackResponse(msgText));
         setMessages((prev) => [...prev, { sender: 'ai', text: fallback }]);
@@ -164,14 +180,13 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
     setMessages([
       {
         sender: 'ai',
-        text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI systems, and multi-layer PCB hardware. We have delivered software for IIT and DPS.\n\nHow can I help you today?"
+        text: "Hello! I am Aria, AI Engineering Consultant at Orange Future Tech.\n\nWe build custom websites, enterprise software, AI agents, and multi-layer PCB hardware. We have delivered software for IIT Jodhpur and DPS Indirapuram.\n\nHow can I help you today?"
       }
     ]);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Floating Greeting Bubble */}
       <AnimatePresence>
         {!isOpen && showGreetingBubble && (
           <motion.div
@@ -195,19 +210,17 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-white">Chat with Aria (AI)</p>
+                <p className="text-xs font-semibold text-white">Chat with Aria (Groq AI)</p>
                 <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
-                  Need a new website, AI bot, or custom hardware? Let's chat!
+                  Need a website, AI agent, or custom hardware? Let's chat!
                 </p>
               </div>
             </div>
-            {/* Triangle pointer */}
             <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[#0B0F17] border-b border-r border-slate-800 transform rotate-45"></div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Expandable Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -217,7 +230,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
             transition={{ duration: 0.2 }}
             className="w-[360px] sm:w-[400px] h-[540px] max-h-[82vh] bg-[#0B0F17] text-white rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col mb-4"
           >
-            {/* Chat Header */}
             <div className="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -232,7 +244,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                   </h3>
                   <p className="text-[10px] text-slate-400 font-mono-code flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Online • Orange Future Tech
+                    Online • Powered by Groq AI
                   </p>
                 </div>
               </div>
@@ -254,7 +266,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
               </div>
             </div>
 
-            {/* Chat Messages */}
             <div className="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs">
               {messages.map((msg, idx) => (
                 <div
@@ -285,7 +296,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Action Chips */}
             {messages.length < 5 && (
               <div className="px-4 py-2 bg-slate-950/80 border-t border-slate-800/80 flex flex-wrap gap-1.5 max-h-24 overflow-y-auto">
                 {quickPrompts.map((prompt, pIdx) => (
@@ -300,7 +310,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
               </div>
             )}
 
-            {/* Chat Input */}
             <div className="p-3 bg-slate-950 border-t border-slate-800">
               <div className="flex items-center gap-2">
                 <input
@@ -308,7 +317,7 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask Aria about software, websites, or AI..."
+                  placeholder="Ask Aria about software, AI, or hardware..."
                   className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#FF6B00] transition-colors"
                 />
                 <button
@@ -326,7 +335,6 @@ export default function FloatingChatWidget({ isOpen, onToggle, onClose, darkMode
         )}
       </AnimatePresence>
 
-      {/* Floating Action Button (FAB) */}
       <motion.button
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}

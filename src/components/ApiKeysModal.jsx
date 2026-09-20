@@ -20,7 +20,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Load from local storage or server endpoint
     const savedKeys = localStorage.getItem('oft_api_keys');
     if (savedKeys) {
       try {
@@ -28,7 +27,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
       } catch (e) {}
     }
 
-    // Try fetching from local python configuration server
     fetch('http://localhost:8080/api/config')
       .then((res) => res.json())
       .then((data) => {
@@ -79,7 +77,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
             darkMode ? 'bg-[#0E131F] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
           }`}
         >
-          {/* Modal Header */}
           <div class={`p-6 border-b flex items-center justify-between ${
             darkMode ? 'border-slate-800 bg-slate-950/60' : 'border-slate-200 bg-slate-50'
           }`}>
@@ -110,10 +107,8 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
             </div>
           </div>
 
-          {/* Form Content */}
           <div class="p-6 overflow-y-auto space-y-6">
             
-            {/* Section 1: AI Brain */}
             <div>
               <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-[#FF6B00]">
                 <Sparkles class="w-4 h-4" />
@@ -135,7 +130,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
               </div>
             </div>
 
-            {/* Section 2: Real-time Notifications */}
             <div class="pt-4 border-t border-slate-200/15">
               <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-emerald-500">
                 <Send class="w-4 h-4" />
@@ -169,7 +163,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
               </div>
             </div>
 
-            {/* Section 3: Cold Email Outreach */}
             <div class="pt-4 border-t border-slate-200/15">
               <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-amber-500">
                 <Mail class="w-4 h-4" />
@@ -203,7 +196,6 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
               </div>
             </div>
 
-            {/* Section 4: Social Media Tokens */}
             <div class="pt-4 border-t border-slate-200/15">
               <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-sky-400">
                 <Share2 class="w-4 h-4" />
@@ -251,10 +243,40 @@ export default function ApiKeysModal({ isOpen, onClose, darkMode }) {
 
           </div>
 
-          {/* Modal Footer */}
           <div class={`p-6 border-t flex items-center justify-between ${
             darkMode ? 'border-slate-800 bg-slate-950/60' : 'border-slate-200 bg-slate-50'
           }`}>
+            <div>
+              {saved && (
+                <div class="flex items-center gap-2 text-xs font-mono-code text-emerald-500 font-bold">
+                  <CheckCircle2 class="w-4 h-4" />
+                  <span>API Keys updated &amp; saved to ai-engine/.env</span>
+                </div>
+              )}
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={onClose}
+                class="px-5 py-2.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSave}
+                disabled={loading}
+                class="btn-apple-primary px-6 py-2.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-md"
+              >
+                <Save class="w-4 h-4" />
+                <span>{loading ? 'Saving...' : 'Save & Update API Keys'}</span>
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </AnimatePresence>
             <div>
               {saved && (
                 <div class="flex items-center gap-2 text-xs font-mono-code text-emerald-500 font-bold">

@@ -26,7 +26,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Load stored keys on mount or open
   useEffect(() => {
     const sessionAuth = sessionStorage.getItem('oft_admin_auth');
     if (sessionAuth === 'true') {
@@ -40,7 +39,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
       } catch (e) {}
     }
 
-    // Attempt fetching from local server if available
     const pwd = sessionStorage.getItem('oft_admin_password') || '';
     if (pwd) {
       fetch('http://localhost:8080/api/config/get', {
@@ -68,7 +66,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
       sessionStorage.setItem('oft_admin_auth', 'true');
       sessionStorage.setItem('oft_admin_password', password);
 
-      // Async background sync with local python server if running
       fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -102,7 +99,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
     setLoading(true);
     setSaved(false);
 
-    // Save locally
     localStorage.setItem('oft_api_keys_secure', JSON.stringify(keys));
 
     if (newMasterPassword) {
@@ -112,7 +108,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
       setNewMasterPassword('');
     }
 
-    // Try saving to local backend server if active
     const currentPwd = sessionStorage.getItem('oft_admin_password') || password;
     fetch('http://localhost:8080/api/config/save', {
       method: 'POST',
@@ -144,7 +139,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
             darkMode ? 'bg-[#0A0E17] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
           }`}
         >
-          {/* Modal Header */}
           <div class={`p-6 border-b flex items-center justify-between ${
             darkMode ? 'border-slate-800 bg-slate-950/80' : 'border-slate-200 bg-slate-50'
           }`}>
@@ -182,9 +176,7 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
             </div>
           </div>
 
-          {/* Modal Body */}
           {!isAuthenticated ? (
-            /* Password Challenge Screen */
             <div class="p-8 sm:p-12 flex flex-col items-center justify-center text-center">
               <div class="w-16 h-16 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] mb-6 shadow-lg">
                 <ShieldCheck class="w-8 h-8" />
@@ -238,7 +230,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
               </div>
             </div>
           ) : (
-            /* Authenticated Key Manager Panel */
             <div class="p-6 overflow-y-auto space-y-6">
               
               <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
@@ -253,7 +244,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </span>
               </div>
 
-              {/* Section 1: AI Core */}
               <div>
                 <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-[#FF6B00]">
                   <Sparkles class="w-4 h-4" />
@@ -279,7 +269,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </div>
               </div>
 
-              {/* Section 2: Real-time Alerts */}
               <div class="pt-4 border-t border-slate-200/15">
                 <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-emerald-500">
                   <Send class="w-4 h-4" />
@@ -320,7 +309,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </div>
               </div>
 
-              {/* Section 3: Cold Email Outreach */}
               <div class="pt-4 border-t border-slate-200/15">
                 <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-amber-500">
                   <Mail class="w-4 h-4" />
@@ -361,7 +349,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </div>
               </div>
 
-              {/* Section 4: Security & Master Password Change */}
               <div class="pt-4 border-t border-slate-200/15">
                 <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-purple-400">
                   <Settings class="w-4 h-4" />
@@ -383,7 +370,6 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
             </div>
           )}
 
-          {/* Modal Footer */}
           {isAuthenticated && (
             <div class={`p-6 border-t flex items-center justify-between ${
               darkMode ? 'border-slate-800 bg-slate-950/80' : 'border-slate-200 bg-slate-50'
