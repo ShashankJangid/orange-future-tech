@@ -105,33 +105,46 @@ export default function Hero({ onOpenAi, darkMode }) {
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             class="lg:col-span-5 relative space-y-4"
           >
-            <div class="glass-apple-card p-6 relative">
-              <img
-                src="/assets/svg/coding.svg"
-                alt="Orange Future Tech Coding Animation"
-                class="w-full h-auto object-contain max-h-[280px] drop-shadow-lg transition-transform duration-500 hover:scale-[1.02]"
-              />
+            <div className="glass-apple-card p-6 relative overflow-hidden group">
+              <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#FF6B00]/25 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF6B00]/40 transition-all duration-700"></div>
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="relative flex items-center justify-center">
+                <img
+                  src="/logo-concept-b-square.png"
+                  alt="Orange Future Tech 3D Silicon & PCB Architecture"
+                  className="w-full h-auto object-contain max-h-[290px] rounded-2xl drop-shadow-[0_20px_40px_rgba(255,107,0,0.22)] transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              </div>
+
+              <div className="mt-4 flex items-center justify-between px-2 pt-3 border-t border-slate-200/15 text-xs font-mono-code text-slate-400">
+                <span className="flex items-center gap-1.5 text-[#FF6B00] font-semibold text-[11px]">
+                  <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-ping"></span>
+                  PROPRIETARY PCB & SILICON ARCHITECTURE
+                </span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wider">Titanium • 3D Core</span>
+              </div>
             </div>
 
-            <div class={`p-4 rounded-2xl border text-xs font-mono-code shadow-xl ${
+            <div className={`p-4 rounded-2xl border text-xs font-mono-code shadow-xl ${
               darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-slate-900 text-slate-200 border-slate-800'
             }`}>
-              <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400">
-                <span class="flex items-center gap-1.5 font-bold text-[#FF6B00]">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400">
+                <span className="flex items-center gap-1.5 font-bold text-[#FF6B00]">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   AGENTS • LIVE • INBOUND WATCH
                 </span>
                 <span>SINGLE-TENANT • AWS MUMBAI</span>
               </div>
-              <div class="space-y-2">
+              <div className="space-y-2">
                 {liveLogs.map((log, lIdx) => (
-                  <div key={lIdx} class="flex items-center justify-between gap-2 py-1 px-2 rounded bg-slate-950/60 border border-slate-800/80">
-                    <div class="flex items-center gap-2 overflow-hidden truncate">
-                      <span class="text-slate-500 shrink-0">{log.time}</span>
-                      <span class={`font-bold shrink-0 ${log.color}`}>{log.action}</span>
-                      <span class="text-slate-300 truncate">▸ {log.detail}</span>
+                  <div key={lIdx} className="flex items-center justify-between gap-2 py-1 px-2 rounded bg-slate-950/60 border border-slate-800/80">
+                    <div className="flex items-center gap-2 overflow-hidden truncate">
+                      <span className="text-slate-500 shrink-0">{log.time}</span>
+                      <span className={`font-bold shrink-0 ${log.color}`}>{log.action}</span>
+                      <span className="text-slate-300 truncate">▸ {log.detail}</span>
                     </div>
-                    <span class="text-[10px] text-slate-400 shrink-0">{log.status}</span>
+                    <span className="text-[10px] text-slate-400 shrink-0">{log.status}</span>
                   </div>
                 ))}
               </div>
@@ -140,24 +153,32 @@ export default function Hero({ onOpenAi, darkMode }) {
 
         </div>
 
-        <div class="mt-16 pt-8 border-t border-slate-200/10 overflow-hidden">
-          <div class="flex items-center justify-around flex-wrap gap-4 text-xs font-mono-code">
-            {marqueeItems.map((item, mIdx) => {
-              const IconComponent = item.icon;
-              return (
-                <div 
-                  key={mIdx}
-                  class={`flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] border backdrop-blur-md transition-all ${
-                    darkMode 
-                      ? 'bg-slate-900/60 border-slate-800 text-slate-300' 
-                      : 'bg-white/80 border-slate-200 text-slate-700 shadow-sm'
-                  }`}
-                >
-                  <IconComponent class="w-3.5 h-3.5 text-[#FF6B00]" />
-                  <span>{item.label}</span>
-                </div>
-              );
-            })}
+        {/* Continuous Animated Marquee Ticker */}
+        <div className="mt-16 pt-8 border-t border-slate-200/10 overflow-hidden relative">
+          <div className="flex overflow-x-hidden">
+            <motion.div
+              animate={{ x: [0, -1200] }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+              className="flex items-center gap-4 whitespace-nowrap shrink-0 pr-4"
+            >
+              {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, mIdx) => {
+                const IconComponent = item.icon;
+                return (
+                  <div 
+                    key={mIdx}
+                    className={`flex items-center gap-2.5 px-4 py-2 rounded-full border backdrop-blur-md transition-all text-xs font-mono-code ${
+                      darkMode 
+                        ? 'bg-slate-900/80 border-slate-800 text-slate-300' 
+                        : 'bg-white/90 border-slate-200 text-slate-700 shadow-sm'
+                    }`}
+                  >
+                    <img src="/logo-concept-b-icon.png" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" />
+                    <IconComponent className="w-3.5 h-3.5 text-[#FF6B00]" />
+                    <span className="font-medium">{item.label}</span>
+                  </div>
+                );
+              })}
+            </motion.div>
           </div>
         </div>
 

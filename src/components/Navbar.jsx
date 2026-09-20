@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, Sparkles, Sun, Moon, ExternalLink, Key } from 'lucide-react';
+import { Menu, X, Sparkles, Sun, Moon, ExternalLink } from 'lucide-react';
 
-export default function Navbar({ onOpenAi, onOpenApiKeys, darkMode, setDarkMode }) {
+export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -20,9 +20,17 @@ export default function Navbar({ onOpenAi, onOpenApiKeys, darkMode, setDarkMode 
         : 'bg-white/75 border-black/5 text-slate-900'
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center group">
-          <div className="h-10 py-1 px-3 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center group-hover:scale-105 transition-transform duration-300">
-            <img src="/logo.png" alt="Orange Future Tech Logo" className="h-full w-auto object-contain" />
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="h-10 w-10 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 group-hover:border-[#FF6B00] transition-all duration-300 overflow-hidden">
+            <img src="/logo-concept-b-icon.png" alt="Orange Future Tech Emblem" className="h-full w-full object-cover rounded-lg" />
+          </div>
+          <div className="flex flex-col">
+            <span className={`text-sm font-extrabold tracking-tight leading-none transition-colors group-hover:text-[#FF6B00] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+              ORANGE <span className="text-[#FF6B00]">FUTURE TECH</span>
+            </span>
+            <span className="text-[9px] font-mono-code text-slate-400 tracking-wider uppercase mt-1">
+              Hardware • AI • Software
+            </span>
           </div>
         </a>
 
@@ -41,18 +49,6 @@ export default function Navbar({ onOpenAi, onOpenApiKeys, darkMode, setDarkMode 
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={onOpenApiKeys}
-            className={`px-3.5 py-2 rounded-full border text-xs font-semibold flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
-              darkMode
-                ? 'bg-slate-900/80 border-slate-700 text-slate-200 hover:border-[#FF6B00]'
-                : 'bg-slate-100 border-slate-200 text-slate-700 hover:border-[#FF6B00]'
-            }`}
-          >
-            <Key className="w-3.5 h-3.5 text-[#FF6B00]" />
-            <span>API Keys</span>
-          </button>
-
           <a
             href="https://cardgen.orangefuturetech.com"
             target="_blank"
@@ -101,16 +97,6 @@ export default function Navbar({ onOpenAi, onOpenApiKeys, darkMode, setDarkMode 
             </a>
           ))}
           <div className="pt-3 border-t border-slate-800 flex flex-col gap-2.5">
-            <button
-              onClick={() => {
-                setMenuOpen(false);
-                onOpenApiKeys();
-              }}
-              className="w-full py-2.5 rounded-full border border-slate-700 bg-slate-900 text-white text-xs font-semibold flex items-center justify-center gap-1.5"
-            >
-              <Key className="w-3.5 h-3.5 text-[#FF6B00]" />
-              <span>Configure API Keys</span>
-            </button>
             <a
               href="https://cardgen.orangefuturetech.com"
               target="_blank"

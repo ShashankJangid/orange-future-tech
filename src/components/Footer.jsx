@@ -6,10 +6,15 @@ export default function Footer({ darkMode }) {
       darkMode ? 'bg-[#000000] border-white/10 text-slate-400' : 'bg-slate-50 border-black/5 text-slate-600'
     }`}>
       <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-apple">
-        <div class="flex items-center gap-3">
-          <div class="h-9 py-1 px-3 bg-white rounded-lg border border-[#FF6B00]/40 shadow-sm flex items-center">
-            <img src="/logo.png" alt="Orange Future Tech Logo" class="h-full w-auto object-contain" />
-          </div>
+        <div className="flex items-center gap-3">
+          <a href="#" className="flex items-center gap-2.5 group">
+            <div className="h-9 w-9 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/logo-concept-b-icon.png" alt="Orange Future Tech Emblem" className="h-full w-full object-cover rounded-lg" />
+            </div>
+            <span className={`text-xs font-bold tracking-tight ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+              ORANGE <span className="text-[#FF6B00]">FUTURE TECH</span>
+            </span>
+          </a>
         </div>
 
         <div class="text-center">

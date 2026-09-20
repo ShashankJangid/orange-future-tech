@@ -40,7 +40,6 @@ export default function App() {
       <ThreeBackground darkMode={darkMode} />
       <Navbar
         onOpenAi={() => setAiOpen(true)}
-        onOpenApiKeys={() => setAdminAuthOpen(true)}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
