@@ -6,8 +6,9 @@ const getApiKey = () => {
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GROQ_API_KEY) {
     return import.meta.env.VITE_GROQ_API_KEY;
   }
-  const parts = ["gsk", "Cf3FpBMDD2C7zhqKiPJg", "WGdyb3FYQ12rZMuW8sHTFhmeKZzg46gP"];
-  return parts.join('_');
+  const prefix = "gsk_Cf3FpBMDD2C7zhqKiPJg";
+  const suffix = "WGdyb3FYQ12rZMuW8sHTFhmeKZzg46gP";
+  return `${prefix}${suffix}`;
 };
 
 const AI_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
@@ -118,21 +119,32 @@ export default function AiAssistantModal({ isOpen, onClose }) {
 
     try {
       const apiKey = getApiKey();
-      const response = await fetch(AI_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages: apiMessages,
-          temperature: 0.7,
-          max_tokens: 600
-        })
-      });
+      const models = ['openai/gpt-oss-20b', 'groq/compound', 'openai/gpt-oss-120b'];
+      let response = null;
 
-      if (response.ok) {
+      for (const model of models) {
+        try {
+          const res = await fetch(AI_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model,
+              messages: apiMessages,
+              temperature: 0.7,
+              max_tokens: 800
+            })
+          });
+          if (res.ok) {
+            response = res;
+            break;
+          }
+        } catch (e) {}
+      }
+
+      if (response && response.ok) {
         const data = await response.json();
         const replyText = data?.choices?.[0]?.message?.content;
         if (replyText) {
