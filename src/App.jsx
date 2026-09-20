@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ThreeBackground from './components/ThreeBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import RoiCalculatorSection from './components/RoiCalculatorSection';
+import AiAgentRosterSection from './components/AiAgentRosterSection';
+import DeploymentRoadmapSection from './components/DeploymentRoadmapSection';
 import Highlights from './components/Highlights';
 import Verticals from './components/Verticals';
 import BentoGridSection from './components/BentoGridSection';
@@ -43,21 +46,20 @@ export default function App() {
       />
       <main>
         <Hero onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
+        <RoiCalculatorSection darkMode={darkMode} />
+        <AiAgentRosterSection darkMode={darkMode} />
+        <DeploymentRoadmapSection darkMode={darkMode} />
         <Highlights darkMode={darkMode} />
         <Verticals onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
         <BentoGridSection darkMode={darkMode} />
         <IsometricStageSection darkMode={darkMode} />
         <HardwareCodePlayground darkMode={darkMode} />
         <ElectronicsSolutionsSection onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
-        
-        {/* Stagger Testimonials Section */}
         <StaggerTestimonials darkMode={darkMode} />
-        
         <ContactSection darkMode={darkMode} />
       </main>
       <Footer darkMode={darkMode} />
       
-      {/* 24/7 Floating AI Chatbot for Website Visitors */}
       <FloatingChatWidget
         isOpen={aiOpen}
         onToggle={() => setAiOpen(!aiOpen)}
