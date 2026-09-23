@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, CheckCircle2, AlertCircle, Clock, ShieldCheck } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, Clock, ShieldCheck, Phone } from 'lucide-react';
 
 export default function ContactSection({ darkMode }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -95,6 +95,23 @@ export default function ContactSection({ darkMode }) {
                   <div>
                     <span class="text-[10px] font-mono-code text-slate-400 uppercase font-semibold block">DIRECT EMAIL</span>
                     <span class="text-xs font-mono-code font-bold text-[#FF6B00]">teams@orangefuturetech.com</span>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+918958347428"
+                  class={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-0.5 ${
+                    darkMode 
+                      ? 'bg-slate-950/80 border-slate-800 text-white hover:border-[#FF6B00]/50' 
+                      : 'bg-white border-slate-200 text-slate-900 hover:border-slate-300 shadow-sm'
+                  }`}
+                >
+                  <div class="p-3 rounded-xl bg-[#FF6B00]/10 text-[#FF6B00]">
+                    <Phone class="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-mono-code text-slate-400 uppercase font-semibold block">DIRECT CALL / WHATSAPP</span>
+                    <span class="text-xs font-mono-code font-bold text-[#FF6B00]">+91 8958347428</span>
                   </div>
                 </a>
 

@@ -28,6 +28,8 @@ export default function Footer({ darkMode }) {
         </div>
 
         <div class="flex items-center gap-4 font-mono-code text-[11px]">
+          <a href="tel:+918958347428" class="hover:text-[#FF6B00] transition-colors">+91 8958347428</a>
+          <span>•</span>
           <a href="mailto:teams@orangefuturetech.com" class="hover:text-[#FF6B00] transition-colors">teams@orangefuturetech.com</a>
           <span>•</span>
           <a href="#" class="hover:text-[#FF6B00] transition-colors">orangefuturetech.com</a>

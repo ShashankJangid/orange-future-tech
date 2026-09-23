@@ -153,9 +153,9 @@ export default function RoiCalculatorSection({ darkMode }) {
                 <Mail class="w-4 h-4 text-[#FF6B00]" />
                 <span>teams@orangefuturetech.com</span>
               </a>
-              <a href="tel:+917483576808" class="flex items-center gap-2 text-slate-500 hover:text-[#FF6B00] transition-colors">
+              <a href="tel:+918958347428" class="flex items-center gap-2 text-slate-500 hover:text-[#FF6B00] transition-colors">
                 <Phone class="w-4 h-4 text-[#FF6B00]" />
-                <span>+91 7483 576 808</span>
+                <span>+91 8958347428</span>
               </a>
             </div>
           </div>
