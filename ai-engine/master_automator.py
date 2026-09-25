@@ -19,7 +19,6 @@ import json
 import argparse
 from pathlib import Path
 
-# Add script folder to path
 SCRIPT_DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(SCRIPT_DIR))
 
@@ -60,11 +59,9 @@ class MasterAutomator:
         from agent_core import AutonomousBusinessAgent
         from n8n_client import N8nClient
 
-        # 1. Run Agent Core Operations
         agent = AutonomousBusinessAgent()
         agent.run_autonomous_cycle()
 
-        # 2. Sync with n8n Cloud MCP Server
         self.log("Synchronizing with n8n Cloud MCP Server...")
         mcp_res = N8nClient.call_mcp_method("initialize")
         mcp_status = "SUCCESS" if "result" in mcp_res else "WARNING"
@@ -77,7 +74,6 @@ class MasterAutomator:
         """Spawns background processes for API server, agent core loop, and cc-connect bridge."""
         self.log("Starting all background autonomous services...")
 
-        # 1. Secure API Server (port 8080)
         server_log = open(LOG_DIR / "server.log", "a")
         server_proc = subprocess.Popen(
             [sys.executable, str(SCRIPT_DIR / "server.py")],
@@ -87,7 +83,6 @@ class MasterAutomator:
         self.processes["api_server"] = {"proc": server_proc, "cmd": "server.py", "log": server_log}
         self.log(f"API Server started (PID {server_proc.pid})")
 
-        # 2. Agent Core Loop Daemon
         core_log = open(LOG_DIR / "agent_core.log", "a")
         core_proc = subprocess.Popen(
             [sys.executable, str(SCRIPT_DIR / "agent_core.py")],
@@ -97,7 +92,6 @@ class MasterAutomator:
         self.processes["agent_core"] = {"proc": core_proc, "cmd": "agent_core.py", "log": core_log}
         self.log(f"Agent Core Loop started (PID {core_proc.pid})")
 
-        # 3. cc-connect Bridge
         bridge_script = SCRIPT_DIR / "run_cc_connect.sh"
         if bridge_script.exists():
             bridge_log = open(LOG_DIR / "cc_connect.log", "a")
@@ -109,7 +103,6 @@ class MasterAutomator:
             self.processes["cc_connect"] = {"proc": bridge_proc, "cmd": "run_cc_connect.sh", "log": bridge_log}
             self.log(f"cc-connect Bridge started (PID {bridge_proc.pid})")
 
-        # Save main PID
         with open(PID_FILE, "w") as f:
             f.write(str(os.getpid()))
 

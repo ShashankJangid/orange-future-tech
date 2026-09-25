@@ -11,7 +11,6 @@ HOSTINGER_MAILBOX_ID = "AC6b561e5b00e0bde3a92a445b3c1a"
 def onboard_shipmate_client():
     log_action("ClientOnboarding", "STATUS_CHANGE", "Shipmate Logistics", "IN_PROGRESS")
 
-    # 1. Update Database Status
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -25,7 +24,6 @@ def onboard_shipmate_client():
     except Exception as e:
         log_action("ClientOnboarding", "DB_UPDATE_ERROR", "Shipmate Logistics", "ERROR", {"error": str(e)})
 
-    # 2. Dispatch Hostinger Agentic Mail Welcome Email
     url = f"https://api.mail.hostinger.com/api/v1/mailboxes/{HOSTINGER_MAILBOX_ID}/send"
     payload = json.dumps({
         "to": ["contact@shipmatelogistics.in"],
@@ -89,7 +87,6 @@ def onboard_shipmate_client():
     except Exception as e:
         log_action("ClientOnboarding", "EMAIL_ERROR", "contact@shipmatelogistics.in", "ERROR", {"error": str(e)})
 
-    # 3. Send Telegram Celebration Alert
     Notifier.send_telegram_alert("🎉 *NEW CLIENT ONBOARDED!*\n\n• *Company*: Shipmate Logistics\n• *Website*: shipmatelogistics.in\n• *Status*: Active Client\n• *Action*: Project completion verified & Client Onboarding Email dispatched!")
 
 if __name__ == "__main__":

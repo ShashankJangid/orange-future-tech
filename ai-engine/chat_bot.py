@@ -5,7 +5,6 @@ import re
 import urllib.request
 from pathlib import Path
 
-# Ensure directory is on python path and .env is loaded
 SCRIPT_DIR = Path(__file__).parent.resolve()
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
@@ -35,7 +34,7 @@ About Orange Future Tech:
 
 Communication & Tone Guidelines:
 - Respond in clear, refined, natural, and professional language.
-- DO NOT use special markdown formatting characters such as double asterisks (**), hashtags (###), underscores (_), or backticks (`).
+- DO NOT use special markdown formatting characters such as double asterisks (**), hashtags (
 - Write in clean, well-spaced paragraphs or clean bullet points (- point).
 - Confidently highlight our track record with IIT and DPS when discussing software or website upgrades to build trust.
 - Provide direct answers and invite the user to schedule a discovery call or email us."""
@@ -44,22 +43,16 @@ def refine_clean_text(text: str) -> str:
     """Sanitizes text by removing markdown artifacts and special characters for a clean, refined output."""
     if not text:
         return ""
-    # Remove markdown headers (# Title -> Title)
     text = re.sub(r"^#{1,6}\s*", "", text, flags=re.MULTILINE)
-    # Remove bold and italic markers (**word** -> word, *word* -> word, _word_ -> word)
     text = re.sub(r"\*\*([^*]+)\*\*", r"\1", text)
     text = re.sub(r"\*([^*]+)\*", r"\1", text)
     text = re.sub(r"__([^_]+)__", r"\1", text)
     text = re.sub(r"_([^_]+)_", r"\1", text)
-    # Remove code blocks and backticks
     text = re.sub(r"```[a-zA-Z]*\n?", "", text)
     text = re.sub(r"```", "", text)
     text = re.sub(r"`([^`]+)`", r"\1", text)
-    # Clean markdown link brackets [Title](URL) -> Title (URL)
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
-    # Clean extraneous asterisks or tildes
     text = text.replace("**", "").replace("~~", "").replace("`", "")
-    # Normalize excess whitespace/newlines
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
 

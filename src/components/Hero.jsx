@@ -156,7 +156,7 @@ export default function Hero({ onOpenAi, darkMode }) {
 
         </div>
 
-        {/* Continuous Animated Marquee Ticker */}
+        {}
         <div className="mt-16 pt-8 border-t border-slate-200/10 overflow-hidden relative">
           <div className="flex overflow-x-hidden">
             <motion.div

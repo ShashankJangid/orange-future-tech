@@ -37,7 +37,6 @@ class N8nClient:
             res = urllib.request.urlopen(req, timeout=10)
             raw_response = res.read().decode("utf-8")
             
-            # Parse SSE format if present (e.g. data: {...})
             data = None
             for line in raw_response.splitlines():
                 if line.startswith("data: "):

@@ -20,7 +20,6 @@ class ReportGenerator:
         safe_name = "".join(c for c in company if c.isalnum() or c in (" ", "_")).rstrip().replace(" ", "_").lower()
         file_path = output_dir / f"audit_report_{safe_name}.html"
 
-        # Color rating based on score
         score_color = "#16a34a" if score >= 80 else ("#d97706" if score >= 60 else "#dc2626")
 
         issues_html = ""
@@ -46,17 +45,17 @@ class ReportGenerator:
     <meta charset="UTF-8">
     <title>Technical Audit & Growth Strategy - {company}</title>
     <style>
-        body {{ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #f4f6f9; color: #1e293b; margin: 0; padding: 40px 20px; }}
-        .card {{ max-width: 680px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }}
-        .header {{ background: #0b0f17; padding: 32px 40px; border-bottom: 4px solid #ff6b00; }}
-        .brand {{ font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: 1px; }}
-        .brand span {{ color: #ff6b00; }}
-        .sub {{ font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }}
+        body {{ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background:
+        .card {{ max-width: 680px; margin: 0 auto; background:
+        .header {{ background:
+        .brand {{ font-size: 22px; font-weight: 800; color:
+        .brand span {{ color:
+        .sub {{ font-size: 11px; color:
         .content {{ padding: 40px; }}
-        .score-box {{ background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 28px; }}
+        .score-box {{ background:
         .score-num {{ font-size: 42px; font-weight: 800; color: {score_color}; }}
-        .footer {{ background: #0b0f17; padding: 24px 40px; text-align: center; font-size: 12px; color: #94a3b8; }}
-        .btn {{ display: inline-block; background: #ff6b00; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; margin-top: 20px; }}
+        .footer {{ background:
+        .btn {{ display: inline-block; background:
     </style>
 </head>
 <body>

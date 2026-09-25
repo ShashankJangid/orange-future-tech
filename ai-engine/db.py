@@ -13,7 +13,6 @@ def init_db():
     conn = get_db()
     cursor = conn.cursor()
     
-    # Audit Log Table (Every action recorded)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS audit_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +25,6 @@ def init_db():
         )
     ''')
     
-    # Lead Discovery & Audit Table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS leads (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,7 +40,6 @@ def init_db():
         )
     ''')
 
-    # Social Media Content Log Table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS social_posts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

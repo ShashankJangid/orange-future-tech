@@ -27,7 +27,6 @@ class WebAuditor:
             html = response.read().decode("utf-8", errors="ignore")
             headers = dict(response.info())
 
-            # 1. Performance check (Speed load time)
             if load_time > 2.5:
                 issues.append({
                     "severity": "HIGH",
@@ -37,7 +36,6 @@ class WebAuditor:
                 })
                 score -= 20
             
-            # 2. SSL & Security check
             if not url.startswith("https"):
                 issues.append({
                     "severity": "CRITICAL",
@@ -47,7 +45,6 @@ class WebAuditor:
                 })
                 score -= 30
 
-            # 3. Mobile Viewport Check
             if "viewport" not in html.lower():
                 issues.append({
                     "severity": "HIGH",
@@ -57,7 +54,6 @@ class WebAuditor:
                 })
                 score -= 20
 
-            # 4. SEO & OpenGraph Check
             if "og:title" not in html.lower() or "og:image" not in html.lower():
                 issues.append({
                     "severity": "MEDIUM",
@@ -67,7 +63,6 @@ class WebAuditor:
                 })
                 score -= 15
 
-            # 5. Core Web Vitals & Image Optimization
             unoptimized_imgs = len(findall(r'<img[^>]+src=["\'][^"\']+\.(png|jpg|jpeg)["\']', html, re_flags:=0))
             if unoptimized_imgs > 5:
                 issues.append({
@@ -78,7 +73,7 @@ class WebAuditor:
                 })
                 score -= 15
 
-            score = max(score, 35) # Floor score at 35
+            score = max(score, 35)
 
             audit_result = {
                 "company_name": company_name,

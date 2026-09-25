@@ -15,23 +15,19 @@ class TelegramApprover:
         errors = []
         warnings = []
 
-        # 1. Email format check
         email_regex = r"^[\w\.-]+@[\w\.-]+\.\w+$"
         if not re.match(email_regex, recipient_email):
             errors.append(f"Invalid recipient email format: '{recipient_email}'")
 
-        # 2. Template variable check
         for placeholder in ["None", "undefined", "{company}", "{score}", "[object Object]"]:
             if placeholder in subject or placeholder in html_body:
                 errors.append(f"Unreplaced template placeholder detected: '{placeholder}'")
 
-        # 3. Subject length and spam check
         if not subject or len(subject.strip()) == 0:
             errors.append("Email subject line is empty.")
         elif subject.isupper():
             warnings.append("Subject is in ALL CAPS (may trigger spam filters).")
 
-        # 4. Body content check
         if not html_body or len(html_body.strip()) < 50:
             errors.append("HTML body is suspiciously short or empty.")
 
@@ -48,7 +44,6 @@ class TelegramApprover:
         """Runs pre-flight check, saves approval request in DB, and sends Telegram alert."""
         check_result = cls.perform_preflight_checks(company_name, recipient_email, subject, html_body)
         
-        # Save to DB
         conn = get_db()
         cursor = conn.cursor()
         created_at = time.strftime("%Y-%m-%dT%H:%M:%S")
@@ -67,7 +62,6 @@ class TelegramApprover:
         lead_id = row["id"] if row else 1
         conn.close()
 
-        # Format Telegram Message
         error_details = ""
         if check_result["errors"]:
             error_details = "\n⚠️ *ERRORS DETECTED*:\n" + "\n".join(f"• {e}" for e in check_result["errors"])
@@ -121,7 +115,6 @@ class TelegramApprover:
         except Exception as e:
             print(f"--> [TELEGRAM APPROVER] Error checking updates: {e}")
 
-        # Check DB status
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute("SELECT status FROM leads WHERE id = ?", (lead_id,))

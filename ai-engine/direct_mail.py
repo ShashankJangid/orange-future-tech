@@ -36,7 +36,6 @@ def send_real_email(target_email: str, company_name: str, score: int, top_issue:
 </body>
 </html>'''
 
-    # Try SMTP configuration from environment or fallback
     smtp_user = os.getenv("SMTP_USER", "")
     smtp_pass = os.getenv("SMTP_PASS", "")
     smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
@@ -61,7 +60,6 @@ def send_real_email(target_email: str, company_name: str, score: int, top_issue:
         except Exception as e:
             log_action("DirectMail", "DISPATCH_FAILED", target_email, "ERROR", {"error": str(e)})
 
-    # Log fallback dispatch
     log_action("DirectMail", "DISPATCH_LOGGED", target_email, "SUCCESS")
     return True
 

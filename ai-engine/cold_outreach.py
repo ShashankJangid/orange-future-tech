@@ -84,7 +84,6 @@ class ColdOutreachEngine:
 </body>
 </html>'''
 
-        # Step 1: Pre-Flight Diagnostic Check & Telegram Approval Request
         if REQUIRE_APPROVAL and not skip_approval_check:
             approval_res = TelegramApprover.request_approval(company_name, target_email, subject, html_body, report_path)
             check = approval_res["check"]
@@ -93,7 +92,6 @@ class ColdOutreachEngine:
                 print(f"--> [COLD OUTREACH BLOCKED] Pre-flight check failed: {check['errors']}")
                 return False
 
-        # Method 1: Hostinger Agentic Mail REST API (Official Domain teams@orangefuturetech.com)
         if HOSTINGER_API_TOKEN and HOSTINGER_MAILBOX_ID:
             try:
                 url = f"https://api.mail.hostinger.com/api/v1/mailboxes/{HOSTINGER_MAILBOX_ID}/send"
@@ -121,7 +119,6 @@ class ColdOutreachEngine:
             except Exception as e:
                 log_action("ColdOutreach", "DISPATCH_HOSTINGER_FAILED", target_email, "ERROR", {"error": str(e)})
 
-        # Method 2: Standard SMTP Fallback
         if SMTP_USER and SMTP_PASS:
             try:
                 msg = MIMEMultipart("alternative")
@@ -142,7 +139,6 @@ class ColdOutreachEngine:
             except Exception as e:
                 log_action("ColdOutreach", "DISPATCH_SMTP_FAILED", target_email, "ERROR", {"error": str(e)})
 
-        # Method 3: Resend API Fallback
         if RESEND_API_KEY and len(RESEND_API_KEY) > 5 and RESEND_API_KEY != "your_resend_api_key_here":
             try:
                 payload = json.dumps({

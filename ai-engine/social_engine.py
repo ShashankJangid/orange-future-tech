@@ -35,7 +35,7 @@ class SocialEngine:
                 f"Here's how Orange Future Tech scales enterprise software & PCB hardware platforms with sub-ms response times 👇\n"
                 f"https://orangefuturetech.com #Tech #Engineering"
             )
-        else: # instagram
+        else:
             caption = (
                 f"💡 {topic} | Orange Future Tech\n\n"
                 f"Building high-performance digital platforms & electronics systems.\n\n"
@@ -51,7 +51,6 @@ class SocialEngine:
         content = SocialEngine.generate_daily_content(platform)
         log_action("SocialEngine", f"PUBLISH_{platform.upper()}", platform, "SUCCESS", {"caption": content["caption"]})
         
-        # Notify Owner
         Notifier.send_telegram_alert(
             f"📱 *AUTOMATED SOCIAL POST PUBLISHED ({platform.upper()})*\n\n"
             f"• *Topic*: {content['topic']}\n"

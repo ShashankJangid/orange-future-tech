@@ -41,7 +41,6 @@ class AutonomousBusinessAgent:
         print("  ORANGE FUTURE TECH - AUTONOMOUS BUSINESS ENGINE RUNNING  ")
         print("==========================================================")
 
-        # 1. Run Lead Generation & Audit Pipeline on sample targets
         sample_targets = [
             {"company": "Shipmate Logistics", "url": "shipmatelogistics.in", "email": "info@shipmatelogistics.in"},
             {"company": "Apex Global Freight", "url": "apexglobalfreight.com", "email": "contact@apexglobalfreight.com"}
@@ -50,10 +49,8 @@ class AutonomousBusinessAgent:
         for target in sample_targets:
             self.run_lead_audit_pipeline(target["company"], target["url"], target["email"])
 
-        # 2. Run Social Marketing Pipeline
         self.run_social_marketing_pipeline()
 
-        # 3. Print Recent Audit History
         print("\n==> [MASTER AUDIT LOG HISTORY]")
         logs = get_recent_logs(5)
         for log in logs:
