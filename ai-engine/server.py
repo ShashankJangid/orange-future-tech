@@ -78,7 +78,6 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         parsed = urlparse(self.path)
 
-        # Public Endpoint: AI Chat Assistant (Groq-powered Aria)
         if parsed.path == "/api/chat":
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
@@ -88,7 +87,6 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 messages = data.get("messages", [])
                 session_id = data.get("session_id", "web-visitor")
                 
-                # Single message query fallback
                 if not messages and "query" in data:
                     messages = [{"role": "user", "content": data["query"]}]
                 elif not messages and "message" in data:
@@ -108,7 +106,68 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
         
-        # Endpoint: Login Verification
+        if parsed.path == "/api/voice/inbound":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from voice_agent import VoiceAgentEngine
+                data = json.loads(post_body)
+                caller = data.get("caller_phone", "+918958347428")
+                transcript = data.get("transcript", None)
+                voice_response = VoiceAgentEngine.handle_inbound_call(caller, transcript)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "voice": voice_response}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/leads/mine":
+            try:
+                from lead_miner import LeadMiningEngine
+                leads = LeadMiningEngine.mine_new_leads(2)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "leads": leads}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/deals/close":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from deal_closer import DealCloserEngine
+                data = json.loads(post_body)
+                company = data.get("company_name", "Inbound Client")
+                email = data.get("contact_email", "client@orangefuturetech.com")
+                reqs = data.get("requirements", "Custom Web & AI Application")
+                deal = DealCloserEngine.process_and_close_deal(company, email, reqs)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "deal": deal}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
         if parsed.path == "/api/login":
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len).decode("utf-8")
@@ -138,7 +197,6 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
 
-        # Protected Endpoint: Fetch API Keys
         if parsed.path == "/api/config/get":
             if not self.verify_auth():
                 self.send_response(401)
@@ -149,7 +207,6 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 return
 
             vars_dict = read_env()
-            # Do not expose password hash in response
             vars_dict.pop("MASTER_PASSWORD_HASH", None)
             
             self.send_response(200)
@@ -159,7 +216,6 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(vars_dict).encode("utf-8"))
             return
 
-        # Protected Endpoint: Update API Keys or Password
         if parsed.path == "/api/config/save":
             if not self.verify_auth():
                 self.send_response(401)
