@@ -53,10 +53,8 @@ class VoiceAgentEngine:
             )
             is_deal_qualified = True
 
-            Notifier.alert_high_priority_lead(
-                company_name=f"Inbound Phone Client ({caller_phone})",
-                contact_email=caller_phone,
-                deal_size="INBOUND PHONE DEAL (Qualified)"
+            Notifier.send_telegram_alert(
+                f"📞 *INBOUND PHONE CALL QUALIFIED*\n\n• *Caller*: {caller_phone}\n• *Transcript*: {query}\n• *Action*: Sent proposal dispatch offer"
             )
         elif any(w in q for w in ["iit", "dps", "work", "client"]):
             speech = (

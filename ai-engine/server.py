@@ -168,6 +168,63 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
 
+        if parsed.path == "/api/schools/mine-and-pitch":
+            try:
+                from school_campaign_engine import SchoolCampaignEngine
+                res = SchoolCampaignEngine.run_campaign()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "campaign": res}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/schools/calculate-quote":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from school_campaign_engine import SchoolCampaignEngine
+                from notifier import Notifier
+                data = json.loads(post_body)
+                school_name = data.get("school_name", "Prospective School Client")
+                contact_email = data.get("contact_email", "admin@school.edu.in")
+                phone = data.get("phone", "+918958347428")
+                base_pkg = data.get("base_package", "Standard AI School Portal (₹2,00,000)")
+                extra_views = int(data.get("extra_vr_views", 3))
+                
+                quote = SchoolCampaignEngine.calculate_quote(base_pkg, extra_views)
+                
+                alert_text = (
+                    f"🏫 *NEW SCHOOL WEBSITE + 360 VR INQUIRY*\n\n"
+                    f"• *School*: {school_name}\n"
+                    f"• *Email*: {contact_email}\n"
+                    f"• *Phone*: {phone}\n"
+                    f"• *Package*: {quote['base_package']}\n"
+                    f"• *360 VR Views*: {extra_views} Views\n"
+                    f"• *Total Estimated Investment*: {quote['formatted_total']}\n"
+                    f"• *Action*: Needs proposal & 360 VR setup briefing"
+                )
+                Notifier.send_telegram_alert(alert_text)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "quote": quote}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
         if parsed.path == "/api/login":
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len).decode("utf-8")
