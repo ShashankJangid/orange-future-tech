@@ -87,11 +87,8 @@ class CardGenMarketingEngine:
         return {
             "tier_name": tier_name,
             "student_count": student_count,
-            "base_license_price": base_price,
-            "rfid_addon": rfid_addon,
-            "total_annual_license": total_license,
-            "cost_per_student": f"₹{cost_per_student}",
-            "formatted_total": f"₹{total_license:,}/year"
+            "pricing_status": "Confidential Quote on Request",
+            "formatted_total": "Custom Proposal Dispatched via Email"
         }
 
     @staticmethod
@@ -116,7 +113,7 @@ WHY CARDGEN SMART ID CARD SOFTWARE?
 5. Digital Smartphone ID Cards for parents & students
 
 RECOMMENDED LICENSE: {cost['tier_name']}
-ESTIMATED ANNUAL INVESTMENT: {cost['formatted_total']} (Only {cost['cost_per_student']} per student)
+ESTIMATED ANNUAL INVESTMENT: Custom Campus Licensing (Confidential Proposal Dispatched)
 OFFICIAL TELEPHONY CONTACT: +91 8958347428
         """
         return {
@@ -142,8 +139,7 @@ OFFICIAL TELEPHONY CONTACT: +91 8958347428
                 f"• *Students*: {school['student_count']} Students\n"
                 f"• *Pain Point*: {school['current_pain_point']}\n"
                 f"• *License Tier*: {pitch['cost']['tier_name']}\n"
-                f"• *Annual Investment*: {pitch['cost']['formatted_total']}\n"
-                f"• *Cost Per Student*: {pitch['cost']['cost_per_student']}\n"
+                f"• *Pricing Status*: Confidential Proposal Dispatched\n"
                 f"• *Contact Phone*: +91 8958347428\n"
                 f"• *Status*: DISPATCHED_TO_PRINCIPAL_OFFICE"
             )

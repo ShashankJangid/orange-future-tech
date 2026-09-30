@@ -11,7 +11,6 @@ import {
   Sparkles, 
   CheckCircle2, 
   ArrowRight, 
-  Download, 
   Award,
   Send,
   X
@@ -36,22 +35,14 @@ export default function CardGenMarketingSection() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  let basePrice = 25000;
   let tierName = "Starter Campus (Up to 1,000 Students)";
   if (studentCount > 6000) {
-    basePrice = 65000;
     tierName = "Institutional Unlimited (6,000+ Students)";
   } else if (studentCount > 3500) {
-    basePrice = 45000;
     tierName = "Enterprise Campus (Up to 6,000 Students)";
   } else if (studentCount > 1000) {
-    basePrice = 35000;
     tierName = "Standard School (Up to 3,500 Students)";
   }
-
-  const rfidCost = includeRfid ? 15000 : 0;
-  const grandTotal = basePrice + rfidCost;
-  const costPerStudent = (grandTotal / Math.max(1, studentCount)).toFixed(2);
 
   const handleSubmitDemo = async (e) => {
     e.preventDefault();
@@ -187,15 +178,15 @@ export default function CardGenMarketingSection() {
                   <CreditCard className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">CardGen Licensing Calculator</h3>
-                  <p className="text-xs text-slate-400">Estimate annual software license cost</p>
+                  <h3 className="text-xl font-bold text-white">Institutional Licensing Request</h3>
+                  <p className="text-xs text-slate-400">Request custom campus proposal & trial</p>
                 </div>
               </div>
 
               <div className="space-y-6 mb-8">
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-slate-300 font-semibold">Total Student Strength:</span>
+                    <span className="text-slate-300 font-semibold">Campus Student Strength:</span>
                     <span className="text-blue-400 font-bold bg-blue-500/10 px-2.5 py-0.5 rounded border border-blue-500/20">
                       {studentCount.toLocaleString('en-IN')} Students
                     </span>
@@ -219,8 +210,8 @@ export default function CardGenMarketingSection() {
 
                 <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-semibold text-white">RFID / Smart Chip Integration</span>
-                    <p className="text-xs text-slate-400">Gate access control & library attendance</p>
+                    <span className="text-sm font-semibold text-white">RFID / Turnstile Access Integration</span>
+                    <p className="text-xs text-slate-400">Gate access control & smart attendance</p>
                   </div>
                   <button
                     onClick={() => setIncludeRfid(!includeRfid)}
@@ -230,25 +221,24 @@ export default function CardGenMarketingSection() {
                         : 'bg-slate-800 text-slate-400 hover:text-white'
                     }`}
                   >
-                    {includeRfid ? 'Added (+₹15k)' : '+ Add RFID'}
+                    {includeRfid ? 'RFID Selected' : '+ Add RFID'}
                   </button>
                 </div>
 
                 <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                   <div className="flex justify-between text-xs text-slate-400">
-                    <span>Recommended License Tier:</span>
+                    <span>Target License Tier:</span>
                     <span className="text-white font-medium">{tierName}</span>
                   </div>
                   <div className="flex justify-between text-xs text-slate-400">
-                    <span>Effective Cost Per Student:</span>
-                    <span className="text-emerald-400 font-bold">₹{costPerStudent} / student / year</span>
+                    <span>Software Support & SLA:</span>
+                    <span className="text-emerald-400 font-bold">Included (24/7 Dedicated)</span>
                   </div>
                   <div className="pt-2 border-t border-slate-800 flex justify-between items-end">
                     <div>
-                      <span className="text-xs uppercase text-blue-400 font-bold tracking-wider">Annual Campus License</span>
-                      <div className="text-3xl font-black text-white mt-0.5">
-                        ₹{grandTotal.toLocaleString('en-IN')}{' '}
-                        <span className="text-xs font-normal text-slate-400">/ year</span>
+                      <span className="text-xs uppercase text-blue-400 font-bold tracking-wider">Campus License Quote</span>
+                      <div className="text-xl font-bold text-white mt-0.5">
+                        Custom Proposal on Request
                       </div>
                     </div>
                   </div>
@@ -259,7 +249,7 @@ export default function CardGenMarketingSection() {
                 onClick={() => setModalOpen(true)}
                 className="w-full py-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 hover:from-blue-600 hover:to-indigo-600 text-white font-bold rounded-xl shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3 transition-all hover:scale-[1.02]"
               >
-                <span>Request Free CardGen Software Trial</span>
+                <span>Request Custom Proposal & Free Demo</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
 
@@ -293,7 +283,7 @@ export default function CardGenMarketingSection() {
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-white">Schedule CardGen Demo</h3>
                 <p className="text-xs text-slate-400 mt-1">
-                  Get a live 15-minute software demonstration & 30-day trial for your institution.
+                  Get a live 15-minute software demonstration & custom campus proposal.
                 </p>
               </div>
 
@@ -302,9 +292,9 @@ export default function CardGenMarketingSection() {
                   <div className="w-16 h-16 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">CardGen Demo Request Received!</h4>
+                  <h4 className="text-xl font-bold text-white">Demo & Proposal Request Received!</h4>
                   <p className="text-sm text-slate-300">
-                    Our Software Engineering Lead will contact your office within 2 hours.
+                    Our CardGen Software Director will contact your office with custom licensing details within 2 hours.
                   </p>
                   <button
                     onClick={() => { setSubmitted(false); setModalOpen(false); }}
@@ -361,8 +351,8 @@ export default function CardGenMarketingSection() {
                       <span className="text-blue-400 font-semibold">{tierName}</span>
                     </div>
                     <div className="flex justify-between text-slate-200 font-bold pt-2 border-t border-slate-800">
-                      <span>Estimated License:</span>
-                      <span className="text-emerald-400">₹{grandTotal.toLocaleString('en-IN')}/year</span>
+                      <span>Proposal Delivery:</span>
+                      <span className="text-emerald-400">Confidential Email & Demo</span>
                     </div>
                   </div>
 
@@ -376,7 +366,7 @@ export default function CardGenMarketingSection() {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>Schedule CardGen Software Demo & Trial</span>
+                        <span>Schedule CardGen Demo & Proposal</span>
                       </>
                     )}
                   </button>
