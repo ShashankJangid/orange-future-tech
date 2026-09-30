@@ -113,7 +113,7 @@ export default function SchoolSolutionsSection() {
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    Standard (₹2 Lakh)
+                    Standard AI (₹2 Lakh)
                   </button>
                   <button
                     onClick={() => setSelectedPackage('premium')}
@@ -123,7 +123,7 @@ export default function SchoolSolutionsSection() {
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    Premium ERP (₹3 Lakh)
+                    Custom Enterprise AI (₹3 Lakh)
                   </button>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function SchoolSolutionsSection() {
                 </div>
                 <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
                   <Globe className="w-6 h-6 text-blue-400 mb-2" />
-                  <h4 className="text-sm font-semibold text-white">Parents Portal & ERP</h4>
+                  <h4 className="text-sm font-semibold text-white">Parents Portal & Fee Gateway</h4>
                   <p className="text-xs text-slate-400 mt-1">Online fee payment gateway, notice board & automated SMS alerts.</p>
                 </div>
                 <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
@@ -396,7 +396,7 @@ export default function SchoolSolutionsSection() {
                   <div className="bg-slate-950 p-4 rounded-xl border border-slate-800/80 text-xs space-y-1">
                     <div className="flex justify-between text-slate-400">
                       <span>Selected Package:</span>
-                      <span className="text-white font-semibold">{selectedPackage === 'premium' ? 'Premium ERP (₹3L)' : 'Standard AI (₹2L)'}</span>
+                      <span className="text-white font-semibold">{selectedPackage === 'premium' ? 'Custom Enterprise AI (₹3L)' : 'Standard AI Website (₹2L)'}</span>
                     </div>
                     <div className="flex justify-between text-slate-400">
                       <span>360° VR Campus Views:</span>

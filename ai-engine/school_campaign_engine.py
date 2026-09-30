@@ -23,7 +23,7 @@ DELHI_NCR_TOP_SCHOOLS = [
             "Static photo gallery instead of interactive 360 Virtual Campus Tour",
             "Uncompressed heavy image assets causing slow 5.2s page load"
         ],
-        "recommended_package": "Premium Autonomous School Ecosystem (₹3,00,000)",
+        "recommended_package": "Custom Enterprise AI School Website (₹3,00,000)",
         "target_budget": "₹3,00,000",
         "vr_tour_views_recommended": 8
     },
@@ -62,7 +62,7 @@ DELHI_NCR_TOP_SCHOOLS = [
             "No 360 degree virtual walkthrough of robotics lab & swimming pool",
             "Heavy unoptimized scripts degrading mobile Google PageSpeed score"
         ],
-        "recommended_package": "Premium Autonomous School Ecosystem (₹3,00,000)",
+        "recommended_package": "Custom Enterprise AI School Website (₹3,00,000)",
         "target_budget": "₹3,00,000",
         "vr_tour_views_recommended": 10
     },
@@ -101,7 +101,7 @@ DELHI_NCR_TOP_SCHOOLS = [
             "Missing instant AI assistant for fee structure & eligibility check",
             "Mobile view overflow issues on admission inquiry forms"
         ],
-        "recommended_package": "Premium Autonomous School Ecosystem (₹3,00,000)",
+        "recommended_package": "Custom Enterprise AI School Website (₹3,00,000)",
         "target_budget": "₹3,00,000",
         "vr_tour_views_recommended": 7
     },
@@ -120,7 +120,7 @@ DELHI_NCR_TOP_SCHOOLS = [
             "Slow loading external video embeds on homepage",
             "No automated WhatsApp/SMS admission follow-up AI agent"
         ],
-        "recommended_package": "Premium Autonomous School Ecosystem (₹3,00,000)",
+        "recommended_package": "Custom Enterprise AI School Website (₹3,00,000)",
         "target_budget": "₹3,00,000",
         "vr_tour_views_recommended": 12
     },
@@ -158,7 +158,7 @@ DELHI_NCR_TOP_SCHOOLS = [
             "Complex navigation making fee schedule hard to find for parents",
             "No AI voice bot for instant inquiry phone handling"
         ],
-        "recommended_package": "Premium Autonomous School Ecosystem (₹3,00,000)",
+        "recommended_package": "Custom Enterprise AI School Website (₹3,00,000)",
         "target_budget": "₹3,00,000",
         "vr_tour_views_recommended": 9
     }
@@ -215,7 +215,7 @@ PROPOSED SOLUTION BY ORANGE FUTURE TECH:
 1. High-Performance AI School Portal ({quote['base_package']})
    - Built on Next.js 19 & React for 99+ PageSpeed score
    - 24/7 AI Admissions Counselor Chatbot (Handles fees, CBSE/IB queries)
-   - Parent ERP & Automated Online Fee Payment Gateway
+   - Automated Online Fee Payment Gateway & Parents Portal
    - Official Contact Telephony Integration (+91 8958347428)
 
 2. 360° Virtual Campus Tour Setup (Addon Package)
