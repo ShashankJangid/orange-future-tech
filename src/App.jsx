@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import RoiCalculatorSection from './components/RoiCalculatorSection';
 import SchoolSolutionsSection from './components/SchoolSolutionsSection';
+import CardGenMarketingSection from './components/CardGenMarketingSection';
 import AiAgentRosterSection from './components/AiAgentRosterSection';
 import DeploymentRoadmapSection from './components/DeploymentRoadmapSection';
 import Highlights from './components/Highlights';
@@ -48,6 +49,7 @@ export default function App() {
         <Hero onOpenAi={() => setAiOpen(true)} darkMode={darkMode} />
         <RoiCalculatorSection darkMode={darkMode} />
         <SchoolSolutionsSection darkMode={darkMode} />
+        <CardGenMarketingSection darkMode={darkMode} />
         <AiAgentRosterSection darkMode={darkMode} />
         <DeploymentRoadmapSection darkMode={darkMode} />
         <Highlights darkMode={darkMode} />

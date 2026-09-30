@@ -225,6 +225,64 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
 
+        if parsed.path == "/api/cardgen/marketing-campaign":
+            try:
+                from cardgen_marketing_engine import CardGenMarketingEngine
+                res = CardGenMarketingEngine.run_marketing_campaign()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "campaign": res}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/cardgen/request-demo":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from cardgen_marketing_engine import CardGenMarketingEngine
+                from notifier import Notifier
+                data = json.loads(post_body)
+                institution = data.get("institution_name", "School / University")
+                email = data.get("contact_email", "admin@school.edu.in")
+                phone = data.get("phone", "+918958347428")
+                students = int(data.get("student_count", 2500))
+                rfid = bool(data.get("includes_rfid", False))
+                
+                cost = CardGenMarketingEngine.calculate_cardgen_cost(students, rfid)
+                
+                alert_text = (
+                    f"🎴 *NEW CARDGEN SMART ID DEMO REQUEST*\n\n"
+                    f"• *Institution*: {institution}\n"
+                    f"• *Email*: {email}\n"
+                    f"• *Phone*: {phone}\n"
+                    f"• *Student Count*: {students} Students\n"
+                    f"• *License Tier*: {cost['tier_name']}\n"
+                    f"• *Annual Investment*: {cost['formatted_total']}\n"
+                    f"• *Cost Per Student*: {cost['cost_per_student']}\n"
+                    f"• *Action*: Schedule live demo & software trial"
+                )
+                Notifier.send_telegram_alert(alert_text)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "cost": cost}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
         if parsed.path == "/api/login":
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len).decode("utf-8")
