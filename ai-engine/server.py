@@ -283,6 +283,62 @@ class SecureAPIHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
 
+        if parsed.path == "/api/prospects/discover-and-pitch":
+            try:
+                from high_tech_client_prospector import HighTechClientProspector
+                res = HighTechClientProspector.run_prospecting_campaign()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "campaign": res}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/prospects/audit-and-pitch":
+            content_len = int(self.headers.get("Content-Length", 0))
+            post_body = self.rfile.read(content_len).decode("utf-8") if content_len > 0 else "{}"
+            try:
+                from high_tech_client_prospector import HighTechClientProspector
+                from notifier import Notifier
+                data = json.loads(post_body)
+                company = data.get("company_name", "Prospective Enterprise Client")
+                domain = data.get("domain", "clientdomain.com")
+                email = data.get("contact_email", "contact@clientdomain.com")
+                
+                pitch = HighTechClientProspector.audit_and_generate_pitch(company, domain, email)
+                
+                alert_text = (
+                    f"✨ *NEW LIVE WEBSITE TECH AUDIT & PITCH REQUEST*\n\n"
+                    f"• *Company*: {pitch['company_name']}\n"
+                    f"• *Domain*: {pitch['domain']}\n"
+                    f"• *Email*: {pitch['contact_email']}\n"
+                    f"• *PageSpeed Score*: {pitch['current_pagespeed']}/100\n"
+                    f"• *Key Defect*: {pitch['missing_features'][0]}\n"
+                    f"• *Proposed Tech*: {pitch['proposed_features'][0]}\n"
+                    f"• *Projected Value*: {pitch['estimated_value']}\n"
+                    f"• *Action*: Follow up & deliver executive pitch deck"
+                )
+                Notifier.send_telegram_alert(alert_text)
+                
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "pitch": pitch}).encode("utf-8"))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
         if parsed.path == "/api/login":
             content_len = int(self.headers.get("Content-Length", 0))
             post_body = self.rfile.read(content_len).decode("utf-8")

@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import RoiCalculatorSection from './components/RoiCalculatorSection';
 import SchoolSolutionsSection from './components/SchoolSolutionsSection';
 import CardGenMarketingSection from './components/CardGenMarketingSection';
+import TechUpgradePitchSection from './components/TechUpgradePitchSection';
 import AiAgentRosterSection from './components/AiAgentRosterSection';
 import DeploymentRoadmapSection from './components/DeploymentRoadmapSection';
 import Highlights from './components/Highlights';
@@ -50,6 +51,7 @@ export default function App() {
         <RoiCalculatorSection darkMode={darkMode} />
         <SchoolSolutionsSection darkMode={darkMode} />
         <CardGenMarketingSection darkMode={darkMode} />
+        <TechUpgradePitchSection darkMode={darkMode} />
         <AiAgentRosterSection darkMode={darkMode} />
         <DeploymentRoadmapSection darkMode={darkMode} />
         <Highlights darkMode={darkMode} />
