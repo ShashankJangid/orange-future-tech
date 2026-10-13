@@ -88,15 +88,15 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
             speed={60}
             direction="forward"
             separator="✦"
-            curviness={38}
-            fontSize={46}
-            fontWeight={900}
-            letterSpacing={2}
+            curviness={18}
+            fontSize={28}
+            fontWeight={800}
+            letterSpacing={1.5}
             uppercase
             color="#ffffff"
             ribbon
             ribbonColor="#F97316"
-            ribbonWidth={104}
+            ribbonWidth={72}
             pauseOnHover={false}
           />
         </div>
