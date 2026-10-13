@@ -113,7 +113,7 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
             </div>
           </div>
           
-          <div className="h-[260px] sm:h-[300px] w-full relative">
+          <div className="h-[360px] sm:h-[420px] w-full relative">
             <WaveLettering
               text={" Orange Future Tech"}
               colors={["#ff7c00","#ca6700"]}
@@ -136,7 +136,7 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
           </div>
         </div>
 
-        <div className="w-full my-6 overflow-hidden py-2">
+        <div className="w-full my-8 overflow-hidden py-4 border-y border-slate-200/60 bg-orange-50/30">
           <TextLoop
             text="Orange Future Tech ✦ AI School Portals ✦ 360° Virtual Tours ✦ CardGen Suite ✦ Enterprise Software"
             shape="wave"

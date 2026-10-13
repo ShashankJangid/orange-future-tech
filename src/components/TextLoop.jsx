@@ -72,7 +72,7 @@ const TextLoop = ({
   const headRef = useRef(null);
   const tailRef = useRef(null);
 
-  const [metrics, setMetrics] = useState({ length: 0, reps: 1 });
+  const [metrics, setMetrics] = useState({ length: 1800, reps: 4 });
 
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/:/g, '')}`;
@@ -109,7 +109,7 @@ const TextLoop = ({
       }
       if (!length) return;
 
-      const reps = unitWidth > 0 ? Math.max(1, Math.round(length / unitWidth)) : 1;
+      const reps = unitWidth > 0 ? Math.max(2, Math.round(length / unitWidth) + 1) : 4;
       setMetrics(prev => (prev.length === length && prev.reps === reps ? prev : { length, reps }));
     };
 
@@ -204,7 +204,7 @@ const TextLoop = ({
           textLength={fitLength}
           lengthAdjust="spacing"
         >
-          <textPath ref={headRef} href={`#${pathId}`} startOffset={0}>
+          <textPath ref={headRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
             {loopText}
           </textPath>
         </text>
@@ -218,7 +218,7 @@ const TextLoop = ({
           textLength={fitLength}
           lengthAdjust="spacing"
         >
-          <textPath ref={tailRef} href={`#${pathId}`} startOffset={0}>
+          <textPath ref={tailRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={metrics.length ? String(-metrics.length) : '0'}>
             {loopText}
           </textPath>
         </text>
