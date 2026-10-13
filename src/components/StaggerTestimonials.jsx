@@ -5,66 +5,66 @@ const testimonials = [
   {
     id: 1,
     name: "Dr. R. K. Sharma",
-    role: "Head of Research Systems",
+    role: "Head of Systems Architecture",
     organization: "Indian Institute of Technology (IIT)",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    tag: "Academic Cloud Architecture",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80",
+    tag: "High-Concurrency Cloud Architecture",
     rating: 5,
-    quote: "Orange Future Tech engineered a high-concurrency academic portal handling millions of requests with zero latency. Their architectural rigor and execution speed exceeded every benchmark.",
+    quote: "Orange Future Tech engineered an ultra-fast academic web application handling tens of thousands of concurrent users with sub-second response times. Their engineering rigor is unmatched.",
     metric: "99.99% Uptime",
     verified: true
   },
   {
     id: 2,
-    name: "S. Mukherjee",
-    role: "Director of Digital Infrastructure",
-    organization: "Delhi Public School (DPS)",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-    tag: "Campus Cloud Platform",
+    name: "Dr. Anita Sen",
+    role: "Vice Principal & Academic Director",
+    organization: "Delhi Public School (DPS) Ecosystem",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80",
+    tag: "AI School Portal & 360° VR Tour",
     rating: 5,
-    quote: "The multi-campus management software revolutionized our entire academic workflow across 40,000+ students and faculty. Truly world-class full-stack engineering.",
-    metric: "40k+ Active Users",
+    quote: "The combination of the 24/7 AI Admission Counselor and 360° Virtual Campus Tour dramatically elevated our parent conversions. Prospective parents from NCR and abroad can walk through our labs and classrooms instantly.",
+    metric: "+280% Admission Queries",
     verified: true
   },
   {
     id: 3,
-    name: "A. Khurana",
-    role: "VP of Supply Chain Operations",
-    organization: "Shipmate Logistics",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
-    tag: "Real-Time IoT Telemetry",
+    name: "Rajesh Verma",
+    role: "Director of Administration",
+    organization: "Modern Heritage Public School",
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&auto=format&fit=crop&q=80",
+    tag: "CardGen ID Software Deployment",
     rating: 5,
-    quote: "Real-time hardware telemetry and automated cloud dispatching transformed our fleet efficiency. The embedded sensors and web dashboard work in absolute synchrony.",
-    metric: "3.2x Faster Dispatch",
+    quote: "CardGen replaced weeks of vendor delays. We imported our 3,800 student register and generated verified, print-ready student ID cards with automated face alignment in under 5 minutes.",
+    metric: "3,800 Cards in 5 Mins",
     verified: true
   },
   {
     id: 4,
-    name: "Vikram Patel",
+    name: "Arjun Mehta",
     role: "Chief Technology Officer",
     organization: "NexGen Industrial Robotics",
-    avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&auto=format&fit=crop&q=80",
-    tag: "Custom Multi-Layer PCB",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&auto=format&fit=crop&q=80",
+    tag: "Multi-Layer High-Speed PCB",
     rating: 5,
-    quote: "Their multi-layer PCB design and C++ embedded firmware achieved zero electromagnetic interference in high-voltage industrial testing. Exceptional hardware mastery.",
+    quote: "Their multi-layer PCB routing and C++ firmware achieved flawless signal integrity under heavy motor noise. Hardware design of this precision is rare in the industry.",
     metric: "6-Layer Impedance Match",
     verified: true
   },
   {
     id: 5,
-    name: "Jennifer Ross",
-    role: "Managing Partner",
-    organization: "Apex Global Technology Ventures",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
-    tag: "Autonomous AI Engine",
+    name: "Dr. Sunita Kulkarni",
+    role: "Dean of Computing & Information",
+    organization: "Apex University & Research Labs",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&auto=format&fit=crop&q=80",
+    tag: "Automated Workflow Engine",
     rating: 5,
-    quote: "The autonomous AI sales pipeline generated a 340% surge in qualified inbound leads within 30 days. Orange Future Tech delivers unprecedented engineering ROI.",
-    metric: "+340% Qualified Inbound",
+    quote: "Working with Orange Future Tech was effortless. Fast sprints, transparent codebases, and production deployments that never break under heavy load.",
+    metric: "Zero Downtime Deploy",
     verified: true
   }
 ];
 
-export default function StaggerTestimonials({ darkMode = true }) {
+export default function StaggerTestimonials({ darkMode = false }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
@@ -78,186 +78,125 @@ export default function StaggerTestimonials({ darkMode = true }) {
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const interval = setInterval(nextTestimonial, 5500);
+    const interval = setInterval(nextTestimonial, 6000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, activeIndex]);
+
+  const current = testimonials[activeIndex];
 
   return (
     <section 
       id="testimonials"
-      className={`py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300 ${
-        darkMode ? 'bg-[#080B11]' : 'bg-slate-50'
-      }`}
+      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-slate-200/80"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#FF6B00]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code mb-4 border bg-[#FF6B00]/10 border-[#FF6B00]/30 text-[#FF6B00]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4 border bg-orange-50 border-orange-200 text-[#FF6B00]">
             <Award className="w-3.5 h-3.5" />
-            <span>ENTERPRISE CLIENT VALIDATION</span>
+            <span>Verified Educational &amp; Enterprise Proof</span>
           </div>
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-['Orbitron',sans-serif] ${
-            darkMode ? 'text-white' : 'text-slate-900'
-          }`}>
-            Trusted by Leaders at <span className="text-[#FF6B00]">IIT, DPS &amp; Industry</span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+            Trusted by India's Top <br />
+            <span className="bg-gradient-to-r from-[#FF6B00] to-orange-600 bg-clip-text text-transparent">
+              Schools, Universities &amp; Tech Leaders
+            </span>
           </h2>
-          <p className={`mt-4 text-sm sm:text-base leading-relaxed ${
-            darkMode ? 'text-slate-400' : 'text-slate-600'
-          }`}>
-            See what institutions, CTOs, and global founders say about engineering precision, high-concurrency systems, and custom hardware delivered by Orange Future Tech.
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Real outcomes from institutional leaders who trusted Orange Future Tech for their web platforms, AI admission systems, and automated ID infrastructure.
           </p>
         </div>
 
-        <div className="relative min-h-[460px] sm:min-h-[420px] flex items-center justify-center">
-          <div className="w-full max-w-3xl relative">
-            {testimonials.map((t, idx) => {
-              const offset = (idx - activeIndex + testimonials.length) % testimonials.length;
-              
-              const isVisible = offset === 0 || offset === 1 || offset === 2;
-              if (!isVisible) return null;
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8 p-8 sm:p-10 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm relative">
+            <Quote className="w-12 h-12 text-orange-200 absolute top-6 right-6 pointer-events-none" />
 
-              let transformStyles = '';
-              let zIndex = 30 - offset * 10;
-              let opacity = 1 - offset * 0.28;
-              let scale = 1 - offset * 0.05;
-              let translateY = offset * 20;
+            <div className="flex items-center gap-1 text-amber-400 mb-4">
+              {[...Array(current.rating)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-amber-400" />
+              ))}
+              <span className="text-xs font-mono-code font-bold text-slate-600 ml-2">
+                5.0 Verified Review
+              </span>
+            </div>
 
-              return (
-                <div
-                  key={t.id}
-                  onClick={() => setActiveIndex(idx)}
-                  style={{
-                    zIndex,
-                    opacity,
-                    transform: `translateY(${translateY}px) scale(${scale})`,
-                    transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                  className={`cursor-pointer rounded-3xl p-6 sm:p-8 md:p-10 border transition-shadow ${
-                    offset === 0
-                      ? darkMode
-                        ? 'relative bg-[#0E131F] border-[#FF6B00]/40 shadow-[0_20px_60px_rgba(255,107,0,0.15)] ring-1 ring-[#FF6B00]/20'
-                        : 'relative bg-white border-[#FF6B00]/40 shadow-[0_20px_60px_rgba(255,107,0,0.1)] ring-1 ring-[#FF6B00]/20'
-                      : darkMode
-                      ? 'absolute top-0 left-0 right-0 bg-[#0B0F18] border-slate-800 shadow-xl'
-                      : 'absolute top-0 left-0 right-0 bg-slate-100/90 border-slate-200 shadow-lg'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono-code font-semibold px-3 py-1 rounded-full bg-[#FF6B00]/15 text-[#FF6B00] border border-[#FF6B00]/30 flex items-center gap-1.5">
-                        <Sparkles className="w-3 h-3" />
-                        {t.tag}
-                      </span>
-                      <div className="flex items-center gap-0.5 text-amber-400">
-                        {[...Array(t.rating)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="text-[#FF6B00]/30 hidden sm:block">
-                      <Quote className="w-8 h-8" />
-                    </div>
+            <p className="text-base sm:text-xl text-slate-800 font-medium leading-relaxed mb-8">
+              "{current.quote}"
+            </p>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-slate-200">
+              <div className="flex items-center gap-4">
+                <img
+                  src={current.avatar}
+                  alt={current.name}
+                  className="w-14 h-14 rounded-full object-cover border-2 border-orange-400 shadow-xs"
+                  loading="lazy"
+                />
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <h4 className="text-sm font-bold text-slate-900">{current.name}</h4>
+                    {current.verified && (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" title="Verified Institutional Leader" />
+                    )}
                   </div>
-
-                  <p className={`text-base sm:text-lg md:text-xl font-medium leading-relaxed font-sans ${
-                    darkMode ? 'text-slate-100' : 'text-slate-800'
-                  }`}>
-                    "{t.quote}"
-                  </p>
-
-                  <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="relative shrink-0">
-                        <img
-                          src={t.avatar}
-                          alt={t.name}
-                          className="w-12 h-12 rounded-full object-cover border-2 border-[#FF6B00]"
-                        />
-                        {t.verified && (
-                          <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center">
-                            <CheckCircle2 className="w-3 h-3" />
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <h4 className={`text-sm font-bold font-['Orbitron',sans-serif] ${
-                          darkMode ? 'text-white' : 'text-slate-900'
-                        }`}>
-                          {t.name}
-                        </h4>
-                        <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                          {t.role} • <span className="text-[#FF6B00] font-semibold">{t.organization}</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 self-start sm:self-auto">
-                      <span className={`text-xs font-mono-code px-3 py-1.5 rounded-xl border ${
-                        darkMode 
-                          ? 'bg-slate-900/90 text-emerald-400 border-emerald-500/30' 
-                          : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                      }`}>
-                        {t.metric}
-                      </span>
-                    </div>
-                  </div>
+                  <div className="text-xs text-slate-500">{current.role}</div>
+                  <div className="text-xs font-bold text-[#FF6B00]">{current.organization}</div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </div>
 
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto">
-          <div className="flex items-center gap-2.5">
+              <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs text-left sm:text-right">
+                <span className="text-[11px] text-slate-500 uppercase font-mono-code font-semibold">Key Benchmark</span>
+                <div className="text-sm font-extrabold text-[#FF6B00] font-mono-code">{current.metric}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 space-y-3">
             {testimonials.map((t, idx) => (
               <button
                 key={t.id}
                 onClick={() => setActiveIndex(idx)}
-                title={`${t.name} (${t.organization})`}
-                className={`relative transition-all duration-300 rounded-full cursor-pointer ${
+                className={`w-full p-4 rounded-xl text-left border transition-all cursor-pointer flex items-center gap-3.5 ${
                   activeIndex === idx
-                    ? 'ring-2 ring-[#FF6B00] ring-offset-2 ring-offset-[#080B11] scale-110'
-                    : 'opacity-50 hover:opacity-100'
+                    ? 'bg-orange-50/80 border-[#FF6B00] shadow-xs'
+                    : 'bg-white border-slate-200 hover:bg-slate-50'
                 }`}
               >
                 <img
                   src={t.avatar}
                   alt={t.name}
-                  className="w-8 h-8 rounded-full object-cover"
+                  className="w-10 h-10 rounded-full object-cover shrink-0"
+                  loading="lazy"
                 />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-bold text-slate-900 truncate">{t.name}</div>
+                  <div className="text-[11px] text-slate-500 truncate">{t.organization}</div>
+                  <div className="text-[10px] font-mono-code text-[#FF6B00] mt-0.5 truncate">{t.tag}</div>
+                </div>
               </button>
             ))}
           </div>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={prevTestimonial}
-              className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
-                darkMode
-                  ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00]'
-                  : 'bg-white border-slate-200 text-slate-700 hover:border-[#FF6B00]'
-              }`}
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <span className="text-xs font-mono-code text-slate-500">
-              0{activeIndex + 1} / 0{testimonials.length}
-            </span>
-            <button
-              onClick={nextTestimonial}
-              className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
-                darkMode
-                  ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-[#FF6B00]'
-                  : 'bg-white border-slate-200 text-slate-700 hover:border-[#FF6B00]'
-              }`}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <button
+            onClick={prevTestimonial}
+            className="p-2.5 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+            aria-label="Previous Testimonial"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="text-xs font-mono-code font-bold text-slate-500">
+            {activeIndex + 1} / {testimonials.length}
           </div>
+          <button
+            onClick={nextTestimonial}
+            className="p-2.5 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+            aria-label="Next Testimonial"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </section>

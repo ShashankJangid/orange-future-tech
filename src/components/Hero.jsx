@@ -1,190 +1,170 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ShieldCheck, Radio, Cpu, ExternalLink, Play, Activity, PhoneIncoming, MessageCircle, Database } from 'lucide-react';
-import { GradientShimmer } from '@/components/ui/gradient-shimmer';
+import { Sparkles, ArrowRight, ShieldCheck, Cpu, Play, School, CreditCard, ChevronRight, CheckCircle2, Globe, Eye, Flame } from 'lucide-react';
+import WaveLettering from './WaveLettering';
+import TextLoop from './TextLoop';
 
-export default function Hero({ onOpenAi, darkMode }) {
-  const liveLogs = [
-    { time: '10:02', action: 'Inbound Voice', detail: 'answered in 1 ring', status: 'missed-call save', color: 'text-emerald-500' },
-    { time: '10:04', action: 'Inbound Voice', detail: 'site visit booked', status: 'Sat 11:00 • Whitefield', color: 'text-[#FF6B00]' },
-    { time: '10:05', action: 'WhatsApp Agent', detail: 'sent brochure + location pin', status: '3BHK • Hinglish', color: 'text-blue-500' },
-    { time: '10:09', action: 'Deal Intel', detail: 'flagged hot buyer', status: 'payment plan inquiry', color: 'text-purple-500' },
-  ];
-
-  const marqueeItems = [
-    { label: 'DPDP Compliant', icon: ShieldCheck },
-    { label: 'AWS Mumbai Single-Tenant', icon: Database },
-    { label: 'Official WhatsApp Cloud API', icon: MessageCircle },
-    { label: 'Answers in 1 Ring • 24/7', icon: PhoneIncoming },
-    { label: 'TRAI-Aware 140/160 Routing', icon: Activity },
-    { label: 'Claude • GPT-4o • Gemini • Llama', icon: Cpu },
+export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
+  const quickMetrics = [
+    { label: 'School Website Load Time', value: '< 0.8s', sub: 'CBSE & IB Ready' },
+    { label: '360° Virtual Tour Quality', value: '8K HDR', sub: 'Interactive Hotspots' },
+    { label: 'CardGen Card Speed', value: '1,000 / min', sub: 'Automated Face-Crop' },
+    { label: 'SEO Lighthouse Score', value: '99 / 100', sub: 'Google Ranked First' },
   ];
 
   return (
-    <section class="relative pt-36 pb-16 md:pt-44 md:pb-24 overflow-hidden z-10 font-apple">
-      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FF6B00]/15 via-amber-500/10 to-transparent rounded-full blur-[100px] pointer-events-none -z-10"></div>
+    <section className={`relative pt-24 pb-12 sm:pt-28 sm:pb-16 overflow-hidden transition-colors duration-300 ${
+      darkMode ? 'bg-[#080B11] text-white' : 'bg-white text-slate-900'
+    }`}>
+      <div className="absolute top-0 inset-x-0 h-96 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(255,107,0,0.12),rgba(255,255,255,0))] pointer-events-none" />
 
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            class="lg:col-span-7 text-left"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 border shadow-xs bg-orange-50/80 border-orange-200/80 text-[#FF6B00]"
           >
-            <div class={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono-code font-semibold tracking-wider uppercase mb-8 border backdrop-blur-xl shadow-sm ${
-              darkMode 
-                ? 'bg-slate-900/60 border-slate-800 text-[#FF6B00]' 
-                : 'bg-white/80 border-slate-200 text-[#FF6B00]'
-            }`}>
-              <Sparkles class="w-3.5 h-3.5 animate-spin [animation-duration:4s]" />
-              <span>ENTERPRISE SOFTWARE • PCB ELECTRONICS • SMART AUTOMATION</span>
-            </div>
-
-            <h1 class={`apple-h1 tracking-tight ${
-              darkMode ? 'text-white' : 'text-slate-900'
-            }`}>
-              ENGINEERING THE <br />
-              <GradientShimmer
-                gradient="orange"
-                easing="smooth"
-                duration={1.5}
-                spread={4}
-                baseColor="#FF6B00"
-                className="drop-shadow-sm font-extrabold"
-              >
-                FUTURE OF TECH
-              </GradientShimmer>
-            </h1>
-
-            <p class="mt-6 apple-subtitle max-w-xl font-normal leading-relaxed">
-              High-concurrency enterprise web software, AI models, custom multi-layer PCB design, Smart Automation, and Industrial IoT solutions.
-            </p>
-
-            <div class="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="https://cardgen.orangefuturetech.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-apple-primary cursor-pointer group"
-              >
-                <Play class="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
-                <span>Launch Live CardGen Demo</span>
-                <ExternalLink class="w-4 h-4" />
-              </a>
-
-              <a
-                href="#contact"
-                class="btn-apple-secondary cursor-pointer"
-              >
-                <span>Consult Engineers</span>
-                <ArrowRight class="w-4 h-4" />
-              </a>
-            </div>
-
-            <div class="mt-14 pt-6 border-t border-slate-200/15 flex flex-wrap items-center gap-8 text-xs text-slate-500 font-mono-code">
-              <div class="flex items-center gap-2">
-                <ShieldCheck class="w-4 h-4 text-[#FF6B00]" />
-                <span>ENTERPRISE SOFTWARE</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <Cpu class="w-4 h-4 text-[#FF6B00]" />
-                <span>PCB ELECTRONICS</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <Radio class="w-4 h-4 text-[#FF6B00]" />
-                <span>SMART AUTOMATION</span>
-              </div>
-            </div>
+            <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
+            <span>PREMIER DELHI NCR SCHOOL WEBSITES &amp; ENTERPRISE SOFTWARE</span>
           </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] mb-6"
+          >
+            Websites Built for <br />
+            <span className="bg-gradient-to-r from-[#FF6B00] via-amber-500 to-orange-600 bg-clip-text text-transparent">
+              Speed, AI &amp; Authenticity
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 font-normal leading-relaxed"
+          >
+            We build high-converting, sub-second AI websites for top Delhi NCR schools (₹2-3 Lakh), immersive 360° Virtual Campus Tours (₹60,000 setup), CardGen automated student ID software, and enterprise full-stack software.
+          </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.98, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-3.5 mb-10"
           >
-            <div className="glass-apple-card p-6 relative overflow-hidden group">
-              <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#FF6B00]/25 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF6B00]/40 transition-all duration-700"></div>
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <button
+              onClick={() => {
+                if (setActiveLayer) {
+                  setActiveLayer('schools');
+                  window.location.hash = 'schools';
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="px-6 py-3.5 rounded-full bg-[#FF6B00] text-white text-sm font-semibold hover:bg-[#e05e00] transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+            >
+              <School className="w-4 h-4" />
+              <span>School Websites &amp; 360° Tours</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
 
-              <div className="relative flex items-center justify-center p-4">
-                <img
-                  src={darkMode ? "/orange_future_tech_logo_dark.svg" : "/orange_future_tech_logo.svg"}
-                  alt="Orange Future Tech Master Architecture"
-                  className="w-full h-auto object-contain max-h-[220px] drop-shadow-[0_20px_40px_rgba(255,107,0,0.22)] transition-transform duration-700 group-hover:scale-[1.03]"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="sync"
-                />
-              </div>
+            <button
+              onClick={() => {
+                if (setActiveLayer) {
+                  setActiveLayer('cardgen');
+                  window.location.hash = 'cardgen';
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="px-6 py-3.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+            >
+              <CreditCard className="w-4 h-4" />
+              <span>CardGen ID Suite</span>
+            </button>
 
-              <div className="mt-4 flex items-center justify-between px-2 pt-3 border-t border-slate-200/15 text-xs font-mono-code text-slate-400">
-                <span className="flex items-center gap-1.5 text-[#FF6B00] font-semibold text-[11px]">
-                  <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-ping"></span>
-                  PROPRIETARY PCB & SILICON ARCHITECTURE
-                </span>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider">Titanium • 3D Core</span>
-              </div>
-            </div>
-
-            <div className={`p-4 rounded-2xl border text-xs font-mono-code shadow-xl ${
-              darkMode ? 'bg-[#0B0F17] border-slate-800' : 'bg-slate-900 text-slate-200 border-slate-800'
-            }`}>
-              <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[11px] text-slate-400">
-                <span className="flex items-center gap-1.5 font-bold text-[#FF6B00]">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  AGENTS • LIVE • INBOUND WATCH
-                </span>
-                <span>SINGLE-TENANT • AWS MUMBAI</span>
-              </div>
-              <div className="space-y-2">
-                {liveLogs.map((log, lIdx) => (
-                  <div key={lIdx} className="flex items-center justify-between gap-2 py-1 px-2 rounded bg-slate-950/60 border border-slate-800/80">
-                    <div className="flex items-center gap-2 overflow-hidden truncate">
-                      <span className="text-slate-500 shrink-0">{log.time}</span>
-                      <span className={`font-bold shrink-0 ${log.color}`}>{log.action}</span>
-                      <span className="text-slate-300 truncate">▸ {log.detail}</span>
-                    </div>
-                    <span className="text-[10px] text-slate-400 shrink-0">{log.status}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <button
+              onClick={() => {
+                if (setActiveLayer) {
+                  setActiveLayer('contact');
+                  window.location.hash = 'contact';
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="px-6 py-3.5 rounded-full bg-white text-slate-700 text-sm font-semibold border border-slate-200 hover:bg-slate-50 transition-all duration-200 flex items-center gap-2 shadow-xs cursor-pointer"
+            >
+              <span>Instant Quote Calculator</span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </button>
           </motion.div>
-
         </div>
 
-        {}
-        <div className="mt-16 pt-8 border-t border-slate-200/10 overflow-hidden relative">
-          <div className="flex overflow-x-hidden">
-            <motion.div
-              animate={{ x: [0, -1200] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 11 }}
-              className="flex items-center gap-4 whitespace-nowrap shrink-0 pr-4"
-            >
-              {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, mIdx) => {
-                const IconComponent = item.icon;
-                return (
-                  <div 
-                    key={mIdx}
-                    className={`flex items-center gap-2.5 px-4 py-2 rounded-full border backdrop-blur-md transition-all text-xs font-mono-code ${
-                      darkMode 
-                        ? 'bg-slate-900/80 border-slate-800 text-slate-300' 
-                        : 'bg-white/90 border-slate-200 text-slate-700 shadow-sm'
-                    }`}
-                  >
-                    <img src="/apple-touch-icon.png" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" loading="eager" />
-                    <IconComponent className="w-3.5 h-3.5 text-[#FF6B00]" />
-                    <span className="font-medium">{item.label}</span>
-                  </div>
-                );
-              })}
-            </motion.div>
+        <div className="w-full my-6 rounded-2xl overflow-hidden border border-slate-200/80 bg-gradient-to-b from-orange-50/40 via-white to-slate-50 shadow-sm relative">
+          <div className="px-6 pt-4 pb-2 flex items-center justify-between border-b border-slate-200/60 bg-white/70 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-xs font-mono-code font-bold text-slate-600">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B00] animate-ping" />
+              <span>Interactive Wave Lettering Engine</span>
+            </div>
+            <div className="text-[11px] font-mono-code text-slate-400">
+              Click or drag to strum ripples · Depth of field responsive
+            </div>
+          </div>
+          
+          <div className="h-[260px] sm:h-[300px] w-full relative">
+            <WaveLettering
+              text={" Orange Future Tech"}
+              colors={["#ff7c00","#ca6700"]}
+              letterSpacing={0.06}
+              glyphSize={18}
+              rows={17}
+              perspective={0.36}
+              tilt={30}
+              horizon={0.38}
+              amplitude={2.35}
+              wavelength={0.68}
+              speed={0.5}
+              direction={64}
+              sharpness={0.38}
+              flow={2.5}
+              focusDepth={0.22}
+              depthOfField={0.39}
+              tension={1.25}
+            />
           </div>
         </div>
 
+        <div className="w-full my-6 overflow-hidden py-2">
+          <TextLoop
+            text="Orange Future Tech ✦ AI School Portals ✦ 360° Virtual Tours ✦ CardGen Suite ✦ Enterprise Software"
+            shape="wave"
+            speed={60}
+            direction="forward"
+            separator="✦"
+            curviness={38}
+            fontSize={44}
+            fontWeight={900}
+            letterSpacing={2}
+            uppercase
+            color="#ffffff"
+            ribbon
+            ribbonColor="#F97316"
+            ribbonWidth={104}
+            pauseOnHover={false}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-200/80">
+          {quickMetrics.map((m, idx) => (
+            <div key={idx} className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 text-left">
+              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{m.value}</div>
+              <div className="text-xs font-bold text-slate-700 mt-1">{m.label}</div>
+              <div className="text-[11px] font-mono-code text-[#FF6B00] mt-0.5">{m.sub}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

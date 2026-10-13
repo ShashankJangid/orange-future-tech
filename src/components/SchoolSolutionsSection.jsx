@@ -15,19 +15,46 @@ import {
   Eye,
   ChevronRight,
   Send,
-  X
+  X,
+  School,
+  Compass,
+  Layers,
+  Award
 } from 'lucide-react';
 
 const PRESET_SCHOOLS = [
-  { name: 'DPS R.K. Puram / Vasant Kunj', city: 'Delhi', pagespeed: 38, views: 8 },
-  { name: 'Modern School Barakhamba Road', city: 'Delhi', pagespeed: 42, views: 6 },
-  { name: 'The Heritage School Gurgaon / Noida', city: 'NCR', pagespeed: 45, views: 10 },
-  { name: 'Lotus Valley International Noida', city: 'Noida', pagespeed: 49, views: 7 },
-  { name: 'GD Goenka World School Gurgaon', city: 'Gurgaon', pagespeed: 40, views: 12 },
-  { name: 'Shiv Nadar School Gurgaon / Noida', city: 'NCR', pagespeed: 54, views: 9 }
+  { name: 'DPS R.K. Puram / Vasant Kunj', city: 'Delhi', currentScore: 38, issues: 'Slow mobile load (4.8s), no 24/7 AI admission counselor, static PDF brochures' },
+  { name: 'Modern School Barakhamba Road', city: 'Delhi', currentScore: 42, issues: 'Non-responsive legacy tables, missing interactive 360 tour, untracked parent queries' },
+  { name: 'The Heritage School Gurgaon / Noida', city: 'NCR', currentScore: 45, issues: 'Heavy uncompressed assets, broken search index, delayed inquiry response' },
+  { name: 'Lotus Valley International Noida', city: 'Noida', currentScore: 49, issues: 'Missing instant fee guidance bot, fragmented mobile layout on smartphones' },
+  { name: 'GD Goenka World School Gurgaon', city: 'Gurgaon', currentScore: 40, issues: 'No virtual reality immersion for NRI parent admissions, slow TTFB' },
+  { name: 'Shiv Nadar School Gurgaon / Noida', city: 'NCR', currentScore: 54, issues: 'CBSE syllabus updates buried under 4-click hierarchy, missing lead qualification' }
 ];
 
-export default function SchoolSolutionsSection() {
+const CAMPUS_SPACES = [
+  {
+    name: 'Grand Campus Entrance & Quad',
+    desc: '360° spherical high-resolution entry point welcoming prospective parents with directional hotspot audio.',
+    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&auto=format&fit=crop&q=80'
+  },
+  {
+    name: 'Next-Gen Robotics & STEM Lab',
+    desc: 'Showcase your innovation culture, AI lab setups, and maker stations with clickable equipment overlays.',
+    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=900&auto=format&fit=crop&q=80'
+  },
+  {
+    name: 'Smart Hybrid Classrooms',
+    desc: 'Interactive 4K views of smart digital boards, student ergonomics, and collaborative seating pods.',
+    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&auto=format&fit=crop&q=80'
+  },
+  {
+    name: 'World-Class Library & Media Centre',
+    desc: 'Quiet study bays, digital archives, and reading atriums rendered with accurate lighting and reflections.',
+    image: 'https://images.unsplash.com/photo-1568667256549-094345857637?w=900&auto=format&fit=crop&q=80'
+  }
+];
+
+export default function SchoolSolutionsSection({ darkMode, setActiveLayer }) {
   const [selectedPackage, setSelectedPackage] = useState('standard');
   const [extraViewsCount, setExtraViewsCount] = useState(3);
   const [activeTab, setActiveTab] = useState('calculator');
@@ -78,349 +105,452 @@ export default function SchoolSolutionsSection() {
   };
 
   return (
-    <section id="schools" className="relative py-24 bg-slate-950 text-white overflow-hidden border-t border-slate-900">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,107,0,0.12),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.08),transparent_50%)] pointer-events-none" />
+    <section id="schools" className="relative py-20 bg-white text-slate-900 overflow-hidden border-t border-slate-200/80">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-100/40 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-100/30 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
-            Delhi NCR Education Technology Leadership
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF6B00] text-xs font-semibold uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
+            Delhi NCR Premier School Web Architecture
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Next-Gen <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">AI School Websites</span> & 360° VR Tours
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+            AI School Websites &amp; <br />
+            <span className="bg-gradient-to-r from-[#FF6B00] via-amber-500 to-orange-600 bg-clip-text text-transparent">
+              360° Virtual Campus Tours
+            </span>
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-            Transform your school's digital presence with 24/7 AI Admissions Counselors, instant CBSE/IB inquiry bots, and immersive 360° Virtual Campus Walkthroughs tailored for top Delhi, Noida & Gurgaon institutions.
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Engineered exclusively for elite schools across Delhi, Noida, Gurgaon &amp; NCR. Replace slow, legacy portals with sub-second AI admissions platforms that convert parent inquiries 24/7.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-          <div className="lg:col-span-7 space-y-6">
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-800">
-                <div>
-                  <span className="text-xs font-semibold text-orange-400 uppercase tracking-widest">Base Engineering Package</span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">AI-Powered School Web Portal</h3>
-                </div>
-                <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
-                  <button
-                    onClick={() => setSelectedPackage('standard')}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                      selectedPackage === 'standard' 
-                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' 
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Standard AI (₹2 Lakh)
-                  </button>
-                  <button
-                    onClick={() => setSelectedPackage('premium')}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                      selectedPackage === 'premium' 
-                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' 
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Custom Enterprise AI (₹3 Lakh)
-                  </button>
-                </div>
-              </div>
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex p-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold">
+            <button
+              onClick={() => setActiveTab('calculator')}
+              className={`px-5 py-2 rounded-full transition-all cursor-pointer ${
+                activeTab === 'calculator' ? 'bg-[#FF6B00] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Interactive Price &amp; Add-On Estimator
+            </button>
+            <button
+              onClick={() => setActiveTab('360tour')}
+              className={`px-5 py-2 rounded-full transition-all cursor-pointer ${
+                activeTab === '360tour' ? 'bg-[#FF6B00] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              360° VR Campus Views
+            </button>
+            <button
+              onClick={() => setActiveTab('audits')}
+              className={`px-5 py-2 rounded-full transition-all cursor-pointer ${
+                activeTab === 'audits' ? 'bg-[#FF6B00] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Delhi NCR School Benchmark Audit
+            </button>
+          </div>
+        </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                  <Bot className="w-6 h-6 text-orange-400 mb-2" />
-                  <h4 className="text-sm font-semibold text-white">24/7 AI Admission Assistant</h4>
-                  <p className="text-xs text-slate-400 mt-1">Answers parent queries on fees, eligibility, and curriculum automatically.</p>
-                </div>
-                <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                  <Zap className="w-6 h-6 text-amber-400 mb-2" />
-                  <h4 className="text-sm font-semibold text-white">99+ Google PageSpeed</h4>
-                  <p className="text-xs text-slate-400 mt-1">Built on Next.js 19 for instant sub-second mobile page loads.</p>
-                </div>
-                <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                  <Globe className="w-6 h-6 text-blue-400 mb-2" />
-                  <h4 className="text-sm font-semibold text-white">Parents Portal & Fee Gateway</h4>
-                  <p className="text-xs text-slate-400 mt-1">Online fee payment gateway, notice board & automated SMS alerts.</p>
-                </div>
-                <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                  <ShieldCheck className="w-6 h-6 text-emerald-400 mb-2" />
-                  <h4 className="text-sm font-semibold text-white">Enterprise Security</h4>
-                  <p className="text-xs text-slate-400 mt-1">SSL encryption, CBSE/IB compliance, and zero-downtime hosting.</p>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-transparent p-5 rounded-xl border border-orange-500/20">
-                <div className="flex items-center justify-between">
+        {activeTab === 'calculator' && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="p-6 sm:p-8 rounded-2xl bg-slate-50/80 border border-slate-200/80 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2.5 rounded-xl bg-orange-100 text-[#FF6B00]">
+                    <School className="w-5 h-5" />
+                  </div>
                   <div>
-                    <span className="text-xs text-slate-400 uppercase font-medium">Selected School Web Tier</span>
-                    <div className="text-2xl font-black text-white mt-0.5">
-                      ₹{basePrice.toLocaleString('en-IN')}{' '}
-                      <span className="text-xs font-normal text-slate-400">/ One-time setup</span>
+                    <h3 className="text-lg font-bold text-slate-900">Step 1: Choose Website Architecture</h3>
+                    <p className="text-xs text-slate-500">Core responsive web application with integrated 24/7 AI Admission Counselor</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div 
+                    onClick={() => setSelectedPackage('standard')}
+                    className={`p-5 rounded-xl border-2 transition-all cursor-pointer ${
+                      selectedPackage === 'standard' 
+                        ? 'border-[#FF6B00] bg-white shadow-sm' 
+                        : 'border-slate-200 bg-white hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-bold text-slate-900">Standard AI School Portal</span>
+                      <span className="text-xs font-mono-code font-bold text-[#FF6B00]">₹2,00,000</span>
+                    </div>
+                    <ul className="text-xs text-slate-600 space-y-1.5 mt-3">
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Sub-0.8s mobile load time</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>24/7 AI Admission Chat Counselor</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>CBSE/ICSE/IB compliance structure</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Parent WhatsApp lead routing</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div 
+                    onClick={() => setSelectedPackage('premium')}
+                    className={`p-5 rounded-xl border-2 transition-all cursor-pointer ${
+                      selectedPackage === 'premium' 
+                        ? 'border-[#FF6B00] bg-white shadow-sm' 
+                        : 'border-slate-200 bg-white hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-bold text-slate-900">Premium AI Ecosystem</span>
+                      <span className="text-xs font-mono-code font-bold text-[#FF6B00]">₹3,00,000</span>
+                    </div>
+                    <ul className="text-xs text-slate-600 space-y-1.5 mt-3">
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Everything in Standard + Custom RAG AI</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Voice admission bot (Hindi &amp; English)</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Parent portal &amp; fee gateway sync</span>
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span>Automated SEO for top Google rankings</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-8 rounded-2xl bg-slate-50/80 border border-slate-200/80 shadow-xs">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-orange-100 text-[#FF6B00]">
+                      <Camera className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">Step 2: 360° Virtual Tour Add-On</h3>
+                      <p className="text-xs text-slate-500">₹60,000 includes 3 views · ₹5,000 per additional view</p>
                     </div>
                   </div>
-                  <CheckCircle2 className="w-8 h-8 text-orange-400" />
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                    <Camera className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">360° Virtual Campus Tour Addon</h3>
-                    <p className="text-xs text-slate-400">Immersive panoramic WebGL tour of classrooms, labs & sports grounds</p>
-                  </div>
-                </div>
-                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold border border-blue-500/20">
-                  Addon Option
-                </span>
-              </div>
-
-              <div className="space-y-6">
-                <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Base VR Setup</span>
-                    <div className="text-lg font-bold text-white mt-0.5">₹60,000 for 3 Views</div>
-                    <p className="text-xs text-slate-400 mt-0.5">Includes Main Entrance, Science Lab, and Sports Complex.</p>
-                  </div>
                   <div className="text-right">
-                    <span className="text-xs text-slate-400">Additional Views Rate</span>
-                    <div className="text-sm font-semibold text-amber-400">+₹5,000 / Extra View</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-semibold text-slate-300">
-                      Select Total 360° VR Views Needed:
-                    </label>
-                    <span className="text-sm font-black text-orange-400 bg-orange-500/10 px-3 py-1 rounded-lg border border-orange-500/20">
-                      {extraViewsCount} Views ({extraViewsCount >= 3 ? `3 Base + ${extraViewsCount - 3} Extra` : '0 Selected'})
+                    <span className="text-xs font-mono-code font-bold text-[#FF6B00] bg-orange-100/70 px-2.5 py-1 rounded-full">
+                      {extraViewsCount} Views Configured
                     </span>
                   </div>
+                </div>
+
+                <div className="space-y-4 pt-2">
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
+                    <span>Base Setup (3 Views Included)</span>
+                    <span className="font-mono-code">₹60,000</span>
+                  </div>
+
                   <input
                     type="range"
-                    min="0"
+                    min="3"
                     max="15"
                     step="1"
                     value={extraViewsCount}
                     onChange={(e) => setExtraViewsCount(parseInt(e.target.value))}
-                    className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                    className="w-full accent-[#FF6B00] cursor-pointer"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-2">
-                    <span>0 Views</span>
-                    <span>3 Base (₹60k)</span>
-                    <span>6 Views (₹75k)</span>
-                    <span>10 Views (₹95k)</span>
-                    <span>15 Views (₹1.2L)</span>
+
+                  <div className="flex justify-between text-[11px] text-slate-400 font-mono-code">
+                    <span>3 Views (Base)</span>
+                    <span>6 Views</span>
+                    <span>9 Views</span>
+                    <span>12 Views</span>
+                    <span>15 Views</span>
+                  </div>
+
+                  {additionalViews > 0 && (
+                    <div className="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center justify-between text-xs">
+                      <span className="text-slate-600">
+                        {additionalViews} Additional View{additionalViews > 1 ? 's' : ''} (@ ₹5,000 / view):
+                      </span>
+                      <span className="font-mono-code font-bold text-slate-900">
+                        + ₹{additionalViewsCost.toLocaleString('en-IN')}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="sticky top-24 p-6 sm:p-8 rounded-2xl bg-slate-900 text-white shadow-xl border border-slate-800">
+                <div className="flex items-center justify-between pb-5 border-b border-slate-800 mb-6">
+                  <div>
+                    <span className="text-xs font-mono-code uppercase text-[#FF6B00] font-semibold tracking-wider">Investment Summary</span>
+                    <h4 className="text-xl font-extrabold text-white">Full School Digital Suite</h4>
+                  </div>
+                  <Sparkles className="w-5 h-5 text-amber-400" />
+                </div>
+
+                <div className="space-y-3.5 text-xs">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span>Website Platform:</span>
+                    <span className="font-mono-code text-white font-semibold">₹{basePrice.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span>360° VR Tour Setup (3 Views):</span>
+                    <span className="font-mono-code text-white font-semibold">₹{vrBasePrice.toLocaleString('en-IN')}</span>
+                  </div>
+                  {additionalViews > 0 && (
+                    <div className="flex justify-between items-center text-slate-300">
+                      <span>{additionalViews} Additional VR View{additionalViews > 1 ? 's' : ''}:</span>
+                      <span className="font-mono-code text-white font-semibold">₹{additionalViewsCost.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+
+                  <div className="pt-4 border-t border-slate-800 flex justify-between items-baseline">
+                    <span className="text-sm font-bold text-white">Total Project Cost:</span>
+                    <div className="text-right">
+                      <div className="text-3xl font-extrabold text-[#FF6B00] font-mono-code">
+                        ₹{grandTotal.toLocaleString('en-IN')}
+                      </div>
+                      <div className="text-[10px] text-slate-400">Excl. applicable taxes · 100% turnkey delivery</div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                    <span className="text-xs text-slate-400">360° VR Tour Cost:</span>
-                    <div className="text-lg font-bold text-blue-400">₹{totalVrCost.toLocaleString('en-IN')}</div>
+                <div className="mt-8 space-y-3">
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="w-full py-3.5 rounded-full bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
+                  >
+                    <span>Receive Official School Proposal</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+
+                  <a
+                    href="tel:+918958347428"
+                    className="w-full py-3 rounded-full bg-slate-800 text-slate-200 text-xs font-semibold hover:bg-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
+                  >
+                    <span>Call Engineering Team (+91 8958347428)</span>
+                  </a>
+                </div>
+
+                <div className="mt-6 pt-5 border-t border-slate-800/80 text-[11px] text-slate-400 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Includes high-speed hosting &amp; SSL setup</span>
                   </div>
-                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                    <span className="text-xs text-slate-400">Extra Views Cost:</span>
-                    <div className="text-lg font-bold text-amber-400">₹{additionalViewsCost.toLocaleString('en-IN')}</div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Delivered in 14-21 business days</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        )}
 
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-orange-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl pointer-events-none" />
-              
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-orange-500/10 rounded-xl border border-orange-500/20 text-orange-400">
-                  <Calculator className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">Investment Summary</h3>
-                  <p className="text-xs text-slate-400">Tailored Delhi NCR School Package</p>
-                </div>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex justify-between items-center pb-3 border-b border-slate-800 text-sm">
-                  <span className="text-slate-300">Base AI School Website:</span>
-                  <span className="font-semibold text-white">₹{basePrice.toLocaleString('en-IN')}</span>
-                </div>
-                <div className="flex justify-between items-center pb-3 border-b border-slate-800 text-sm">
-                  <span className="text-slate-300">360° VR Campus Setup ({extraViewsCount} views):</span>
-                  <span className="font-semibold text-blue-400">₹{totalVrCost.toLocaleString('en-IN')}</span>
-                </div>
-                {additionalViews > 0 && (
-                  <div className="flex justify-between items-center pb-3 border-b border-slate-800 text-xs text-slate-400">
-                    <span>• {additionalViews} Extra Views (@ ₹5,000/view):</span>
-                    <span>₹{additionalViewsCost.toLocaleString('en-IN')}</span>
-                  </div>
-                )}
-                <div className="pt-2 flex justify-between items-end">
-                  <div>
-                    <span className="text-xs uppercase text-orange-400 font-bold tracking-wider">Total Investment Quote</span>
-                    <div className="text-3xl font-black text-white mt-1">
-                      ₹{grandTotal.toLocaleString('en-IN')}
+        {activeTab === '360tour' && (
+          <div className="mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              {CAMPUS_SPACES.map((space, idx) => (
+                <div key={idx} className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-xs hover:shadow-md transition-shadow">
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <img 
+                      src={space.image} 
+                      alt={space.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-mono-code font-semibold flex items-center gap-1.5">
+                      <Camera className="w-3 h-3 text-[#FF6B00]" />
+                      <span>360° Spherical View #{idx + 1}</span>
                     </div>
                   </div>
-                  <span className="text-xs text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg">
-                    14-21 Days Delivery
-                  </span>
+                  <div className="p-5">
+                    <h4 className="text-base font-bold text-slate-900 mb-1">{space.name}</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">{space.desc}</p>
+                  </div>
                 </div>
-              </div>
-
-              <button
-                onClick={() => setModalOpen(true)}
-                className="w-full py-4 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-bold rounded-xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-3 transition-all hover:scale-[1.02]"
-              >
-                <span>Get Official School Proposal & Audit</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
-
-              <div className="mt-4 text-center">
-                <a href="tel:+918958347428" className="text-xs text-slate-400 hover:text-orange-400 transition-colors inline-flex items-center gap-1.5">
-                  <span>Speak with Lead AI Consultant:</span>
-                  <span className="font-bold text-white">+91 8958347428</span>
-                </a>
-              </div>
+              ))}
             </div>
 
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
-              <h4 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-orange-400" />
-                Targeting Top Delhi NCR Institutions
-              </h4>
-              <div className="grid grid-cols-1 gap-2.5">
-                {PRESET_SCHOOLS.map((school, idx) => (
-                  <div key={idx} className="flex items-center justify-between bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60 text-xs">
-                    <div>
-                      <div className="font-medium text-slate-200">{school.name}</div>
-                      <div className="text-slate-500 text-[10px]">{school.city} • Current Speed: {school.pagespeed}/100</div>
-                    </div>
-                    <span className="text-orange-400 font-semibold bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
-                      {school.views} VR Views
+            <div className="p-6 rounded-2xl bg-orange-50/70 border border-orange-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <h4 className="text-base font-bold text-slate-900">Want to add your Sports Complex, Auditorium or Hostels?</h4>
+                <p className="text-xs text-slate-600 mt-1">
+                  Start with 3 views at ₹60,000, and add unlimited additional interactive views for just ₹5,000 per view.
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveTab('calculator')}
+                className="px-5 py-2.5 rounded-full bg-[#FF6B00] text-white text-xs font-semibold hover:bg-[#e05e00] transition-colors shrink-0 cursor-pointer"
+              >
+                Configure in Calculator
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'audits' && (
+          <div className="mb-16">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 mb-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Real Delhi NCR School Website Speed &amp; AI Benchmark</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Most premier Delhi NCR school websites score below 50/100 on Google PageSpeed Insights, leading to lost parent inquiries and slow loading on 5G/4G smartphones. Here is how our architecture compares:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {PRESET_SCHOOLS.map((school, idx) => (
+                <div key={idx} className="p-5 rounded-xl border border-slate-200 bg-white shadow-xs">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-slate-900">{school.name}</span>
+                    <span className="text-[10px] font-mono-code px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                      {school.city}
                     </span>
                   </div>
-                ))}
-              </div>
+                  <div className="flex items-center gap-3 my-3">
+                    <div className="text-2xl font-extrabold text-red-500 font-mono-code">{school.currentScore}/100</div>
+                    <div className="text-[11px] text-slate-500">Current Google Mobile Score</div>
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-normal mb-3">
+                    <strong className="text-slate-800">Critical Issues:</strong> {school.issues}
+                  </p>
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                    <span className="text-[#FF6B00] font-semibold">Orange Future Tech Solution:</span>
+                    <span className="font-mono-code font-bold text-emerald-600">98/100 + AI Bot</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+        )}
+
+        <div className="p-8 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+          <div className="max-w-xl">
+            <h3 className="text-2xl font-extrabold tracking-tight">Need School ID Card Automation Too?</h3>
+            <p className="text-xs sm:text-sm text-orange-100 mt-2 leading-relaxed">
+              Pair your new AI website with our proprietary <strong>CardGen ID Card Software</strong> to generate thousands of student &amp; staff cards directly from Excel in minutes.
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              if (setActiveLayer) {
+                setActiveLayer('cardgen');
+                window.location.hash = 'cardgen';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3.5 rounded-full bg-white text-[#FF6B00] text-xs font-bold hover:bg-orange-50 transition-all shadow-sm shrink-0 cursor-pointer"
+          >
+            Explore CardGen ID Software
+          </button>
         </div>
       </div>
 
       <AnimatePresence>
         {modalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl"
+              className="w-full max-w-md bg-white rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-200 relative text-slate-900"
             >
               <button
                 onClick={() => setModalOpen(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800/50"
+                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-white">Request School AI Proposal</h3>
-                <p className="text-xs text-slate-400 mt-1">
-                  Get a free technical audit of your current school website & custom 360° VR Tour roadmap.
+              <div className="text-left mb-6">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-100 text-[#FF6B00] text-xs font-semibold mb-2">
+                  <School className="w-3.5 h-3.5" />
+                  <span>Delhi NCR School Proposal</span>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Request Official Quotation</h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Total configured investment: <strong className="text-[#FF6B00] font-mono-code">₹{grandTotal.toLocaleString('en-IN')}</strong> ({extraViewsCount} 360° VR Views)
                 </p>
               </div>
 
               {submitted ? (
-                <div className="py-8 text-center space-y-4">
-                  <div className="w-16 h-16 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-8 h-8" />
+                <div className="py-8 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Proposal Request Received!</h4>
-                  <p className="text-sm text-slate-300">
-                    Our Senior AI School Solutions Director will contact your office within 2 hours.
+                  <h4 className="text-base font-bold text-slate-900">Quotation Request Received!</h4>
+                  <p className="text-xs text-slate-600">
+                    Our educational engineering team will contact your school director within 2 hours with the complete architectural proposal.
                   </p>
                   <button
-                    onClick={() => { setSubmitted(false); setModalOpen(false); }}
-                    className="px-6 py-2.5 bg-slate-800 text-white rounded-xl text-sm font-semibold hover:bg-slate-700"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setModalOpen(false);
+                    }}
+                    className="mt-4 px-6 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold cursor-pointer"
                   >
-                    Close Window
+                    Done
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitQuote} className="space-y-4">
+                <form onSubmit={handleSubmitQuote} className="space-y-4 text-left">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">School / Institution Name</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">School / Institution Name</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. DPS R.K. Puram / Modern School"
+                      placeholder="e.g. Modern School / DPS Delhi NCR"
                       value={formData.schoolName}
                       onChange={(e) => setFormData({ ...formData, schoolName: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-orange-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-[#FF6B00]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Official Email Address</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Official Email Address</label>
                     <input
                       type="email"
                       required
                       placeholder="principal@school.edu.in"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-orange-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-[#FF6B00]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Contact Phone Number</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Contact Phone (WhatsApp)</label>
                     <input
                       type="tel"
                       required
-                      placeholder="+91 8958347428"
+                      placeholder="+91 98XXXXXXXX"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-orange-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-[#FF6B00]"
                     />
-                  </div>
-
-                  <div className="bg-slate-950 p-4 rounded-xl border border-slate-800/80 text-xs space-y-1">
-                    <div className="flex justify-between text-slate-400">
-                      <span>Selected Package:</span>
-                      <span className="text-white font-semibold">{selectedPackage === 'premium' ? 'Custom Enterprise AI (₹3L)' : 'Standard AI Website (₹2L)'}</span>
-                    </div>
-                    <div className="flex justify-between text-slate-400">
-                      <span>360° VR Campus Views:</span>
-                      <span className="text-blue-400 font-semibold">{extraViewsCount} Views</span>
-                    </div>
-                    <div className="flex justify-between text-slate-200 font-bold pt-2 border-t border-slate-800">
-                      <span>Total Estimated Investment:</span>
-                      <span className="text-orange-400">₹{grandTotal.toLocaleString('en-IN')}</span>
-                    </div>
                   </div>
 
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 text-sm transition-all"
+                    className="w-full py-3 rounded-full bg-[#FF6B00] text-white text-xs font-bold hover:bg-[#e05e00] transition-colors flex items-center justify-center gap-2 cursor-pointer mt-4"
                   >
-                    {submitting ? (
-                      <span>Dispatching Proposal...</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        <span>Dispatch Custom Proposal & AI Audit</span>
-                      </>
-                    )}
+                    {submitting ? 'Generating Proposal...' : 'Send Proposal to School Management'}
+                    <Send className="w-3.5 h-3.5" />
                   </button>
                 </form>
               )}
