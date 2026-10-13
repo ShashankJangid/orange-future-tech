@@ -8,18 +8,13 @@ export default function Footer({ darkMode }) {
       <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-apple">
         <div className="flex items-center gap-3">
           <a href="#" className="flex items-center gap-2.5 group">
-            <div className="h-9 w-9 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden">
-              <img 
-                src="/logo-concept-b-icon.webp" 
-                alt="Orange Future Tech Emblem" 
-                className="h-full w-full object-cover rounded-lg"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <span className={`text-xs font-bold tracking-tight ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
-              ORANGE <span className="text-[#FF6B00]">FUTURE TECH</span>
-            </span>
+            <img 
+              src={darkMode ? "/orange_future_tech_logo_dark.svg" : "/orange_future_tech_logo.svg"} 
+              alt="Orange Future Tech Logo" 
+              className="h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         </div>
 

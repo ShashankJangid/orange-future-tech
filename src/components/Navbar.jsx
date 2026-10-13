@@ -21,24 +21,14 @@ export default function Navbar({ onOpenAi, darkMode, setDarkMode }) {
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3 group">
-          <div className="h-10 w-10 p-0.5 bg-white rounded-xl border border-[#FF6B00]/40 shadow-sm flex items-center justify-center group-hover:scale-105 group-hover:border-[#FF6B00] transition-all duration-300 overflow-hidden">
-            <img 
-              src="/logo-concept-b-icon.webp" 
-              alt="Orange Future Tech Emblem" 
-              className="h-full w-full object-cover rounded-lg"
-              loading="eager"
-              fetchPriority="high"
-              decoding="sync"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className={`text-sm font-extrabold tracking-tight leading-none transition-colors group-hover:text-[#FF6B00] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-              ORANGE <span className="text-[#FF6B00]">FUTURE TECH</span>
-            </span>
-            <span className="text-[9px] font-mono-code text-slate-400 tracking-wider uppercase mt-1">
-              Hardware • AI • Software
-            </span>
-          </div>
+          <img 
+            src={darkMode ? "/orange_future_tech_logo_dark.svg" : "/orange_future_tech_logo.svg"} 
+            alt="Orange Future Tech Logo" 
+            className="h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+          />
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-tight">

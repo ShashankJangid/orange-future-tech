@@ -109,11 +109,11 @@ export default function Hero({ onOpenAi, darkMode }) {
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#FF6B00]/25 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF6B00]/40 transition-all duration-700"></div>
               <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-              <div className="relative flex items-center justify-center">
+              <div className="relative flex items-center justify-center p-4">
                 <img
-                  src="/logo-concept-b-square.webp"
-                  alt="Orange Future Tech 3D Silicon & PCB Architecture"
-                  className="w-full h-auto object-contain max-h-[290px] rounded-2xl drop-shadow-[0_20px_40px_rgba(255,107,0,0.22)] transition-transform duration-700 group-hover:scale-[1.03]"
+                  src={darkMode ? "/orange_future_tech_logo_dark.svg" : "/orange_future_tech_logo.svg"}
+                  alt="Orange Future Tech Master Architecture"
+                  className="w-full h-auto object-contain max-h-[220px] drop-shadow-[0_20px_40px_rgba(255,107,0,0.22)] transition-transform duration-700 group-hover:scale-[1.03]"
                   loading="eager"
                   fetchPriority="high"
                   decoding="sync"
@@ -175,7 +175,7 @@ export default function Hero({ onOpenAi, darkMode }) {
                         : 'bg-white/90 border-slate-200 text-slate-700 shadow-sm'
                     }`}
                   >
-                    <img src="/logo-concept-b-icon.webp" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" loading="eager" />
+                    <img src="/apple-touch-icon.png" alt="" className="w-4 h-4 rounded-full object-cover shadow-sm" loading="eager" />
                     <IconComponent className="w-3.5 h-3.5 text-[#FF6B00]" />
                     <span className="font-medium">{item.label}</span>
                   </div>
