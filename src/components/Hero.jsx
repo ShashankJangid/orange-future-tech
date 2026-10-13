@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, ShieldCheck, Cpu, Play, School, CreditCard, ChevronRight, CheckCircle2, Globe, Eye, Flame } from 'lucide-react';
 import WaveLettering from './WaveLettering';
 import TextLoop from './TextLoop';
@@ -20,43 +19,23 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 border shadow-xs bg-orange-50/80 border-orange-200/80 text-[#FF6B00]"
-          >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 border shadow-xs bg-orange-50/80 border-orange-200/80 text-[#FF6B00]">
             <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
             <span>PREMIER DELHI NCR SCHOOL WEBSITES &amp; ENTERPRISE SOFTWARE</span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] mb-6"
-          >
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] mb-6 text-slate-900">
             Websites Built for <br />
             <span className="bg-gradient-to-r from-[#FF6B00] via-amber-500 to-orange-600 bg-clip-text text-transparent">
               Speed, AI &amp; Authenticity
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 font-normal leading-relaxed"
-          >
+          <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 font-normal leading-relaxed">
             We build high-converting, sub-second AI websites for top Delhi NCR schools (₹2-3 Lakh), immersive 360° Virtual Campus Tours (₹60,000 setup), CardGen automated student ID software, and enterprise full-stack software.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-3.5 mb-10"
-          >
+          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8">
             <button
               onClick={() => {
                 if (setActiveLayer) {
@@ -99,7 +78,27 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
               <span>Instant Quote Calculator</span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </button>
-          </motion.div>
+          </div>
+        </div>
+
+        <div className="w-full my-6 overflow-hidden py-3 border-y border-slate-200/80 bg-orange-50/40">
+          <TextLoop
+            text="React ✦ Bits ✦ Orange Future Tech ✦ AI School Portals ✦ 360° Virtual Tours ✦ CardGen Suite"
+            shape="wave"
+            speed={60}
+            direction="forward"
+            separator="✦"
+            curviness={38}
+            fontSize={46}
+            fontWeight={900}
+            letterSpacing={2}
+            uppercase
+            color="#ffffff"
+            ribbon
+            ribbonColor="#F97316"
+            ribbonWidth={104}
+            pauseOnHover={false}
+          />
         </div>
 
         <div className="w-full my-6 rounded-2xl overflow-hidden border border-slate-200/80 bg-gradient-to-b from-orange-50/40 via-white to-slate-50 shadow-sm relative">
@@ -122,7 +121,7 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
               rows={17}
               perspective={0.36}
               tilt={30}
-              horizon={0.38}
+              horizon={0.16}
               amplitude={2.35}
               wavelength={0.68}
               speed={0.5}
@@ -134,26 +133,6 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
               tension={1.25}
             />
           </div>
-        </div>
-
-        <div className="w-full my-8 overflow-hidden py-4 border-y border-slate-200/60 bg-orange-50/30">
-          <TextLoop
-            text="Orange Future Tech ✦ AI School Portals ✦ 360° Virtual Tours ✦ CardGen Suite ✦ Enterprise Software"
-            shape="wave"
-            speed={60}
-            direction="forward"
-            separator="✦"
-            curviness={38}
-            fontSize={44}
-            fontWeight={900}
-            letterSpacing={2}
-            uppercase
-            color="#ffffff"
-            ribbon
-            ribbonColor="#F97316"
-            ribbonWidth={104}
-            pauseOnHover={false}
-          />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-200/80">
