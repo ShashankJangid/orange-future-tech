@@ -1,15 +1,3 @@
-#!/usr/bin/env python3
-"""
-Orange Future Tech - Master Autonomous Supervisor & Automator
---------------------------------------------------------------
-Unifies and supervises all 24/7 autonomous AI services:
-1. Secure API Server (port 8080)
-2. Agentic AI Core Loop (Lead Gen, Web Audits, Outreach, Social Publishing)
-3. n8n Cloud MCP & Workflow Synchronization
-4. Telegram & Twilio Real-Time Alert Dispatcher
-5. cc-connect AI Coding Agent Bridge
-"""
-
 import sys
 import os
 import time
@@ -31,8 +19,6 @@ LOG_DIR = SCRIPT_DIR / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
 class MasterAutomator:
-    """Supervises and manages all autonomous business services."""
-
     def __init__(self):
         init_db()
         self.processes = {}
@@ -44,7 +30,6 @@ class MasterAutomator:
         log_action("MasterAutomator", "INFO", msg, "SUCCESS")
 
     def run_health_check(self) -> dict:
-        """Executes system health check and returns status summary."""
         self.log("Running comprehensive health check...")
         status_script = SCRIPT_DIR / "engine_status.py"
         res = subprocess.run([sys.executable, str(status_script)], capture_output=True, text=True)
@@ -52,7 +37,6 @@ class MasterAutomator:
         return {"output": res.stdout, "errors": res.stderr}
 
     def run_single_cycle(self):
-        """Runs a complete one-shot autonomous cycle."""
         self.log("Starting one-shot autonomous AI cycle...")
         Notifier.send_telegram_alert("🚀 *ONE-SHOT AUTONOMOUS AI CYCLE INITIATED*")
 
@@ -71,7 +55,6 @@ class MasterAutomator:
         self.log("One-shot cycle execution complete.")
 
     def start_subprocesses(self):
-        """Spawns background processes for API server, agent core loop, and cc-connect bridge."""
         self.log("Starting all background autonomous services...")
 
         server_log = open(LOG_DIR / "server.log", "a")
@@ -92,6 +75,15 @@ class MasterAutomator:
         self.processes["agent_core"] = {"proc": core_proc, "cmd": "agent_core.py", "log": core_log}
         self.log(f"Agent Core Loop started (PID {core_proc.pid})")
 
+        tg_log = open(LOG_DIR / "telegram_bot.log", "a")
+        tg_proc = subprocess.Popen(
+            [sys.executable, str(SCRIPT_DIR / "telegram_bot_daemon.py")],
+            stdout=tg_log,
+            stderr=tg_log
+        )
+        self.processes["telegram_bot"] = {"proc": tg_proc, "cmd": "telegram_bot_daemon.py", "log": tg_log}
+        self.log(f"Telegram Bot Daemon started (PID {tg_proc.pid})")
+
         bridge_script = SCRIPT_DIR / "run_cc_connect.sh"
         if bridge_script.exists():
             bridge_log = open(LOG_DIR / "cc_connect.log", "a")
@@ -110,11 +102,11 @@ class MasterAutomator:
             "🌟 *ORANGE FUTURE TECH - MASTER AUTOMATION SUPERVISOR ONLINE*\n\n"
             f"- API Server: PID {server_proc.pid} (Port 8080)\n"
             f"- Agent Core: PID {core_proc.pid}\n"
+            f"- Telegram Bot Daemon: PID {tg_proc.pid} (English Only)\n"
             "- Real-Time Telemetry: Active"
         )
 
     def supervise_loop(self):
-        """Continuously monitors sub-processes and restarts them if killed."""
         self.log("Entering continuous supervisor monitoring loop...")
         try:
             while True:
@@ -131,6 +123,8 @@ class MasterAutomator:
                             new_proc = subprocess.Popen([sys.executable, str(SCRIPT_DIR / "server.py")], stdout=log_file, stderr=log_file)
                         elif name == "agent_core":
                             new_proc = subprocess.Popen([sys.executable, str(SCRIPT_DIR / "agent_core.py")], stdout=log_file, stderr=log_file)
+                        elif name == "telegram_bot":
+                            new_proc = subprocess.Popen([sys.executable, str(SCRIPT_DIR / "telegram_bot_daemon.py")], stdout=log_file, stderr=log_file)
                         elif name == "cc_connect":
                             new_proc = subprocess.Popen(["bash", str(SCRIPT_DIR / "run_cc_connect.sh")], stdout=log_file, stderr=log_file)
                         
@@ -141,7 +135,6 @@ class MasterAutomator:
             self.stop_all()
 
     def stop_all(self):
-        """Stops all running sub-processes safely."""
         self.log("Stopping all autonomous services...")
         for name, info in self.processes.items():
             proc = info["proc"]

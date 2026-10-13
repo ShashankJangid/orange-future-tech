@@ -1,22 +1,34 @@
 import urllib.request
 import json
+import re
 from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 from db import log_action
 
 class Notifier:
-    """Dispatches real-time Telegram notifications for ALL business events and AI actions."""
+    @staticmethod
+    def sanitize_english(text: str) -> str:
+        if not text:
+            return ""
+        cjk_chars = len(re.findall(r"[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af\u0400-\u04ff\u0600-\u06ff]", text))
+        if cjk_chars > 0:
+            text = re.sub(r"[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af\u0400-\u04ff\u0600-\u06ff]", "", text)
+        return text.strip()
 
     @staticmethod
     def send_telegram_alert(text: str) -> bool:
+        clean_text = Notifier.sanitize_english(text)
+        if not clean_text:
+            return False
+
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-            print(f"--> [NOTIFIER LOG ONLY] {text}")
-            log_action("Notifier", "LOG_ALERT", text[:30], "SUCCESS")
+            print(f"--> [NOTIFIER LOG ONLY] {clean_text}")
+            log_action("Notifier", "LOG_ALERT", clean_text[:30], "SUCCESS")
             return False
 
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = json.dumps({
             "chat_id": TELEGRAM_CHAT_ID,
-            "text": text,
+            "text": clean_text,
             "parse_mode": "Markdown"
         }).encode("utf-8")
 

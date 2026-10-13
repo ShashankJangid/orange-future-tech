@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Installation script for cc-connect (AI coding agent bridge)
-# Installs cc-connect globally via npm, Homebrew, or Go, depending on available tools.
-
 set -e
 
 install_npm() {
@@ -23,7 +20,6 @@ install_go() {
   echo "cc-connect installed via Go."
 }
 
-# Detect package manager
 if command -v npm >/dev/null 2>&1; then
   install_npm
 elif command -v brew >/dev/null 2>&1; then
@@ -31,8 +27,8 @@ elif command -v brew >/dev/null 2>&1; then
 elif command -v go >/dev/null 2>&1; then
   install_go
 else
-  echo "No supported package manager (npm, brew, go) found. Please install one and re-run this script."
+  echo "No supported package manager found."
   exit 1
 fi
 
-echo "Installation complete. Verify with 'cc-connect --help'."
+echo "Installation complete."

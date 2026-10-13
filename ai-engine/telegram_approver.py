@@ -7,11 +7,8 @@ from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 from db import get_db, log_action
 
 class TelegramApprover:
-    """Pre-flight error checker and Telegram interactive approval system for client outreach."""
-
     @staticmethod
     def perform_preflight_checks(company_name: str, recipient_email: str, subject: str, html_body: str) -> dict:
-        """Scans email draft for errors, template bugs, and spam flags before sending."""
         errors = []
         warnings = []
 
@@ -36,12 +33,11 @@ class TelegramApprover:
             "passed": passed,
             "errors": errors,
             "warnings": warnings,
-            "status_label": "✅ PASSED (0 Errors)" if passed else f"❌ FAILED ({len(errors)} Error(s))"
+            "status_label": "PASSED (0 Errors)" if passed else f"FAILED ({len(errors)} Error(s))"
         }
 
     @classmethod
     def request_approval(cls, company_name: str, recipient_email: str, subject: str, html_body: str, report_path: str = None) -> dict:
-        """Runs pre-flight check, saves approval request in DB, and sends Telegram alert."""
         check_result = cls.perform_preflight_checks(company_name, recipient_email, subject, html_body)
         
         conn = get_db()
@@ -64,26 +60,25 @@ class TelegramApprover:
 
         error_details = ""
         if check_result["errors"]:
-            error_details = "\n⚠️ *ERRORS DETECTED*:\n" + "\n".join(f"• {e}" for e in check_result["errors"])
+            error_details = "\n*ERRORS DETECTED*:\n" + "\n".join(f"- {e}" for e in check_result["errors"])
         
         warning_details = ""
         if check_result["warnings"]:
-            warning_details = "\n⚡ *WARNINGS*:\n" + "\n".join(f"• {w}" for w in check_result["warnings"])
+            warning_details = "\n*WARNINGS*:\n" + "\n".join(f"- {w}" for w in check_result["warnings"])
 
         body_snippet = re.sub('<[^<]+?>', '', html_body)[:150].strip().replace('\n', ' ')
 
         telegram_msg = (
-            f"🛑 *PRE-OUTREACH APPROVAL REQUIRED* (Lead ID: `#{lead_id}`)\n\n"
-            f"• *Client*: {company_name}\n"
-            f"• *Recipient*: `{recipient_email}`\n"
-            f"• *Subject*: {subject}\n"
-            f"• *Pre-Flight Diagnostic*: {check_result['status_label']}"
+            f"*PRE-OUTREACH APPROVAL REQUIRED* (Lead ID: #{lead_id})\n\n"
+            f"- Company: {company_name}\n"
+            f"- Recipient: {recipient_email}\n"
+            f"- Subject: {subject}\n"
+            f"- Diagnostic: {check_result['status_label']}"
             f"{error_details}"
             f"{warning_details}\n\n"
-            f"📋 *Body Preview*:\n_{body_snippet}..._\n\n"
-            f"--- *REPLY TO APPROVE / REJECT* ---\n"
-            f"✅ Reply `/approve_{lead_id}` to authorize send\n"
-            f"❌ Reply `/reject_{lead_id}` to reject outreach"
+            f"- Body Preview:\n{body_snippet}...\n\n"
+            f"Reply /approve_{lead_id} to authorize send\n"
+            f"Reply /reject_{lead_id} to cancel outreach"
         )
 
         from notifier import Notifier
@@ -94,7 +89,6 @@ class TelegramApprover:
 
     @classmethod
     def poll_approval_from_telegram(cls, lead_id: int) -> str:
-        """Polls Telegram updates to check if owner approved or rejected lead_id."""
         if not TELEGRAM_BOT_TOKEN:
             return "AUTO_APPROVED"
 
@@ -108,9 +102,13 @@ class TelegramApprover:
                     msg_text = update.get("message", {}).get("text", "").strip()
                     if f"/approve_{lead_id}" in msg_text or msg_text.lower() in [f"approve {lead_id}", f"yes {lead_id}"]:
                         cls.set_lead_status(lead_id, "APPROVED")
+                        from notifier import Notifier
+                        Notifier.send_telegram_alert(f"Outreach for Lead #{lead_id} has been APPROVED and scheduled.")
                         return "APPROVED"
                     elif f"/reject_{lead_id}" in msg_text or msg_text.lower() in [f"reject {lead_id}", f"no {lead_id}"]:
                         cls.set_lead_status(lead_id, "REJECTED")
+                        from notifier import Notifier
+                        Notifier.send_telegram_alert(f"Outreach for Lead #{lead_id} has been REJECTED and cancelled.")
                         return "REJECTED"
         except Exception as e:
             print(f"--> [TELEGRAM APPROVER] Error checking updates: {e}")
