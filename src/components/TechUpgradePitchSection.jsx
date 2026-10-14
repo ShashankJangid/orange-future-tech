@@ -58,7 +58,7 @@ const PRESET_CLIENTS = [
   }
 ];
 
-export default function TechUpgradePitchSection() {
+export default function TechUpgradePitchSection({ darkMode }) {
   const [selectedClient, setSelectedClient] = useState(PRESET_CLIENTS[0]);
   const [customDomain, setCustomDomain] = useState('');
   const [modalOpen, setModalOpen] = useState(false);

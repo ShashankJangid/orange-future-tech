@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 
 const hexToRgb = (hex) => {
   let c = hex.replace('#', '');
@@ -21,26 +21,26 @@ const lerpRgb = (c1, c2, t) => {
 const WaveLettering = forwardRef(({
   text = ' Orange Future Tech',
   colors = ['#ff7c00', '#ca6700'],
-  letterSpacing = 0.06,
-  glyphSize = 18,
-  rows = 17,
+  letterSpacing = 0.08,
+  glyphSize = 16,
+  rows = 14,
   perspective = 0.36,
-  tilt = 30,
-  horizon = 0.38,
-  amplitude = 2.35,
-  wavelength = 0.68,
+  tilt = 24,
+  horizon = 0.12,
+  amplitude = 1.1,
+  wavelength = 0.72,
   speed = 0.5,
   direction = 64,
   sharpness = 0.38,
-  flow = 2.5,
+  flow = 2.0,
   focusDepth = 0.22,
-  depthOfField = 0.39,
+  depthOfField = 0.35,
   tension = 1.25,
   fontFamily = 'Outfit, sans-serif',
   fontWeight = 700,
   clickStrum = true,
-  strumStrength = 1.2,
-  sustain = 1.6,
+  strumStrength = 0.8,
+  sustain = 1.5,
   paused = false,
   className = '',
   style = {},
@@ -95,7 +95,7 @@ const WaveLettering = forwardRef(({
     const onPointerMove = (e) => {
       const rect = container.getBoundingClientRect();
       const yNorm = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-      mouseFocusRef.current = 1 - yNorm;
+      mouseFocusRef.current = yNorm;
       isHoveredRef.current = true;
     };
 
@@ -148,20 +148,21 @@ const WaveLettering = forwardRef(({
       const activeRipples = ripplesRef.current.filter(r => (now - r.startTime) < r.duration);
       ripplesRef.current = activeRipples;
 
-      const effectiveRows = Math.max(2, rows);
-      const rowStep = 1 / (effectiveRows - 1);
+      const effectiveRows = Math.max(4, rows);
+      const verticalSpan = height * (1 - horizon);
+      const baseRowSpacing = verticalSpan / (effectiveRows + 0.5);
 
       for (let rIndex = 0; rIndex < effectiveRows; rIndex++) {
-        const depth = 1 - (rIndex * rowStep);
-        const zFactor = Math.pow(depth, 1.2 + perspective * 0.8);
-        const scale = (1 - perspective * 0.75) + (perspective * 0.75) * depth;
-        const currentGlyphSize = Math.max(9, glyphSize * scale);
+        const depth = rIndex / (effectiveRows - 1);
+        const perspectiveFactor = Math.pow(depth, 1.1 + perspective * 0.4);
+        const scale = (1 - perspective * 0.5) + (perspective * 0.5) * depth;
         
-        const baseY = height * horizon + (height * (1 - horizon)) * depth;
+        const currentGlyphSize = Math.max(10, Math.min(glyphSize * scale, baseRowSpacing * 0.58));
+        const baseY = height * horizon + verticalSpan * perspectiveFactor;
         
         const distToFocus = Math.abs(depth - activeFocus);
-        const blurFactor = Math.min(1, distToFocus / (0.3 + depthOfField * 0.4));
-        const alpha = Math.max(0.18, 1 - blurFactor * depthOfField * 0.75);
+        const blurFactor = Math.min(1, distToFocus / (0.35 + depthOfField * 0.35));
+        const alpha = Math.max(0.35, 1 - blurFactor * depthOfField * 0.6);
 
         ctx.font = `${fontWeight} ${currentGlyphSize}px ${fontFamily}`;
         ctx.textBaseline = 'middle';
@@ -172,10 +173,11 @@ const WaveLettering = forwardRef(({
         const stringWidth = ctx.measureText(sampleText).width + sampleText.length * letterSpacingPx;
         if (stringWidth <= 0) continue;
 
-        const xOffsetBase = (totalTime * flow * 25) % stringWidth;
+        const xOffsetBase = (totalTime * flow * 24) % stringWidth;
         const startX = -stringWidth + (xOffsetBase < 0 ? xOffsetBase + stringWidth : xOffsetBase);
 
         const columns = Math.ceil((width + stringWidth * 2) / stringWidth) + 1;
+        const maxWaveDisplacement = baseRowSpacing * 0.24;
 
         for (let c = -1; c < columns; c++) {
           let currX = startX + c * stringWidth;
@@ -189,11 +191,11 @@ const WaveLettering = forwardRef(({
               const yNorm = depth;
 
               const wavePhase = (xNorm * cosDir + yNorm * sinDir) / Math.max(0.01, wavelength);
-              let waveVal = Math.sin(wavePhase * Math.PI * 2 + totalTime * 3);
+              let waveVal = Math.sin(wavePhase * Math.PI * 2 + totalTime * 2.8);
               
               if (sharpness > 0) {
                 const sSign = Math.sign(waveVal);
-                waveVal = sSign * Math.pow(Math.abs(waveVal), Math.max(0.2, 1 - sharpness * 0.5));
+                waveVal = sSign * Math.pow(Math.abs(waveVal), Math.max(0.3, 1 - sharpness * 0.4));
               }
 
               let strumDisplace = 0;
@@ -201,15 +203,16 @@ const WaveLettering = forwardRef(({
                 const rip = activeRipples[ripIdx];
                 const age = (now - rip.startTime) / rip.duration;
                 const dX = xNorm - rip.x;
-                const dY = (1 - depth) - rip.y;
+                const dY = depth - rip.y;
                 const dist = Math.sqrt(dX * dX + dY * dY * 2);
-                const ring = Math.sin((dist * 18 * tension) - age * 12);
+                const ring = Math.sin((dist * 16 * tension) - age * 12);
                 const decay = Math.max(0, 1 - age) * Math.exp(-dist * 4);
-                strumDisplace += ring * decay * rip.strength * 18;
+                strumDisplace += ring * decay * rip.strength * (maxWaveDisplacement * 0.5);
               }
 
-              const waveDisplace = (waveVal * amplitude * (currentGlyphSize * 0.75)) + strumDisplace;
-              const drawY = baseY + waveDisplace;
+              const rawDisplacement = (waveVal * amplitude * (currentGlyphSize * 0.4)) + strumDisplace;
+              const clampedDisplacement = Math.max(-maxWaveDisplacement, Math.min(maxWaveDisplacement, rawDisplacement));
+              const drawY = baseY + clampedDisplacement;
 
               const colorT = Math.max(0, Math.min(1, (waveVal + 1) * 0.5));
               const charColor = lerpRgb(color2, color1, colorT);
@@ -218,7 +221,7 @@ const WaveLettering = forwardRef(({
               ctx.globalAlpha = alpha;
 
               if (depthOfField > 0.4 && blurFactor > 0.6) {
-                ctx.filter = `blur(${Math.min(3, blurFactor * 2.5)}px)`;
+                ctx.filter = `blur(${Math.min(2.5, blurFactor * 2)}px)`;
               } else {
                 ctx.filter = 'none';
               }
@@ -272,7 +275,7 @@ const WaveLettering = forwardRef(({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[260px] overflow-hidden select-none ${className}`}
+      className={`relative w-full h-full min-h-[300px] overflow-hidden select-none ${className}`}
       style={style}
     >
       <canvas

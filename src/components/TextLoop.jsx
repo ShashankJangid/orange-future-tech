@@ -6,10 +6,10 @@ import { gsap } from 'gsap';
 import './TextLoop.css';
 
 const VIEW_W = 1200;
-const VIEW_H = 520;
+const VIEW_H = 260;
 const CX = VIEW_W / 2;
 const CY = VIEW_H / 2;
-const EDGE_PAD = 6;
+const EDGE_PAD = 12;
 
 const buildPath = (shape, curviness, ribbonWidth) => {
   const c = Math.max(0, curviness);
@@ -37,31 +37,31 @@ const buildPath = (shape, curviness, ribbonWidth) => {
       return `M 120 ${CY + rise / 2} Q ${CX} ${CY - rise * 1.5} ${VIEW_W - 120} ${CY + rise / 2}`;
     }
     case 'line':
-      return `M -320 ${CY} L ${VIEW_W + 320} ${CY}`;
+      return `M -400 ${CY} L ${VIEW_W + 400} ${CY}`;
     case 'wave':
     default: {
-      const a = Math.min(c * 2.2, room * 2);
-      return `M -320 ${CY} Q -160 ${CY - a} 0 ${CY} T 320 ${CY} T 640 ${CY} T 960 ${CY} T 1280 ${CY} T ${VIEW_W + 320} ${CY}`;
+      const a = Math.min(c * 1.2, room);
+      return `M -400 ${CY} Q -200 ${CY - a} 0 ${CY} T 400 ${CY} T 800 ${CY} T 1200 ${CY} T 1600 ${CY}`;
     }
   }
 };
 
 const TextLoop = ({
-  text = 'React ✦ Bits',
+  text = 'React • Bits',
   shape = 'wave',
   path,
-  speed = 90,
+  speed = 60,
   direction = 'forward',
-  separator = '✦',
-  curviness = 90,
-  fontSize = 46,
+  separator = '•',
+  curviness = 20,
+  fontSize = 24,
   fontWeight = 800,
   letterSpacing = 2,
   uppercase = true,
   color = '#ffffff',
   ribbon = true,
-  ribbonColor = '#5227FF',
-  ribbonWidth = 86,
+  ribbonColor = '#F97316',
+  ribbonWidth = 68,
   pauseOnHover = true,
   className = '',
   style = {}
@@ -69,10 +69,9 @@ const TextLoop = ({
   const rootRef = useRef(null);
   const pathRef = useRef(null);
   const measureRef = useRef(null);
-  const headRef = useRef(null);
-  const tailRef = useRef(null);
+  const textPathRef = useRef(null);
 
-  const [metrics, setMetrics] = useState({ length: 1800, reps: 4 });
+  const [metrics, setMetrics] = useState({ length: 2000, unitWidth: 600, reps: 6 });
 
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/:/g, '')}`;
@@ -81,12 +80,17 @@ const TextLoop = ({
 
   const unit = useMemo(() => {
     const base = uppercase ? String(text).toUpperCase() : String(text);
-    const gap = separator ? `\u00A0${separator}\u00A0` : '\u00A0\u00A0\u00A0';
+    const gap = separator ? `\u00A0\u00A0\u00A0${separator}\u00A0\u00A0\u00A0` : '\u00A0\u00A0\u00A0\u00A0';
     return `${base}${gap}`;
   }, [text, separator, uppercase]);
 
   const textStyle = useMemo(
-    () => ({ fontSize: `${fontSize}px`, fontWeight, letterSpacing: `${letterSpacing}px` }),
+    () => ({ 
+      fontSize: `${fontSize}px`, 
+      fontWeight, 
+      letterSpacing: `${letterSpacing}px`,
+      fontFamily: 'Outfit, sans-serif'
+    }),
     [fontSize, fontWeight, letterSpacing]
   );
 
@@ -107,10 +111,14 @@ const TextLoop = ({
       } catch {
         return;
       }
-      if (!length) return;
+      if (!length || !unitWidth) return;
 
-      const reps = unitWidth > 0 ? Math.max(2, Math.round(length / unitWidth) + 1) : 4;
-      setMetrics(prev => (prev.length === length && prev.reps === reps ? prev : { length, reps }));
+      const reps = Math.max(3, Math.ceil((length + unitWidth * 2) / unitWidth) + 2);
+      setMetrics(prev => (
+        prev.length === length && prev.unitWidth === unitWidth && prev.reps === reps 
+          ? prev 
+          : { length, unitWidth, reps }
+      ));
     };
 
     measure();
@@ -124,15 +132,12 @@ const TextLoop = ({
   }, [d, unit, fontSize, fontWeight, letterSpacing]);
 
   useEffect(() => {
-    const { length } = metrics;
-    const head = headRef.current;
-    const tail = tailRef.current;
-    if (!head || !tail || !length) return undefined;
+    const { unitWidth } = metrics;
+    const textPathEl = textPathRef.current;
+    if (!textPathEl || !unitWidth) return undefined;
 
     const apply = offset => {
-      const partner = offset >= 0 ? offset - length : offset + length;
-      head.setAttribute('startOffset', String(offset));
-      tail.setAttribute('startOffset', String(partner));
+      textPathEl.setAttribute('startOffset', String(offset));
     };
 
     apply(0);
@@ -142,9 +147,10 @@ const TextLoop = ({
     if (prefersReduced || speed <= 0) return undefined;
 
     const state = { offset: 0 };
+    const targetOffset = direction === 'reverse' ? unitWidth : -unitWidth;
     const tween = gsap.to(state, {
-      offset: direction === 'reverse' ? -length : length,
-      duration: length / speed,
+      offset: targetOffset,
+      duration: unitWidth / speed,
       ease: 'none',
       repeat: -1,
       onUpdate: () => apply(state.offset)
@@ -169,7 +175,6 @@ const TextLoop = ({
   }, [metrics, speed, direction, pauseOnHover]);
 
   const loopText = unit.repeat(metrics.reps);
-  const fitLength = metrics.length || undefined;
 
   return (
     <div ref={rootRef} className={`text-loop ${className}`.trim()} style={style}>
@@ -200,25 +205,17 @@ const TextLoop = ({
           style={textStyle}
           fill={color}
           dominantBaseline="central"
+          alignmentBaseline="central"
           aria-hidden="true"
-          textLength={fitLength}
-          lengthAdjust="spacing"
         >
-          <textPath ref={headRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={0}>
-            {loopText}
-          </textPath>
-        </text>
-
-        <text
-          className="text-loop-text"
-          style={textStyle}
-          fill={color}
-          dominantBaseline="central"
-          aria-hidden="true"
-          textLength={fitLength}
-          lengthAdjust="spacing"
-        >
-          <textPath ref={tailRef} href={`#${pathId}`} xlinkHref={`#${pathId}`} startOffset={metrics.length ? String(-metrics.length) : '0'}>
+          <textPath 
+            ref={textPathRef} 
+            href={`#${pathId}`} 
+            xlinkHref={`#${pathId}`} 
+            startOffset={0}
+            dominantBaseline="central"
+            alignmentBaseline="central"
+          >
             {loopText}
           </textPath>
         </text>

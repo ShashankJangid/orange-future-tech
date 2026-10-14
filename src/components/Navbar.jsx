@@ -46,7 +46,9 @@ export default function Navbar({ activeLayer = 'overview', setActiveLayer, onOpe
           </button>
         </div>
 
-        <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-full border bg-slate-100/70 border-slate-200/70">
+        <nav className={`hidden lg:flex items-center gap-1.5 p-1 rounded-full border transition-colors ${
+          darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-slate-100/70 border-slate-200/70'
+        }`}>
           {layersList.map((layer) => {
             const Icon = layer.icon;
             const isActive = activeLayer === layer.id;
@@ -57,7 +59,7 @@ export default function Navbar({ activeLayer = 'overview', setActiveLayer, onOpe
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'bg-[#FF6B00] text-white shadow-sm font-semibold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    : darkMode ? 'text-slate-400 hover:text-white hover:bg-white/10' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-500'}`} />

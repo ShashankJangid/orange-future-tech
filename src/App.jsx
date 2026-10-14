@@ -25,7 +25,13 @@ import { Layers, School, CreditCard, Code2, Cpu, Users, MessageSquareText, Chevr
 export default function App() {
   const [aiOpen, setAiOpen] = useState(false);
   const [adminAuthOpen, setAdminAuthOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+    }
+    return false;
+  });
   const [activeLayer, setActiveLayer] = useState('overview');
 
   useEffect(() => {
@@ -45,9 +51,11 @@ export default function App() {
     if (darkMode) {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
 
@@ -81,44 +89,14 @@ export default function App() {
         setDarkMode={setDarkMode}
       />
 
-      <div className="pt-16 border-b border-slate-200/80 bg-slate-50/70 backdrop-blur-sm sticky top-16 z-40 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-slate-500 font-mono-code">
-            <span className="font-bold text-slate-700">Page Layer:</span>
-            <span className="px-2 py-0.5 rounded-full bg-[#FF6B00]/10 text-[#FF6B00] font-bold">
-              {layersList.find(l => l.id === activeLayer)?.name || 'Overview'}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto">
-            {layersList.map((layer) => {
-              const Icon = layer.icon;
-              const isActive = activeLayer === layer.id;
-              return (
-                <button
-                  key={layer.id}
-                  onClick={() => changeLayer(layer.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-slate-900 text-white font-semibold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{layer.name}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      <main className="relative z-10">
+      <main className="relative z-10 pt-16">
         {activeLayer !== 'overview' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-2">
             <button
               onClick={() => changeLayer('overview')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors shadow-2xs cursor-pointer"
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold transition-colors shadow-2xs cursor-pointer ${
+                darkMode ? 'border-slate-700 bg-[#0E131F] hover:bg-slate-800 text-slate-200' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+              }`}
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Overview</span>
@@ -132,14 +110,20 @@ export default function App() {
             
             <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
               <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 mb-3">
+                <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 border ${
+                  darkMode ? 'bg-[#0E131F] border-slate-800 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'
+                }`}>
                   <Layers className="w-3.5 h-3.5 text-[#FF6B00]" />
                   <span>Explore Website Layers</span>
                 </div>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                <h2 className={`text-2xl sm:text-4xl font-extrabold tracking-tight ${
+                  darkMode ? 'text-white' : 'text-slate-900'
+                }`}>
                   Clear, Focused Engineering Solutions
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-xl mx-auto">
+                <p className={`text-xs sm:text-sm mt-2 max-w-xl mx-auto ${
+                  darkMode ? 'text-slate-400' : 'text-slate-600'
+                }`}>
                   Click any layer to inspect dedicated architecture, calculators, live demos, and verified outcomes.
                 </p>
               </div>
@@ -151,20 +135,32 @@ export default function App() {
                     <button
                       key={layer.id}
                       onClick={() => changeLayer(layer.id)}
-                      className="p-5 rounded-2xl border border-slate-200/80 bg-white hover:border-[#FF6B00]/60 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer"
+                      className={`p-5 rounded-2xl border transition-all text-left flex flex-col justify-between group cursor-pointer ${
+                        darkMode 
+                          ? 'border-slate-800 bg-[#0E131F] hover:border-[#FF6B00]/70' 
+                          : 'border-slate-200/80 bg-white hover:border-[#FF6B00]/60 hover:shadow-md'
+                      }`}
                     >
                       <div>
-                        <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#FF6B00] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-105 transition-transform ${
+                          darkMode ? 'bg-[#FF6B00]/15 text-[#FF6B00]' : 'bg-orange-50 text-[#FF6B00]'
+                        }`}>
                           <Icon className="w-5 h-5" />
                         </div>
-                        <h3 className="text-base font-bold text-slate-900 group-hover:text-[#FF6B00] transition-colors">
+                        <h3 className={`text-base font-bold group-hover:text-[#FF6B00] transition-colors ${
+                          darkMode ? 'text-white' : 'text-slate-900'
+                        }`}>
                           {layer.name}
                         </h3>
-                        <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        <p className={`text-xs mt-1.5 leading-relaxed ${
+                          darkMode ? 'text-slate-400' : 'text-slate-600'
+                        }`}>
                           {layer.desc}
                         </p>
                       </div>
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#FF6B00]">
+                      <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs font-semibold text-[#FF6B00] ${
+                        darkMode ? 'border-slate-800' : 'border-slate-100'
+                      }`}>
                         <span>Open Layer</span>
                         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>

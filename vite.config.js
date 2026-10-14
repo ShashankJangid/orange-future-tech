@@ -11,5 +11,19 @@ export default defineConfig({
   },
   server: {
     port: 3000
+  },
+  build: {
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-icons': ['lucide-react'],
+          'vendor-animation': ['framer-motion', 'gsap'],
+          'vendor-three': ['three']
+        }
+      }
+    }
   }
 });
