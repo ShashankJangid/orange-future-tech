@@ -20,7 +20,7 @@ const testimonials = [
     role: "Vice Principal & Academic Director",
     organization: "Delhi Public School (DPS) Ecosystem",
     avatar: "/testimonials/avatar_dr_sen.webp",
-    tag: "AI School Portal & 360° VR Tour",
+    tag: "AI Website & 360° VR Tour",
     rating: 5,
     quote: "The combination of the 24/7 AI Admission Counselor and 360° Virtual Campus Tour dramatically elevated our parent conversions. Prospective parents from NCR and abroad can walk through our labs and classrooms instantly.",
     metric: "+280% Admission Queries",

@@ -82,7 +82,7 @@ export default function SchoolSolutionsSection({ darkMode, setActiveLayer }) {
           school_name: formData.schoolName || 'Delhi NCR Partner School',
           contact_email: formData.email,
           phone: formData.phone || '+918958347428',
-          base_package: selectedPackage === 'premium' ? 'Premium Autonomous School Ecosystem (₹3,00,000)' : 'Standard AI School Portal (₹2,00,000)',
+          base_package: selectedPackage === 'premium' ? 'Premium Autonomous School Ecosystem (₹3,00,000)' : 'Standard AI Website (₹2,00,000)',
           extra_vr_views: extraViewsCount
         })
       });
@@ -186,7 +186,7 @@ export default function SchoolSolutionsSection({ darkMode, setActiveLayer }) {
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className={`text-sm font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>Standard AI School Portal</span>
+                      <span className={`text-sm font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>Standard AI Website</span>
                       <span className="text-xs font-mono-code font-bold text-[#FF6B00]">₹2,00,000</span>
                     </div>
                     <ul className={`text-xs space-y-1.5 mt-3 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>

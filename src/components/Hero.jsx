@@ -95,7 +95,7 @@ export default function Hero({ onOpenAi, darkMode, setActiveLayer }) {
           darkMode ? 'border-slate-800 bg-orange-950/20' : 'border-slate-200/80 bg-orange-50/40'
         }`}>
           <TextLoop
-            text="Orange Future Tech • AI School Portals • 360° Virtual Tours • CardGen Suite"
+            text="Orange Future Tech • AI Website • 360° Virtual Tours • CardGen Suite"
             shape="wave"
             speed={60}
             direction="forward"

@@ -57,7 +57,7 @@ export default function Footer({ darkMode, setActiveLayer }) {
             <ul className="space-y-2.5 text-xs">
               <li>
                 <button onClick={() => handleNav('schools')} className="hover:text-[#FF6B00] transition-colors cursor-pointer text-left">
-                  AI School Portals (₹2-3 Lakh)
+                  AI Websites (₹2-3 Lakh)
                 </button>
               </li>
               <li>
