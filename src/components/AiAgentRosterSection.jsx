@@ -61,36 +61,36 @@ export default function AiAgentRosterSection({ darkMode }) {
   ];
 
   return (
-    <section id="agents" class="py-24 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="agents" className="py-24 relative z-10 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          class="text-center mb-16"
+          className="text-center mb-16"
         >
           <div 
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code font-bold uppercase mb-3 border backdrop-blur-md shadow-sm"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[7px] text-xs font-mono-code font-bold uppercase mb-3 border backdrop-blur-md shadow-sm"
             style={{
               borderColor: darkMode ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 107, 0, 0.3)',
               backgroundColor: darkMode ? 'rgba(11, 15, 23, 0.6)' : 'rgba(255, 255, 255, 0.8)',
               color: '#FF6B00'
             }}
           >
-            <Brain class="w-3.5 h-3.5" />
+            <Brain className="w-3.5 h-3.5" />
             <span>Autonomous Inbound AI Roster</span>
           </div>
-          <h2 class={`text-3xl sm:text-5xl font-extrabold font-['Space_Grotesk',sans-serif] tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+          <h2 className={`text-3xl sm:text-5xl font-extrabold font-['Space_Grotesk',sans-serif] tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             THE AGENTS WE DEPLOY
           </h2>
-          <p class={`mt-3 text-sm sm:text-base max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`mt-3 text-sm sm:text-base max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Engineered per business on our orchestration layer — not templates. Inbound capture leads; everything else compounds it.
           </p>
         </motion.div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {agents.map((ag, idx) => {
             const IconComp = ag.icon;
             return (
@@ -100,42 +100,42 @@ export default function AiAgentRosterSection({ darkMode }) {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                class={`p-7 rounded-3xl border relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between group ${
+                className={`p-7 rounded-3xl border relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between group ${
                   darkMode 
                     ? 'bg-[#0E131F] border-slate-800 hover:border-[#FF6B00]/40' 
                     : 'bg-white border-slate-200/90 shadow-md hover:border-[#FF6B00]/40'
                 }`}
               >
                 <div>
-                  <div class="flex items-center justify-between gap-3 mb-4">
-                    <div class="p-3 rounded-2xl bg-gradient-to-br from-[#FF6B00] to-amber-500 text-white shadow-md">
-                      <IconComp class="w-6 h-6" />
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-[#FF6B00] to-amber-500 text-white shadow-md">
+                      <IconComp className="w-6 h-6" />
                     </div>
-                    <span class={`px-2.5 py-0.5 rounded-[7px] text-[10px] font-mono-code font-bold uppercase tracking-wider ${ag.badgeColor}`}>
+                    <span className={`px-2.5 py-0.5 rounded-[7px] text-[10px] font-mono-code font-bold uppercase tracking-wider ${ag.badgeColor}`}>
                       {ag.badge}
                     </span>
                   </div>
 
-                  <h3 class={`text-lg font-extrabold font-['Space_Grotesk',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  <h3 className={`text-lg font-extrabold font-['Space_Grotesk',sans-serif] ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                     {ag.name}
                   </h3>
 
-                  <p class={`mt-3 text-xs leading-relaxed font-normal ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`mt-3 text-xs leading-relaxed font-normal ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     {ag.description}
                   </p>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-slate-200/30 flex items-center justify-between text-[11px] font-mono-code">
-                  <span class="text-slate-500">{ag.channel}</span>
-                  <CheckCircle2 class="w-4 h-4 text-[#FF6B00]" />
+                <div className="mt-6 pt-4 border-t border-slate-200/30 flex items-center justify-between text-[11px] font-mono-code">
+                  <span className="text-slate-500">{ag.channel}</span>
+                  <CheckCircle2 className="w-4 h-4 text-[#FF6B00]" />
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        <div class="mt-12 text-center text-xs font-mono-code text-slate-500 max-w-2xl mx-auto flex items-center justify-center gap-2">
-          <ShieldAlert class="w-4 h-4 text-[#FF6B00] shrink-0" />
+        <div className="mt-12 text-center text-xs font-mono-code text-slate-500 max-w-2xl mx-auto flex items-center justify-center gap-2">
+          <ShieldAlert className="w-4 h-4 text-[#FF6B00] shrink-0" />
           <span>Outbound AI calling is available as a compliance-gated add-on — 140-series numbers, DLT consent, DND scrubbing, and AI disclosure included.</span>
         </div>
 

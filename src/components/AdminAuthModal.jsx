@@ -129,88 +129,88 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
 
   return (
     <AnimatePresence>
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-lg font-apple">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-lg font-apple">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          class={`w-full max-w-3xl rounded-3xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ${
+          className={`w-full max-w-3xl rounded-3xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ${
             darkMode ? 'bg-[#0A0E17] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
           }`}
         >
-          <div class={`p-6 border-b flex items-center justify-between ${
+          <div className={`p-6 border-b flex items-center justify-between ${
             darkMode ? 'border-slate-800 bg-slate-950/80' : 'border-slate-200 bg-slate-50'
           }`}>
-            <div class="flex items-center gap-3">
-              <div class="p-2.5 rounded-2xl bg-[#FF6B00]/10 text-[#FF6B00]">
-                {isAuthenticated ? <Key class="w-6 h-6" /> : <Lock class="w-6 h-6" />}
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-2xl bg-[#FF6B00]/10 text-[#FF6B00]">
+                {isAuthenticated ? <Key className="w-6 h-6" /> : <Lock className="w-6 h-6" />}
               </div>
               <div>
-                <h3 class="text-lg font-bold tracking-tight">
+                <h3 className="text-lg font-bold tracking-tight">
                   {isAuthenticated ? 'Admin API Portal & Credentials' : 'Secure Admin Authentication'}
                 </h3>
-                <p class="text-xs text-slate-400">
+                <p className="text-xs text-slate-400">
                   {isAuthenticated ? 'Protected API Keys & Engine Configuration' : 'Password verification required to manage API keys'}
                 </p>
               </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div className="flex items-center gap-3">
               {isAuthenticated && (
                 <button
                   onClick={handleLogout}
-                  class="px-3 py-1.5 rounded-full border border-slate-700 text-xs font-mono-code text-slate-300 hover:text-red-400 hover:border-red-500/50 flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-full border border-slate-700 text-xs font-mono-code text-slate-300 hover:text-red-400 hover:border-red-500/50 flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <LogOut class="w-3.5 h-3.5" />
+                  <LogOut className="w-3.5 h-3.5" />
                   <span>Lock Portal</span>
                 </button>
               )}
 
               <button
                 onClick={onClose}
-                class={`p-2 rounded-full hover:bg-slate-200/50 transition-colors ${darkMode ? 'hover:bg-slate-800' : ''}`}
+                className={`p-2 rounded-full hover:bg-slate-200/50 transition-colors ${darkMode ? 'hover:bg-slate-800' : ''}`}
               >
-                <X class="w-5 h-5" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           {!isAuthenticated ? (
-            <div class="p-8 sm:p-12 flex flex-col items-center justify-center text-center">
-              <div class="w-16 h-16 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] mb-6 shadow-lg">
-                <ShieldCheck class="w-8 h-8" />
+            <div className="p-8 sm:p-12 flex flex-col items-center justify-center text-center">
+              <div className="w-16 h-16 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] mb-6 shadow-lg">
+                <ShieldCheck className="w-8 h-8" />
               </div>
 
-              <h4 class="text-xl font-bold tracking-tight mb-2">Restricted Admin Access</h4>
-              <p class="text-xs text-slate-400 max-w-sm mb-6 leading-relaxed">
+              <h4 className="text-xl font-bold tracking-tight mb-2">Restricted Admin Access</h4>
+              <p className="text-xs text-slate-400 max-w-sm mb-6 leading-relaxed">
                 Enter your Master Admin Password to unlock API keys, social tokens, and outreach settings.
               </p>
 
-              <form onSubmit={handleLogin} class="w-full max-w-md space-y-4">
-                <div class="relative">
+              <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
+                <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter Master Admin Password..."
-                    class={`w-full px-4 py-3 pr-10 rounded-xl border text-xs font-mono-code transition-all focus:outline-none focus:border-[#FF6B00] ${
+                    className={`w-full px-4 py-3 pr-10 rounded-xl border text-xs font-mono-code transition-all focus:outline-none focus:border-[#FF6B00] ${
                       darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    class="absolute right-3 top-3 text-slate-400 hover:text-white"
+                    className="absolute right-3 top-3 text-slate-400 hover:text-white"
                   >
-                    {showPassword ? <EyeOff class="w-4 h-4" /> : <Eye class="w-4 h-4" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
 
                 {errorMsg && (
-                  <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
-                    <AlertCircle class="w-4 h-4 shrink-0" />
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono-code flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{errorMsg}</span>
                   </div>
                 )}
@@ -218,26 +218,26 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  class="btn-apple-primary w-full py-3.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                  className="btn-apple-primary w-full py-3.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-md cursor-pointer"
                 >
-                  <Lock class="w-4 h-4" />
+                  <Lock className="w-4 h-4" />
                   <span>{loading ? 'Verifying Password...' : 'Authenticate & Unlock API Keys'}</span>
                 </button>
               </form>
 
-              <div class="mt-6 text-[11px] text-slate-500 font-mono-code">
-                Default Master Password: <code class="text-[#FF6B00] font-bold">OrangeFutureTech2026!</code>
+              <div className="mt-6 text-[11px] text-slate-500 font-mono-code">
+                Default Master Password: <code className="text-[#FF6B00] font-bold">OrangeFutureTech2026!</code>
               </div>
             </div>
           ) : (
-            <div class="p-6 overflow-y-auto space-y-6">
+            <div className="p-6 overflow-y-auto space-y-6">
               
-              <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div class="flex items-center gap-2 text-xs font-semibold text-emerald-400">
-                  <ShieldCheck class="w-4 h-4" />
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
+                  <ShieldCheck className="w-4 h-4" />
                   <span>Session Authenticated as Master Admin</span>
                 </div>
-                <span class={`px-3 py-1 rounded-full text-xs font-mono-code font-semibold ${
+                <span className={`px-3 py-1 rounded-full text-xs font-mono-code font-semibold ${
                   isLive ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
                 }`}>
                   {isLive ? 'LIVE DISPATCH MODE' : 'SIMULATION MODE'}
@@ -245,63 +245,63 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
               </div>
 
               <div>
-                <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-[#FF6B00]">
-                  <Sparkles class="w-4 h-4" />
+                <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-[#FF6B00]">
+                  <Sparkles className="w-4 h-4" />
                   <span>1. Gemini AI Core Key</span>
                 </div>
-                <div class="relative">
+                <div className="relative">
                   <input
                     type={showKeys['GEMINI'] ? 'text' : 'password'}
                     value={keys.GEMINI_API_KEY}
                     onChange={(e) => handleChange('GEMINI_API_KEY', e.target.value)}
                     placeholder="AIzaSy..."
-                    class={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                    className={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                       darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => toggleShowKey('GEMINI')}
-                    class="absolute right-3 top-2.5 text-slate-400 hover:text-white"
+                    className="absolute right-3 top-2.5 text-slate-400 hover:text-white"
                   >
-                    {showKeys['GEMINI'] ? <EyeOff class="w-4 h-4" /> : <Eye class="w-4 h-4" />}
+                    {showKeys['GEMINI'] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-slate-200/15">
-                <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-emerald-500">
-                  <Send class="w-4 h-4" />
+              <div className="pt-4 border-t border-slate-200/15">
+                <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-emerald-500">
+                  <Send className="w-4 h-4" />
                   <span>2. Phone Alerts (Telegram Bot)</span>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="relative">
-                    <label class="block text-xs font-mono-code mb-1 text-slate-400">TELEGRAM_BOT_TOKEN</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <label className="block text-xs font-mono-code mb-1 text-slate-400">TELEGRAM_BOT_TOKEN</label>
                     <input
                       type={showKeys['TELEGRAM'] ? 'text' : 'password'}
                       value={keys.TELEGRAM_BOT_TOKEN}
                       onChange={(e) => handleChange('TELEGRAM_BOT_TOKEN', e.target.value)}
                       placeholder="7123456789:AA..."
-                      class={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                      className={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                         darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                       }`}
                     />
                     <button
                       type="button"
                       onClick={() => toggleShowKey('TELEGRAM')}
-                      class="absolute right-3 top-8 text-slate-400 hover:text-white"
+                      className="absolute right-3 top-8 text-slate-400 hover:text-white"
                     >
-                      {showKeys['TELEGRAM'] ? <EyeOff class="w-4 h-4" /> : <Eye class="w-4 h-4" />}
+                      {showKeys['TELEGRAM'] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
                   <div>
-                    <label class="block text-xs font-mono-code mb-1 text-slate-400">TELEGRAM_CHAT_ID</label>
+                    <label className="block text-xs font-mono-code mb-1 text-slate-400">TELEGRAM_CHAT_ID</label>
                     <input
                       type="text"
                       value={keys.TELEGRAM_CHAT_ID}
                       onChange={(e) => handleChange('TELEGRAM_CHAT_ID', e.target.value)}
                       placeholder="123456789"
-                      class={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                      className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                         darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                       }`}
                     />
@@ -309,39 +309,39 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-slate-200/15">
-                <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-amber-500">
-                  <Mail class="w-4 h-4" />
+              <div className="pt-4 border-t border-slate-200/15">
+                <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-amber-500">
+                  <Mail className="w-4 h-4" />
                   <span>3. Email Outreach (Resend API)</span>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="relative">
-                    <label class="block text-xs font-mono-code mb-1 text-slate-400">RESEND_API_KEY</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <label className="block text-xs font-mono-code mb-1 text-slate-400">RESEND_API_KEY</label>
                     <input
                       type={showKeys['RESEND'] ? 'text' : 'password'}
                       value={keys.RESEND_API_KEY}
                       onChange={(e) => handleChange('RESEND_API_KEY', e.target.value)}
                       placeholder="re_123456789..."
-                      class={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                      className={`w-full px-4 py-2.5 pr-10 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                         darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                       }`}
                     />
                     <button
                       type="button"
                       onClick={() => toggleShowKey('RESEND')}
-                      class="absolute right-3 top-8 text-slate-400 hover:text-white"
+                      className="absolute right-3 top-8 text-slate-400 hover:text-white"
                     >
-                      {showKeys['RESEND'] ? <EyeOff class="w-4 h-4" /> : <Eye class="w-4 h-4" />}
+                      {showKeys['RESEND'] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
                   <div>
-                    <label class="block text-xs font-mono-code mb-1 text-slate-400">SENDER_EMAIL</label>
+                    <label className="block text-xs font-mono-code mb-1 text-slate-400">SENDER_EMAIL</label>
                     <input
                       type="email"
                       value={keys.SENDER_EMAIL}
                       onChange={(e) => handleChange('SENDER_EMAIL', e.target.value)}
                       placeholder="teams@orangefuturetech.com"
-                      class={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                      className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                         darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                       }`}
                     />
@@ -349,9 +349,9 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-slate-200/15">
-                <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-purple-400">
-                  <Settings class="w-4 h-4" />
+              <div className="pt-4 border-t border-slate-200/15">
+                <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-purple-400">
+                  <Settings className="w-4 h-4" />
                   <span>4. Change Master Admin Password</span>
                 </div>
                 <div>
@@ -360,7 +360,7 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                     value={newMasterPassword}
                     onChange={(e) => setNewMasterPassword(e.target.value)}
                     placeholder="Enter new Master Password to update..."
-                    class={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
+                    className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono-code focus:outline-none focus:border-[#FF6B00] ${
                       darkMode ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200'
                     }`}
                   />
@@ -371,23 +371,23 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
           )}
 
           {isAuthenticated && (
-            <div class={`p-6 border-t flex items-center justify-between ${
+            <div className={`p-6 border-t flex items-center justify-between ${
               darkMode ? 'border-slate-800 bg-slate-950/80' : 'border-slate-200 bg-slate-50'
             }`}>
               <div>
                 {saved && (
-                  <div class="flex items-center gap-2 text-xs font-mono-code text-emerald-500 font-bold">
-                    <CheckCircle2 class="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs font-mono-code text-emerald-500 font-bold">
+                    <CheckCircle2 className="w-4 h-4" />
                     <span>API credentials &amp; master password updated securely!</span>
                   </div>
                 )}
               </div>
 
-              <div class="flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={onClose}
-                  class="px-5 py-2.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                  className="px-5 py-2.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-colors"
                 >
                   Close
                 </button>
@@ -395,9 +395,9 @@ export default function AdminAuthModal({ isOpen, onClose, darkMode }) {
                   type="button"
                   onClick={handleSave}
                   disabled={loading}
-                  class="btn-apple-primary px-6 py-2.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-md cursor-pointer"
+                  className="btn-apple-primary px-6 py-2.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-md cursor-pointer"
                 >
-                  <Save class="w-4 h-4" />
+                  <Save className="w-4 h-4" />
                   <span>{loading ? 'Saving...' : 'Save & Update Credentials'}</span>
                 </button>
               </div>

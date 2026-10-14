@@ -111,7 +111,7 @@ export default function ThreeBackground({ darkMode }) {
     };
   }, [darkMode]);
 
-  return <div ref={containerRef} class="fixed inset-0 pointer-events-none z-0 overflow-hidden" />;
+  return <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden" />;
 }
 
 function createParticleTexture() {

@@ -31,16 +31,16 @@ export default function ElectronicsSolutionsSection({ onOpenAi, darkMode }) {
   ];
 
   return (
-    <section id="electronics" class={`py-16 relative z-10 ${darkMode ? 'bg-[#0B0F17]/80' : 'bg-slate-100/80'}`}>
-      <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-10">
-          <span class="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Hardware Engineering</span>
-          <h2 class={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+    <section id="electronics" className={`py-16 relative z-10 ${darkMode ? 'bg-[#0B0F17]/80' : 'bg-slate-100/80'}`}>
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="text-center mb-10">
+          <span className="text-xs font-mono-code uppercase tracking-wider text-[#FF6B00]">Hardware Engineering</span>
+          <h2 className={`text-2xl sm:text-3xl font-bold font-['Orbitron',sans-serif] mt-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
             ELECTRONICS SOLUTIONS
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {solutions.map((item, index) => {
             const SolutionIcon = item.icon;
             return (
@@ -50,24 +50,24 @@ export default function ElectronicsSolutionsSection({ onOpenAi, darkMode }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.08 }}
-                class={`p-6 rounded-xl relative flex flex-col justify-between ${
+                className={`p-6 rounded-xl relative flex flex-col justify-between ${
                   darkMode ? 'glass-card-dark' : 'glass-card-light'
                 }`}
               >
                 <div>
-                  <div class={`w-10 h-10 rounded-lg border flex items-center justify-center text-[#FF6B00] mb-4 ${
+                  <div className={`w-10 h-10 rounded-lg border flex items-center justify-center text-[#FF6B00] mb-4 ${
                     darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'
                   }`}>
-                    <SolutionIcon class="w-5 h-5" />
+                    <SolutionIcon className="w-5 h-5" />
                   </div>
 
-                  <h3 class={`text-base font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>{item.title}</h3>
-                  <p class={`text-xs leading-relaxed mb-4 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{item.description}</p>
+                  <h3 className={`text-base font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>{item.title}</h3>
+                  <p className={`text-xs leading-relaxed mb-4 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{item.description}</p>
 
-                  <div class="space-y-1.5 mb-6">
+                  <div className="space-y-1.5 mb-6">
                     {item.features.map((feat, i) => (
-                      <div key={i} class={`flex items-center gap-1.5 text-[11px] ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                        <Check class="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
+                      <div key={i} className={`flex items-center gap-1.5 text-[11px] ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        <Check className="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -76,7 +76,7 @@ export default function ElectronicsSolutionsSection({ onOpenAi, darkMode }) {
 
                 <button
                   onClick={onOpenAi}
-                  class={`w-full py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
+                  className={`w-full py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
                     darkMode
                       ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-[#FF6B00] hover:text-white'
                       : 'bg-white border-slate-300 text-slate-700 hover:border-[#FF6B00] hover:text-slate-900'

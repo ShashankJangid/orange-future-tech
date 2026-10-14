@@ -236,7 +236,7 @@ export default function App() {
         )}
       </main>
 
-      <Footer darkMode={darkMode} />
+      <Footer darkMode={darkMode} setActiveLayer={changeLayer} />
       
       <FloatingChatWidget
         isOpen={aiOpen}
